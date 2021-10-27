@@ -31,11 +31,15 @@ const cardSchema = new mongoose.Schema({
   },
   checklist: [
     {
+      itemId: {
+        type: String,
+        required: false
+      },
       item: {
         type: String,
         required: false
       },
-      check: {
+      checkBox: {
         type: Boolean,
         required: false
       }
