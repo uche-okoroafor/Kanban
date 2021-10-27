@@ -1,8 +1,5 @@
 import { AuthReducer, AuthState, LOG_IN_USER, LOG_OUT_USER } from '../../interface/AuthContext';
 
-/**
- * Authentication state.
- */
 export const authState: AuthState = {
   token: '',
 };
