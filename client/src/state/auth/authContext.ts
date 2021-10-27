@@ -6,7 +6,7 @@ export const authState: AuthState = {
 
 /**
  * Authentication reducer for
- * managing auth state.
+ * managing auth state..
  * @function
  * @param draft
  * @param action
