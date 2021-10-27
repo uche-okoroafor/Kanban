@@ -7,10 +7,14 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
-
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import { useImmerReducer } from 'use-immer';
+import { authReducer, authState } from './state';
 import './App.css';
 
 function App(): JSX.Element {
+  const [state] = useImmerReducer(authReducer, authState);
+
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
@@ -18,11 +22,9 @@ function App(): JSX.Element {
           <AuthProvider>
             <SocketProvider>
               <Switch>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
-                <Route exact path="/dashboard">
-                  <Dashboard />
-                </Route>
+                <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
+                <Route path="/login" component={Login} />
+                <Route path="/signup" component={Signup} />
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
