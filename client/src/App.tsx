@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
-import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
@@ -19,18 +18,16 @@ function App(): JSX.Element {
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
         <SnackBarProvider>
-          <AuthProvider>
-            <SocketProvider>
-              <Switch>
-                <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
-                <Route path="/login" component={Login} />
-                <Route path="/signup" component={Signup} />
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route>
-              </Switch>
-            </SocketProvider>
-          </AuthProvider>
+          <SocketProvider>
+            <Switch>
+              <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <Route path="*">
+                <Redirect to="/login" />
+              </Route>
+            </Switch>
+          </SocketProvider>
         </SnackBarProvider>
       </BrowserRouter>
     </MuiThemeProvider>
