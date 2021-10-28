@@ -48,7 +48,8 @@ exports.updateChecklist = asyncHandler(async (req, res, next) => {
     cardId,
     columnId,
     boardId,
-    checklistId
+    checklistId,
+    userId
   } = req.body
   if (!cardId || !userId || !columnId || !boardId || !checklistId || !userId) {
     return res.status(404).json({
