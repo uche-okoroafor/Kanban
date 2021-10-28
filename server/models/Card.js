@@ -19,7 +19,7 @@ const cardSchema = new mongoose.Schema({
   },
   deadline: {
     type: Date,
-    default: Date.now
+    default: null
   },
   comment: {
     type: String,
