@@ -35,7 +35,7 @@ exports.moveCardWithinColumn = asyncHandler(async (req, res, next) => {
         ]
       }
     ).catch(error => {
-      res.status(400).json({ error })
+      res.status(400).json({ error: 'Bad request' })
     })
 
     if (removeCard.nModified === 1) {
@@ -56,7 +56,7 @@ exports.moveCardWithinColumn = asyncHandler(async (req, res, next) => {
           ]
         }
       ).catch(error => {
-        res.status(400).json({ error })
+        res.status(400).json({ error: 'Bad request' })
       })
       res.status(200).json(moveStatus)
     } else {
