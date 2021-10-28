@@ -44,7 +44,7 @@ exports.createChecklist = asyncHandler(async (req, res, next) => {
 exports.updateChecklist = asyncHandler(async (req, res, next) => {
   const {
     checklistItem,
-    checkBox,
+    isChecked,
     cardId,
     columnId,
     boardId,
@@ -65,7 +65,7 @@ exports.updateChecklist = asyncHandler(async (req, res, next) => {
       },
       {
         $set: {
-          [targetItem]: checkBox
+          [targetItem]: isChecked
         }
       },
       {
@@ -84,13 +84,7 @@ exports.updateChecklist = asyncHandler(async (req, res, next) => {
 })
 
 exports.removeChecklist = asyncHandler(async (req, res, next) => {
-  const {
-    cardId,
-    columnId,
-    boardId,
-    checklistId,
-    userId
-  } = req.body
+  const { cardId, columnId, boardId, checklistId, userId } = req.body
   if (!cardId || !columnId || !boardId || !checklistId || !userId) {
     return res.status(404).json({
       err: 'cardId, columnId, boardId,userId or checklistId is undefined'
