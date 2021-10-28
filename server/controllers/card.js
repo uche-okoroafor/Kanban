@@ -31,7 +31,7 @@ exports.createCard = asyncHandler(async (req, res, next) => {
 
     res.status(200).json(card)
   } catch (error) {
-    res.status(400).json({ error })
+    res.status(400).json({ error: 'Bad request' })
   }
 })
 
@@ -64,7 +64,7 @@ exports.updateCardItems = asyncHandler(async (req, res, next) => {
 
     res.status(200).json(updateStatus)
   } catch (error) {
-    res.status(400).json({ error })
+    res.status(400).json({ error: 'Bad request' })
   }
 })
 
@@ -103,7 +103,7 @@ exports.removeCardItems = asyncHandler(async (req, res, next) => {
     const document = await User.find({
       _id: userId,
       'boards.columns.cards.cardId': cardId
-    }).catch(error => res.status(400).json({ error }))
+    }).catch(error => res.status(400).json({ error: 'Bad request' }))
 
     const { boardIndex, columnIndex, cardIndex } = getDocumentIndex(document)
 
@@ -118,6 +118,6 @@ exports.removeCardItems = asyncHandler(async (req, res, next) => {
 
     res.status(200).json(removeStatus)
   } catch (error) {
-    res.status(400).json({ error })
+    res.status(400).json({ error: 'Bad request' })
   }
 })
