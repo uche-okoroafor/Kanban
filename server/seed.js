@@ -21,7 +21,6 @@ async function seed() {
             email: "demo@kanban.com",
             password: "123456"
         })
-        console.log("seeded demo user")
     } catch (error) {
         console.error(error)
         process.exitCode = 1
