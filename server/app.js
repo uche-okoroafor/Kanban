@@ -13,6 +13,7 @@ const authRouter = require('./routes/auth')
 const userRouter = require('./routes/user')
 const boardRouter = require('./routes/board')
 const columnRouter = require('./routes/column')
+const cardRouter = require('./routes/card')
 
 const { json, urlencoded } = express
 
@@ -45,6 +46,7 @@ app.use((req, res, next) => {
 
 app.use('/auth', authRouter)
 app.use('/users', userRouter)
+app.use('/card', cardRouter)
 app.use('/column', columnRouter)
 app.use('/board', boardRouter)
 

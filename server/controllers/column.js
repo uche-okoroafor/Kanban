@@ -23,7 +23,7 @@ exports.createColumn = asyncHandler(async (req, res, next) => {
 
     res.status(200).json(createStatus)
   } catch (error) {
-    res.status(400).json({ error })
+    res.status(400).json({ error: 'Bad request' })
   }
 })
 
@@ -50,7 +50,7 @@ exports.updateColumn = asyncHandler(async (req, res, next) => {
     )
     res.status(200).json(updateStatus)
   } catch (error) {
-    res.status(400).json({ error })
+    res.status(400).json({ error: 'Bad request' })
   }
 })
 
@@ -74,6 +74,6 @@ exports.removeColumn = asyncHandler(async (req, res, next) => {
     )
     res.status(200).json(removeStatus)
   } catch (error) {
-    res.status(400).json({ error })
+    res.status(400).json({ error: 'Bad request' })
   }
 })

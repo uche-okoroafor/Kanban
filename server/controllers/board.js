@@ -47,7 +47,7 @@ exports.createBoard = asyncHandler(async (req, res, next) => {
     )
     res.status(200).json(board)
   } catch (error) {
-    res.status(400).json({ error })
+    res.status(400).json({ error: 'bad request' })
   }
 })
 
@@ -60,7 +60,7 @@ exports.removeBoard = asyncHandler(async (req, res, next) => {
 
   try {
     const board = await User.updateOne(
-      { _id: userId },
+      { _id: userId, 'boards.boardId': boardId },
       {
         $pull: {
           boards: { boardId: boardId }
@@ -69,6 +69,6 @@ exports.removeBoard = asyncHandler(async (req, res, next) => {
     )
     res.status(200).json(board)
   } catch (error) {
-    res.status(400).json({ error })
+    res.status(400).json({ error: 'bad request' })
   }
 })
