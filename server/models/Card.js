@@ -29,9 +29,9 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  checklist: [
+  checklists: [
     {
-      itemId: {
+      checklistId: {
         type: String,
         required: false
       },
