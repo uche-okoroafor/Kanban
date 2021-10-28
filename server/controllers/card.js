@@ -1,12 +1,13 @@
 const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
+const { v4: uuidv4 } = require('uuid')
 
 exports.createCard = asyncHandler(async (req, res, next) => {
-  const { cardTitle, tagColor, userId, cardId, columnId, boardId } = req.body
+  const { cardTitle, tagColor, userId, columnId, boardId } = req.body
 
-  if (!cardId || !columnId || !userId || !boardId) {
+  if (!columnId || !userId || !boardId) {
     res.status(404)
-    throw new Error('cardId,columnId,userId or boardId is undefined')
+    throw new Error('columnId,userId or boardId is undefined')
   }
   try {
     const card = await User.updateOne(
@@ -14,7 +15,7 @@ exports.createCard = asyncHandler(async (req, res, next) => {
       {
         $push: {
           'boards.$[board].columns.$[column].cards': {
-            cardId: cardId,
+            cardId: uuidv4(),
             cardTitle: cardTitle,
             tagColor: tagColor
           }
@@ -29,8 +30,8 @@ exports.createCard = asyncHandler(async (req, res, next) => {
     )
 
     res.status(200).json(card)
-  } catch (err) {
-    res.status(400).json({ err })
+  } catch (error) {
+    res.status(400).json({ error })
   }
 })
 
@@ -62,8 +63,8 @@ exports.updateCardItems = asyncHandler(async (req, res, next) => {
     )
 
     res.status(200).json(updateStatus)
-  } catch (err) {
-    res.status(400).json({ err })
+  } catch (error) {
+    res.status(400).json({ error })
   }
 })
 
@@ -102,7 +103,7 @@ exports.removeCardItems = asyncHandler(async (req, res, next) => {
     const document = await User.find({
       _id: userId,
       'boards.columns.cards.cardId': cardId
-    }).catch(err => res.status(400).json({ err }))
+    }).catch(error => res.status(400).json({ error }))
 
     const { boardIndex, columnIndex, cardIndex } = getDocumentIndex(document)
 
@@ -116,7 +117,7 @@ exports.removeCardItems = asyncHandler(async (req, res, next) => {
     )
 
     res.status(200).json(removeStatus)
-  } catch (err) {
-    res.status(400).json({ err })
+  } catch (error) {
+    res.status(400).json({ error })
   }
 })

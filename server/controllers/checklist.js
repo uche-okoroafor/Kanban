@@ -1,18 +1,12 @@
 const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
+const { v4: uuidv4 } = require('uuid')
 
 exports.createChecklist = asyncHandler(async (req, res, next) => {
-  const {
-    checklistItem,
-    cardId,
-    columnId,
-    boardId,
-    checklistId,
-    userId
-  } = req.body
-  if (!cardId || !userId || !columnId || !boardId || !checklistId || !userId) {
+  const { checklistItem, cardId, columnId, boardId, userId } = req.body
+  if (!userId || !boardId || !columnId || !cardId) {
     return res.status(404).json({
-      err: 'cardId,userId, columnId, boardId,userId or checklistId is undefined'
+      error: 'cardId,userId, columnId or boardId  is undefined'
     })
   }
 
@@ -23,7 +17,7 @@ exports.createChecklist = asyncHandler(async (req, res, next) => {
         $push: {
           'boards.$[board].columns.$[column].cards.$[card].checklists': {
             [checklistItem]: false,
-            checklistId: checklistId
+            checklistId: uuidv4()
           }
         }
       },
@@ -36,8 +30,8 @@ exports.createChecklist = asyncHandler(async (req, res, next) => {
       }
     )
     res.status(200).json(createStatus)
-  } catch (err) {
-    res.status(400).json({ err })
+  } catch (error) {
+    res.status(400).json({ error })
   }
 })
 
@@ -53,7 +47,7 @@ exports.updateChecklist = asyncHandler(async (req, res, next) => {
   } = req.body
   if (!cardId || !userId || !columnId || !boardId || !checklistId || !userId) {
     return res.status(404).json({
-      err: 'cardId,userId, columnId, boardId,userId or checklistId is undefined'
+      error: 'cardId,userId, columnId, boardId,userId or checklistId is undefined'
     })
   }
 
@@ -79,8 +73,8 @@ exports.updateChecklist = asyncHandler(async (req, res, next) => {
       }
     )
     res.status(200).json(updateStatus)
-  } catch (err) {
-    res.status(400).json({ err })
+  } catch (error) {
+    res.status(400).json({ error })
   }
 })
 
@@ -88,7 +82,7 @@ exports.removeChecklist = asyncHandler(async (req, res, next) => {
   const { cardId, columnId, boardId, checklistId, userId } = req.body
   if (!cardId || !columnId || !boardId || !checklistId || !userId) {
     return res.status(404).json({
-      err: 'cardId, columnId, boardId,userId or checklistId is undefined'
+      error: 'cardId, columnId, boardId,userId or checklistId is undefined'
     })
   }
 
@@ -115,7 +109,7 @@ exports.removeChecklist = asyncHandler(async (req, res, next) => {
       }
     )
     res.status(200).json(removeStatus)
-  } catch (err) {
-    res.status(400).json({ err })
+  } catch (error) {
+    res.status(400).json({ error })
   }
 })
