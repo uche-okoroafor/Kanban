@@ -102,7 +102,7 @@ exports.demoLogin = asyncHandler(async (req, res, next) => {
   }
 
 
-  const token = generateToken(145464654)
+  const token = generateToken(user._id)
   const secondsInWeek = 604800;
 
    res.cookie("token", token, {
