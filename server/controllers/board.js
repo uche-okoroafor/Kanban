@@ -1,12 +1,12 @@
-const User = require('../models/User')
-const asyncHandler = require('express-async-handler')
-const { v4: uuidv4 } = require('uuid')
+const User = require("../models/User");
+const asyncHandler = require("express-async-handler");
+const { v4: uuidv4 } = require("uuid");
 
 exports.createBoard = asyncHandler(async (req, res, next) => {
-  const { userId } = req.body
+  const { userId } = req.body;
   if (!userId) {
-    res.status(404)
-    throw new Error('userId  is not defined')
+    res.status(400);
+    throw new Error("userId  is undefined");
   }
 
   try {
@@ -15,60 +15,62 @@ exports.createBoard = asyncHandler(async (req, res, next) => {
       {
         $push: {
           boards: {
-            boardTitle: 'New Board',
+            boardTitle: "New Board",
             boardId: uuidv4(),
             columns: [
               {
                 columnId: uuidv4(),
-                columnTitle: 'In Progress',
+                columnTitle: "In Progress",
                 cards: [
                   {
                     cardId: uuidv4(),
-                    cardTitle: 'New Card',
-                    description: ''
-                  }
-                ]
+                    cardTitle: "New Card",
+                    description: "",
+                  },
+                ],
               },
               {
                 columnId: uuidv4(),
-                columnTitle: 'Completed',
+                columnTitle: "Completed",
                 cards: [
                   {
                     cardId: uuidv4(),
-                    cardTitle: 'New Card',
-                    description: ''
-                  }
-                ]
-              }
-            ]
-          }
-        }
+                    cardTitle: "New Card",
+                    description: "",
+                  },
+                ],
+              },
+            ],
+          },
+        },
       }
-    )
-    res.status(200).json(board)
+    );
+    res.status(200).json(board);
   } catch (error) {
-    res.status(400).json({ error: 'bad request' })
+    res.status(500).json({ error: "Something went wrong" });
   }
-})
+});
 
 exports.removeBoard = asyncHandler(async (req, res, next) => {
-  const { userId, boardId } = req.body
+  const { userId, boardId } = req.body;
   if (!boardId || !userId) {
-    res.status(404)
-    throw new Error('boardId or userId  is not defined')
+    res.status(400);
+    throw new Error(
+      `${!boardId ? "boardId" : ""}  ${!userId ? "userId" : ""} is undefined`
+    );
   }
 
   try {
     const board = await User.updateOne(
-      { _id: userId, 'boards.boardId': boardId },
+      { _id: userId, "boards.boardId": boardId },
       {
         $pull: {
-          boards: { boardId: boardId }
-        }
+          boards: { boardId: boardId },
+        },
       }
-    )
-    res.status(200).json(board)
+    );
+    res.status(200).json(board);
   } catch (error) {
-    res.status(400).json({ error: 'bad request' })
+    res.status(500).json({ error: "Something went wrong" });
   }
-})
+});
