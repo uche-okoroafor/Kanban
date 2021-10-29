@@ -1,83 +1,95 @@
-const User = require('../models/User')
-const asyncHandler = require('express-async-handler')
-const { v4: uuidv4 } = require('uuid')
+const User = require("../models/User");
+const asyncHandler = require("express-async-handler");
+const { v4: uuidv4 } = require("uuid");
 
 exports.createCard = asyncHandler(async (req, res, next) => {
-  const { cardTitle, tagColor, userId, columnId, boardId } = req.body
+  const { cardTitle, tagColor, userId, columnId, boardId } = req.body;
 
   if (!columnId || !userId || !boardId) {
-    res.status(404)
-    throw new Error('columnId,userId or boardId is undefined')
+    res.status(400);
+    throw new Error(
+      `${!columnId ? "columnId" : ""}${!boardId ? "boardId" : ""}${
+        !userId ? "userId" : ""
+      } is undefined`
+    );
   }
   try {
     const card = await User.updateOne(
-      { _id: userId, 'boards.columns.columnId': columnId },
+      { _id: userId, "boards.columns.columnId": columnId },
       {
         $push: {
-          'boards.$[board].columns.$[column].cards': {
+          "boards.$[board].columns.$[column].cards": {
             cardId: uuidv4(),
             cardTitle: cardTitle,
-            tagColor: tagColor
-          }
-        }
+            tagColor: tagColor,
+          },
+        },
       },
       {
         arrayFilters: [
-          { 'board.boardId': boardId },
-          { 'column.columnId': columnId }
-        ]
+          { "board.boardId": boardId },
+          { "column.columnId": columnId },
+        ],
       }
-    )
+    );
 
-    res.status(200).json(card)
+    res.status(200).json(card);
   } catch (error) {
-    res.status(400).json({ error: 'Bad request' })
+    res.status(500).json({ error: "Something went wrong" });
   }
-})
+});
 
 exports.updateCardItems = asyncHandler(async (req, res, next) => {
-  const { userId, cardItem, value, cardId, columnId, boardId } = req.body
+  const { userId, cardItem, value, cardId, columnId, boardId } = req.body;
 
   if (!cardId || !userId || !columnId || !boardId) {
-    res.status(404)
-    throw new Error('cardId,columnId ,userId or boardId is undefined')
+    res.status(404);
+    throw new Error(
+      `${!columnId ? "columnId" : ""}${!cardId ? "cardId" : ""}${
+        !boardId ? "boardId" : ""
+      }${!userId ? "userId" : ""} is undefined`
+    );
   }
 
   try {
-    const targetItem = `boards.$[board].columns.$[column].cards.$[card].${cardItem}`
+    const targetItem = `boards.$[board].columns.$[column].cards.$[card].${cardItem}`;
 
     const updateStatus = await User.updateOne(
-      { _id: userId, 'boards.columns.cards.cardId': cardId },
+      { _id: userId, "boards.columns.cards.cardId": cardId },
       {
         $set: {
-          [targetItem]: value
-        }
+          [targetItem]: value,
+        },
       },
       {
         arrayFilters: [
-          { 'board.boardId': boardId },
-          { 'column.columnId': columnId },
-          { 'card.cardId': cardId }
-        ]
+          { "board.boardId": boardId },
+          { "column.columnId": columnId },
+          { "card.cardId": cardId },
+        ],
       }
-    )
+    );
 
-    res.status(200).json(updateStatus)
+    res.status(200).json(updateStatus);
   } catch (error) {
-    res.status(400).json({ error: 'Bad request' })
+    res.status(500).json({ error: "Something went wrong" });
   }
-})
+});
 
 exports.removeCardItems = asyncHandler(async (req, res, next) => {
-  const { cardItem, userId, cardId, columnId, boardId } = req.body
+  const { cardItem, userId, cardId, columnId, boardId } = req.body;
 
   if (!cardId || !columnId || !boardId || !userId) {
-    res.status(404)
-    throw new Error('cardId,columnId,userId or boardId is undefined')
+    res.status(400);
+    throw new Error(
+      `${!columnId ? "columnId" : ""}${!cardId ? "cardId" : ""}${
+        !boardId ? "boardId" : ""
+      }${!userId ? "userId" : ""} is undefined`
+    );
   }
 
   try {
-    const getDocumentIndex = document => {
+    const getDocumentIndex = (document) => {
       for (const boardIndex in document[0].boards) {
         for (const columnIndex in document[0].boards[boardIndex].columns) {
           for (const cardIndex in document[0].boards[boardIndex].columns[
@@ -86,38 +98,40 @@ exports.removeCardItems = asyncHandler(async (req, res, next) => {
             const documentCardId =
               document[0].boards[boardIndex].columns[columnIndex].cards[
                 cardIndex
-              ].cardId
+              ].cardId;
 
             if (documentCardId === cardId) {
               return {
                 boardIndex,
                 columnIndex,
-                cardIndex
-              }
+                cardIndex,
+              };
             }
           }
         }
       }
-    }
+    };
 
     const document = await User.find({
       _id: userId,
-      'boards.columns.cards.cardId': cardId
-    }).catch(error => res.status(400).json({ error: 'Bad request' }))
+      "boards.columns.cards.cardId": cardId,
+    }).catch((error) =>
+      res.status(500).json({ error: "Something went wrong" })
+    );
 
-    const { boardIndex, columnIndex, cardIndex } = getDocumentIndex(document)
+    const { boardIndex, columnIndex, cardIndex } = getDocumentIndex(document);
 
-    const targetItem = `boards.${boardIndex}.columns.${columnIndex}.cards.${cardIndex}.${cardItem}`
+    const targetItem = `boards.${boardIndex}.columns.${columnIndex}.cards.${cardIndex}.${cardItem}`;
 
     const removeStatus = await User.updateOne(
-      { _id: userId, 'boards.columns.cards.cardId': cardId },
+      { _id: userId, "boards.columns.cards.cardId": cardId },
       {
-        $unset: { [targetItem]: '' }
+        $unset: { [targetItem]: "" },
       }
-    )
+    );
 
-    res.status(200).json(removeStatus)
+    res.status(200).json(removeStatus);
   } catch (error) {
-    res.status(400).json({ error: 'Bad request' })
+    res.status(500).json({ error: "Something went wrong" });
   }
-})
+});
