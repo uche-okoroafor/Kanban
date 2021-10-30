@@ -12,7 +12,7 @@ const {
 
 router.route('/register').post(validateRegister, registerUser);
 
-router.route("/demo-login").post(demoLogin)
+router.route("/demo-login").get(demoLogin)
 
 router.route('/login').post(validateLogin, loginUser);
 

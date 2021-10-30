@@ -1,14 +1,8 @@
 import { AuthApiData, DemoAuthData } from '../../interface/AuthApiData';
 import { FetchOptions } from '../../interface/FetchOptions';
 
-export const demoLogin = async (email: string, password: string): Promise<DemoAuthData> => {
-  const fetchOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password }),
-  };
-
-  return await fetch(`${process.env.PUBLIC_URL}/auth/demo-login`, fetchOptions)
+export const demoLogin = async (): Promise<DemoAuthData> => {
+  return await fetch(`${process.env.PUBLIC_URL}/auth/demo-login`)
     .then((res) => {
       return res.json();
     })
