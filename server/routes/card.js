@@ -1,23 +1,41 @@
-const express = require('express')
-const router = express.Router()
-const protect = require('../middleware/auth')
+const express = require("express");
+const router = express.Router();
+const {
+  validateCreateCardParams,
+  validateUpdateCardItemsParams,
+  validateRemoveCardItemsParams,
+  validateCreateChecklistParams,
+  validateUpdateChecklistParams,
+  validateRemoveChecklistParams,
+} = require("../middleware/vaildateRouteParams");
+
+const protect = require("../middleware/auth");
 const {
   createCard,
   updateCardItems,
-  removeCardItems
-} = require('../controllers/card')
-
-const {
+  removeCardItems,
   createChecklist,
   updateChecklist,
-  removeChecklist
-} = require('../controllers/checklist')
+  removeChecklist,
+} = require("../controllers/card");
 
-router.route('/create-card').post(protect, createCard)
-router.route('/add-card/item').post(protect, updateCardItems)
-router.route('/update-card/item').post(protect, removeCardItems)
-router.route('/create/checklist').post(protect, createChecklist)
-router.route('/update/checklist').post(protect, updateChecklist)
-router.route('/remove/checklist').post(protect, removeChecklist)
+router
+  .route("/create-card")
+  .post(protect, validateCreateCardParams, createCard);
+router
+  .route("/add-card/item")
+  .post(protect, validateUpdateCardItemsParams, updateCardItems);
+router
+  .route("/update-card/item")
+  .post(protect, validateRemoveCardItemsParams, removeCardItems);
+router
+  .route("/create/checklist")
+  .post(protect, validateCreateChecklistParams, createChecklist);
+router
+  .route("/update/checklist")
+  .post(protect, validateUpdateChecklistParams, updateChecklist);
+router
+  .route("/remove/checklist")
+  .post(protect, validateRemoveChecklistParams, removeChecklist);
 
-module.exports = router
+module.exports = router;
