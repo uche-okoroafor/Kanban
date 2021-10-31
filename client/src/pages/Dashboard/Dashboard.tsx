@@ -1,11 +1,12 @@
+import { Box, Typography } from '@material-ui/core';
 import React from 'react';
 
 export default function Dashboard(): JSX.Element {
   return (
     <>
-      <div>
-        <h1>Dashboard</h1>
-      </div>
+      <Box>
+        <Typography variant="h1">Dashboard Screen</Typography>
+      </Box>
     </>
   );
 }
