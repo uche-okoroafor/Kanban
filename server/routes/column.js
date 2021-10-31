@@ -1,16 +1,38 @@
-const express = require('express')
-const router = express.Router()
-const protect = require('../middleware/auth')
+const express = require("express");
+const router = express.Router();
+const {
+  validateCreateColumnParams,
+  validateUpdateColumnParams,
+  validateColumnParams,
+  validateMoveCardInParams,
+  validateMoveCardOutParams,
+} = require("../middleware/validateRouteParams");
+
+const protect = require("../middleware/auth");
 const {
   createColumn,
   updateColumn,
-  removeColumn
-} = require('../controllers/column')
-const { moveColumn } = require('../controllers/moveColumn')
+  removeColumn,
+  moveCardWithinColumn,
+  moveCardOutsideColumn,
+  moveColumn,
+} = require("../controllers/column");
 
-router.route('/create-column').post(protect, createColumn)
-router.route('/update-column').post(protect, updateColumn)
-router.route('/remove-column').post(protect, removeColumn)
-router.route('/move-column').post(protect, moveColumn)
+router
+  .route("/create-column")
+  .post(protect, validateCreateColumnParams, createColumn);
+router
+  .route("/update-column")
+  .post(protect, validateUpdateColumnParams, updateColumn);
+router
+  .route("/remove-column")
+  .post(protect, validateColumnParams, removeColumn);
+router.route("/move-column").post(protect, validateColumnParams, moveColumn);
+router
+  .route("/move-card-within-column")
+  .post(protect, validateMoveCardInParams, moveCardWithinColumn);
+router
+  .route("/movd-card-outside-column")
+  .post(protect, validateMoveCardOutParams, moveCardOutsideColumn);
 
-module.exports = router
+module.exports = router;

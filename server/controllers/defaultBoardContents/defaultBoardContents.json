@@ -1,0 +1,30 @@
+{
+  "boards": {
+    "boardTitle": "New Board",
+    "boardId": "d93bbef3-ca27-4767-9d3d-acf17e29cc17",
+    "columns": [
+      {
+        "columnId": "d93bbef3-ca27-4767-9d3d-acf18e29cc18",
+        "columnTitle": "In Progress",
+        "cards": [
+          {
+            "cardId": "d93bbef3-ca27-4767-9d3d-acf19e29cc19",
+            "cardTitle": "New Card",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "columnId": "d93bbef3-ca27-4767-9d3d-acf20e29cc20",
+        "columnTitle": "Completed",
+        "cards": [
+          {
+            "cardId": "d93bbef3-ca27-4767-9d3d-acf21e29cc21",
+            "cardTitle": "New Card",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  }
+}

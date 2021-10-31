@@ -4,49 +4,141 @@ const { v4: uuidv4 } = require("uuid");
 
 exports.createColumn = asyncHandler(async (req, res, next) => {
   const { columnTitle, userId, boardId } = req.body;
-  if (!columnTitle || !userId || !boardId) {
-    res.status(400);
-    throw new Error(
-      `${!boardId ? "boardId" : ""} ${!columnId ? "columnId" : ""}  ${
-        !userId ? "userId" : ""
-      } is undefined`
-    );
-  }
-  try {
-    const createStatus = await User.updateOne(
-      {
-        _id: userId,
-        "boards.boardId": boardId,
-      },
-      {
-        $push: {
-          "boards.$.columns": { columnTitle: columnTitle, columnId: uuidv4() },
-        },
-      }
-    );
 
-    res.status(200).json(createStatus);
-  } catch (error) {
-    res.status(500).json({ error: "Something went wrong" });
-  }
+  const createStatus = await User.updateOne(
+    {
+      _id: userId,
+      "boards.boardId": boardId,
+    },
+    {
+      $push: {
+        "boards.$.columns": { columnTitle: columnTitle, columnId: uuidv4() },
+      },
+    }
+  );
+
+  res.status(200).json(createStatus);
+  res.status(500);
+  throw new Error("Something went wrong");
 });
 
 exports.updateColumn = asyncHandler(async (req, res, next) => {
   const { columnTitle, columnId, userId, boardId } = req.body;
-  if (!columnTitle || !columnId || !userId || !boardId) {
-    res.status(400);
-    throw new Error(
-      `${!boardId ? "boardId" : ""} ${!columnTitle ? "columnTitle" : ""}  ${
-        !columnId ? "columnId" : ""
-      }  ${!userId ? "userId" : ""} is undefined`
+
+  const updateStatus = await User.updateOne(
+    { _id: userId, "boards.columns.columnId": columnId },
+    {
+      $set: {
+        "boards.$[board].columns.$[column].columnTitle": columnTitle,
+      },
+    },
+    {
+      arrayFilters: [
+        { "board.boardId": boardId },
+        { "column.columnId": columnId },
+      ],
+    }
+  );
+  res.status(200).json(updateStatus);
+  res.status(500);
+  throw new Error("Something went wrong");
+});
+
+exports.removeColumn = asyncHandler(async (req, res, next) => {
+  const { columnId, userId, boardId } = req.body;
+
+  const removeStatus = await User.updateOne(
+    { _id: userId, "boards.columns.columnId": columnId },
+    {
+      $pull: {
+        "boards.$[board].columns": { columnId: columnId },
+      },
+    },
+    {
+      arrayFilters: [{ "board.boardId": boardId }],
+    }
+  );
+  res.status(200).json(removeStatus);
+
+  res.status(500);
+  throw new Error("Something went wrong");
+});
+
+exports.moveColumn = asyncHandler(async (req, res, next) => {
+  const { userId, columnId, boardId, targetPosition, columnObject } = req.body;
+
+  const removeColumn = await User.updateOne(
+    {
+      _id: userId,
+      "boards.columns.columnId": columnId,
+    },
+
+    {
+      $pull: {
+        "boards.$[board].columns": { columnId: columnId },
+      },
+    },
+    {
+      arrayFilters: [{ "board.boardId": boardId }],
+    }
+  );
+
+  if (removeColumn.nModified === 1) {
+    const moveStatus = await User.updateOne(
+      { _id: userId, "boards.boardId": boardId },
+      {
+        $push: {
+          "boards.$[board].columns": {
+            $each: [columnObject],
+            $position: targetPosition,
+          },
+        },
+      },
+      {
+        arrayFilters: [{ "board.boardId": boardId }],
+      }
     );
+    res.status(200).json(moveStatus);
+  } else {
+    res.status(400);
+    throw new Error("column not moved");
   }
-  try {
-    const updateStatus = await User.updateOne(
+  res.status(500);
+  throw new Error("Something went wrong");
+});
+
+exports.moveCardWithinColumn = asyncHandler(async (req, res, next) => {
+  const { userId, cardId, columnId, boardId, targetPosition, cardObject } =
+    req.body;
+
+  const removeCard = await User.updateOne(
+    {
+      _id: userId,
+      "boards.columns.cards.cardId": cardId,
+    },
+
+    {
+      $pull: {
+        "boards.$[board].columns.$[column].cards": { cardId: cardId },
+      },
+    },
+    {
+      arrayFilters: [
+        { "board.boardId": boardId },
+        { "column.columnId": columnId },
+      ],
+    }
+  );
+
+  if (removeCard.nModified === 1) {
+    const moveStatus = await User.updateOne(
       { _id: userId, "boards.columns.columnId": columnId },
       {
-        $set: {
-          "boards.$[board].columns.$[column].columnTitle": columnTitle,
+        $push: {
+          "boards.$[board].columns.$[column].cards": {
+            $each: [cardObject],
+            $position: targetPosition,
+          },
         },
       },
       {
@@ -56,36 +148,69 @@ exports.updateColumn = asyncHandler(async (req, res, next) => {
         ],
       }
     );
-    res.status(200).json(updateStatus);
-  } catch (error) {
-    res.status(500).json({ error: "Something went wrong" });
+    res.status(200).json(moveStatus);
+  } else {
+    res.status(400);
+    throw new Error("card not moved");
   }
+  res.status(500);
+  throw new Error("Something went wrong");
 });
 
-exports.removeColumn = asyncHandler(async (req, res, next) => {
-  const { columnId, userId, boardId } = req.body;
-  if (!columnId || !userId || !boardId) {
-    res.status(400);
-    throw new Error(
-      `${!boardId ? "boardId" : ""}   ${!columnId ? "columnId" : ""}  ${
-        !userId ? "userId" : ""
-      } is undefined`
-    );
-  }
-  try {
-    const removeStatus = await User.updateOne(
-      { _id: userId, "boards.columns.columnId": columnId },
+exports.moveCardOutsideColumn = asyncHandler(async (req, res, next) => {
+  const {
+    userId,
+    cardId,
+    initialColumnId,
+    targetColumnId,
+    boardId,
+    targetPosition,
+    cardObject,
+  } = req.body;
+
+  const removeCard = await User.updateOne(
+    {
+      _id: userId,
+      "boards.columns.cards.cardId": cardId,
+    },
+
+    {
+      $pull: {
+        "boards.$[board].columns.$[column].cards": { cardId: cardId },
+      },
+    },
+    {
+      arrayFilters: [
+        { "board.boardId": boardId },
+        { "column.columnId": initialColumnId },
+      ],
+    }
+  );
+
+  if (removeCard.nModified === 1) {
+    const moveStatus = await User.updateOne(
+      { _id: userId, "boards.columns.columnId": targetColumnId },
       {
-        $pull: {
-          "boards.$[board].columns": { columnId: columnId },
+        $push: {
+          "boards.$[board].columns.$[column].cards": {
+            $each: [cardObject],
+            $position: targetPosition,
+          },
         },
       },
       {
-        arrayFilters: [{ "board.boardId": boardId }],
+        arrayFilters: [
+          { "board.boardId": boardId },
+          { "column.columnId": targetColumnId },
+        ],
       }
     );
-    res.status(200).json(removeStatus);
-  } catch (error) {
-    res.status(500).json({ error: "Something went wrong" });
+
+    res.status(200).json(moveStatus);
+  } else {
+    res.status(400);
+    throw new Error("card not moved");
   }
+  res.status(500);
+  throw new Error("Something went wrong");
 });

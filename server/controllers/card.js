@@ -13,28 +13,26 @@ exports.createCard = asyncHandler(async (req, res, next) => {
       } is undefined`
     );
   }
-  try {
-    const card = await User.updateOne(
-      { _id: userId, "boards.columns.columnId": columnId },
-      {
-        $push: {
-          "boards.$[board].columns.$[column].cards": {
-            cardId: uuidv4(),
-            cardTitle: cardTitle,
-            tagColor: tagColor,
-          },
+  const card = await User.updateOne(
+    { _id: userId, "boards.columns.columnId": columnId },
+    {
+      $push: {
+        "boards.$[board].columns.$[column].cards": {
+          cardId: uuidv4(),
+          cardTitle: cardTitle,
+          tagColor: tagColor,
         },
       },
-      {
-        arrayFilters: [
-          { "board.boardId": boardId },
-          { "column.columnId": columnId },
-        ],
-      }
-    );
+    },
+    {
+      arrayFilters: [
+        { "board.boardId": boardId },
+        { "column.columnId": columnId },
+      ],
+    }
+  );
 
-    res.status(200).json(card);
-  } catch (error) {
-    res.status(500).json({ error: "Something went wrong" });
-  }
+  res.status(200).json(card);
+  res.status(500);
+  throw new Error("Something went wrong");
 });
