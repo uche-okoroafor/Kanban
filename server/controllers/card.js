@@ -196,6 +196,7 @@ exports.removeChecklist = asyncHandler(async (req, res, next) => {
   throw new Error("Something went wrong");
 });
 
+exports.addAttachment = (req, res, next) => {};
 // exports.addAttachment = asyncHandler(async (req, res, next) => {
 // //IMPORT CLOUDINARY CONFIG
 //    const imageDetails = {

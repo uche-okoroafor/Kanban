@@ -1,8 +1,5 @@
-const express = require("express");
-const router = express.Router();
-const upload = require("../config/multerConfig");
-const addAttachment = require("../controllers/card");
 const router = require("express").Router();
+const upload = require("../config/multerConfig");
 const {
   validateCreateCardParams,
   validateUpdateCardItemsParams,
@@ -20,6 +17,7 @@ const {
   createChecklist,
   updateChecklist,
   removeChecklist,
+  addAttachment,
 } = require("../controllers/card");
 
 router
@@ -41,8 +39,6 @@ router
   .route("/remove/checklist")
   .post(protect, validateRemoveChecklistParams, removeChecklist);
 
-router
-  .route("/attachment")
-  .post(upload.imageUpload.any(), imageController.createImage);
+router.route("/attachment").post(upload.imageUpload.any(), addAttachment);
 
 module.exports = router;
