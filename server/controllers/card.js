@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const { v4: uuidv4 } = require("uuid");
+const cloud = require("../config/cloudinaryConfig");
 
 exports.createCard = asyncHandler(async (req, res, next) => {
   const { cardTitle, tagColor, userId, columnId, boardId } = req.body;
@@ -194,3 +195,50 @@ exports.removeChecklist = asyncHandler(async (req, res, next) => {
   res.status(500);
   throw new Error("Something went wrong");
 });
+
+// exports.addAttachment = asyncHandler(async (req, res, next) => {
+// //IMPORT CLOUDINARY CONFIG
+//    const imageDetails = {
+//       imageName: req.files[0].originalname
+//     }
+//     //USING MONGODB QUERY METHOD TO FIND IF IMAGE-NAME EXIST IN THE DB
+//     imageModel.find({ imageName: imageDetails.imageName }, (err, callback) => {
+//       //CHECKING IF ERROR OCCURRED.
+//       if (err) {
+//         res.json({
+//           err: err,
+//           message: `There was a problem creating the image because: ${err.message}`
+//         })
+//       } else {
+//         let attempt = {
+//           imageName: req.files[0].originalname,
+//           imageUrl: req.files[0].path,
+//           imageId: ''
+//         }
+//         cloud.uploads(attempt.imageUrl).then(result => {
+//           let imageDetails = {
+//             imageName: req.files[0].originalname,
+//             imageUrl: result.url,
+//             imageId: result.id,
+//             clientId: req.body.clientId,
+//             clientUsername: req.body.clientUsername
+//           }
+//           // Create image in the database
+//           imageModel
+//             .create(imageDetails)
+//             .then(image => {
+//               res.json({
+//                 success: true,
+//                 data: image
+//               })
+//             })
+//             .catch(error => {
+//               res.json({
+//                 success: false,
+//                 message: `Error creating image in the database: ${error.message}`
+//               })
+//             })
+//         })
+//       }
+//     })
+// )
