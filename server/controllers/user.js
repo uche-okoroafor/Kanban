@@ -10,7 +10,7 @@ exports.searchUsers = asyncHandler(async (req, res, next) => {
   let users;
   if (searchString) {
     users = await User.find({
-      username: { $regex: searchString, $options: "i" }
+      username: { $regex: searchString, $options: "i" },
     });
   }
 
@@ -20,4 +20,14 @@ exports.searchUsers = asyncHandler(async (req, res, next) => {
   }
 
   res.status(200).json({ users: users });
+});
+
+exports.uploadImage = asyncHandler(async (req, res, next) => {
+  if (!req.file) {
+    throw new Error("No file provided!");
+  }
+  
+  console.log(req.file)
+  
+  res.status(200)
 });

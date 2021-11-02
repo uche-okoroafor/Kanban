@@ -1,3 +1,4 @@
+require("dotenv").config();
 const colors = require("colors");
 const path = require("path");
 const http = require("http");
@@ -8,19 +9,38 @@ const connectDB = require("./db");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const cors = require("cors")
+const cors = require("cors");
+const pkg = require("cloudinary");
+const { v2: cloudinary } = pkg;
 
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 
 const { json, urlencoded } = express;
 
-
-connectDB()
+connectDB();
 const app = express();
 const server = http.createServer(app);
 
-app.use(cors())
+const whitelist = ["http://localhost:3000"];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const io = socketio(server, {
   cors: {
@@ -36,7 +56,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(logger("dev"));
 }
 app.use(json());
-app.use(urlencoded({ extended: false }));
+app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 

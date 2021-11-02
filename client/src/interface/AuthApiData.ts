@@ -1,3 +1,4 @@
+import { Message } from '@material-ui/icons';
 import { User } from './User';
 
 export interface AuthApiDataSuccess {
@@ -12,6 +13,11 @@ export interface AuthApiData {
 }
 
 export interface DemoAuthData {
+  error?: { message: string };
+  success?: AuthApiDataSuccess;
+}
+
+export interface UploadProfilePic {
   error?: { message: string };
   success?: AuthApiDataSuccess;
 }
