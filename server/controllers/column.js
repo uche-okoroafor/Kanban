@@ -1,6 +1,6 @@
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
-const { v4: uuidv4 } = require("uuid");
+const ObjectID = require("mongodb").ObjectID;
 
 exports.createColumn = asyncHandler(async (req, res, next) => {
   const { columnTitle, userId, boardId } = req.body;
@@ -12,7 +12,7 @@ exports.createColumn = asyncHandler(async (req, res, next) => {
     },
     {
       $push: {
-        "boards.$.columns": { columnTitle: columnTitle, columnId: uuidv4() },
+        "boards.$.columns": { columnTitle: columnTitle, _id: new ObjectID() },
       },
     }
   );

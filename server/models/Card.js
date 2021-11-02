@@ -27,10 +27,6 @@ const cardSchema = new mongoose.Schema({
   },
   checklists: [
     {
-      checklistId: {
-        type: String,
-        required: false,
-      },
       item: {
         type: String,
         required: false,

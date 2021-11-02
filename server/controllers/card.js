@@ -1,6 +1,6 @@
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
-const { v4: uuidv4 } = require("uuid");
+const ObjectID = require("mongodb").ObjectID;
 
 exports.createCard = asyncHandler(async (req, res, next) => {
   const { cardTitle, tagColor, userId, columnId, boardId } = req.body;
@@ -10,7 +10,7 @@ exports.createCard = asyncHandler(async (req, res, next) => {
     {
       $push: {
         "boards.$[board].columns.$[column].cards": {
-          cardId: uuidv4(),
+          _id: new ObjectID(),
           cardTitle: cardTitle,
           tagColor: tagColor,
         },

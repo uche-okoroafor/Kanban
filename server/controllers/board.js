@@ -1,14 +1,10 @@
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
-const { v4: uuidv4 } = require("uuid");
+const ObjectID = require("mongodb").ObjectID;
 const { boards } = require("./defaultBoardContents/defaultBoardContents.json");
 
 exports.createDefaultBoard = asyncHandler(async (req, res, next) => {
   const { userId } = req.body;
-  if (!userId) {
-    res.status(400);
-    throw new Error("userId  is undefined");
-  }
 
   const board = await User.updateOne(
     { _id: userId },
@@ -19,16 +15,13 @@ exports.createDefaultBoard = asyncHandler(async (req, res, next) => {
     }
   );
   res.status(200).json(board);
+
   res.status(500);
   throw new Error("Something went wrong");
 });
 
 exports.addBoard = asyncHandler(async (req, res, next) => {
   const { userId, boardTitle } = req.body;
-  if (!userId) {
-    res.status(400);
-    throw new Error("userId  is undefined");
-  }
 
   const board = await User.updateOne(
     { _id: userId },
@@ -36,7 +29,7 @@ exports.addBoard = asyncHandler(async (req, res, next) => {
       $push: {
         boards: {
           boardTitle,
-          boardId: uuidv4(),
+          _id: new ObjectID(),
         },
       },
     }
@@ -49,12 +42,6 @@ exports.addBoard = asyncHandler(async (req, res, next) => {
 
 exports.removeBoard = asyncHandler(async (req, res, next) => {
   const { userId, boardId } = req.params;
-  if (!boardId || !userId) {
-    res.status(400);
-    throw new Error(
-      `${!boardId ? "boardId" : ""}  ${!userId ? "userId" : ""} is undefined`
-    );
-  }
 
   const board = await User.updateOne(
     { _id: userId, "boards.boardId": boardId },
@@ -65,6 +52,7 @@ exports.removeBoard = asyncHandler(async (req, res, next) => {
     }
   );
   res.status(200).json(board);
+
   res.status(500);
   throw new Error("Something went wrong");
 });
