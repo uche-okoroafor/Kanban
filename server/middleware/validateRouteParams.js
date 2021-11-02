@@ -1,116 +1,75 @@
 const { check, validationResult } = require("express-validator");
 
-exports.validateRemoveBoardParams = [
-  check("userId", "userId is not defined").not().isEmpty(),
-  check("boardId", "boardId is not defined").not().isEmpty(),
-  (req, res, next) => {
-    const errors = validationResult(req);
+const handleParams = (params) => {
+  return check(params, ` ${params} is not defined`).not().isEmpty();
+};
+const handleError = (req, res, next) => {
+  const errors = validationResult(req);
 
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  },
+  if (!errors.isEmpty())
+    return res.status(400).json({ errors: errors.array() });
+  next();
+};
+
+exports.validateRemoveBoardParams = [
+  handleParams("userId"),
+  handleParams("boardId"),
+  handleError(req, res, next),
 ];
 
 exports.validateUserIdParams = [
-  check("userId", "userId is not defined").not().isEmpty(),
-  (req, res, next) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  },
+  handleParams("userId"),
+  handleError(req, res, next),
 ];
 
 exports.validateCreateColumnParams = [
-  check("userId", "userId is not defined").not().isEmpty(),
-  check("boardId", "boardId is not defined").not().isEmpty(),
-  check("columnTitle", "columnTitle is not defined").not().isEmpty(),
-  (req, res, next) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  },
+  handleParams("userId"),
+  handleParams("boardId"),
+  handleParams("columnTitle"),
+  handleError(req, res, next),
 ];
 
 exports.validateUpdateColumnParams = [
-  check("userId", "userId is not defined").not().isEmpty(),
-  check("boardId", "boardId is not defined").not().isEmpty(),
-  check("columnTitle", "columnTitle is not defined").not().isEmpty(),
-  check("columnId", "columnId is not defined").not().isEmpty(),
-  (req, res, next) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  },
+  handleParams("userId"),
+  handleParams("boardId"),
+  handleParams("columnId"),
+  handleParams("columnTitle"),
+  handleError(req, res, next),
 ];
 
 exports.validateColumnParams = [
-  check("userId", "userId is not defined").not().isEmpty(),
-  check("boardId", "boardId is not defined").not().isEmpty(),
-  check("columnId", "columnId is not defined").not().isEmpty(),
-  (req, res, next) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  },
+  handleParams("userId"),
+  handleParams("boardId"),
+  handleParams("columnId"),
+  handleError(req, res, next),
 ];
 
 exports.validateMoveCardOutParams = [
-  check("userId", "userId is not defined").not().isEmpty(),
-  check("boardId", "boardId is not defined").not().isEmpty(),
-  check("initialColumnId", "initialColumnId is not defined").not().isEmpty(),
-  check("targetColumnId", "targetColumnId is not defined").not().isEmpty(),
-  check("cardId", "cardId is not defined").not().isEmpty(),
-  check("targetPosition", "targetPosition is not defined").not().isEmpty(),
-  check("cardObject", "cardObject is not defined").not().isEmpty(),
-  (req, res, next) => {
-    console.log("valide 2");
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  },
+  handleParams("userId"),
+  handleParams("boardId"),
+  handleParams("initialColumnId"),
+  handleParams("targetColumnId"),
+  handleParams("cardId"),
+  handleParams("targetPosition"),
+  handleParams("cardObject"),
+  handleError(req, res, next),
 ];
 
 exports.validateMoveCardInParams = [
-  check("userId", "userId is not defined").not().isEmpty(),
-  check("boardId", "boardId is not defined").not().isEmpty(),
-  check("columnId", "columnId is not defined").not().isEmpty(),
-  check("cardId", "cardId is not defined").not().isEmpty(),
-  check("targetPosition", "targetPosition is not defined").not().isEmpty(),
-  check("cardObject", "cardObject is not defined").not().isEmpty(),
-  (req, res, next) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  },
+  handleParams("userId"),
+  handleParams("boardId"),
+  handleParams("columnId"),
+  handleParams("cardId"),
+  handleParams("targetPosition"),
+  handleParams("cardObject"),
+  handleError(req, res, next),
 ];
 
-exports.valide = [
-  check("userId", "userId is not defined").not().isEmpty(),
-  check("boardId", "boardId is not defined").not().isEmpty(),
-  check("initialColumnId", "initialColumnId is not defined").not().isEmpty(),
-  check("targetColumnId", "targetColumnId is not defined").not().isEmpty(),
-  check("cardId", "cardId is not defined").not().isEmpty(),
-  check("targetPosition", "targetPosition is not defined").not().isEmpty(),
-  check("cardObject", "cardObject is not defined").not().isEmpty(),
-  (req, res, next) => {
-    console.log("valide 1");
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  },
+exports.validateCreateCardParams = [
+  handleParams("userId"),
+  handleParams("boardId"),
+  handleParams("cardTitle"),
+  handleParams("tagColor"),
+  handleParams("columnId"),
+  handleError(req, res, next),
 ];
