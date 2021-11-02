@@ -1,27 +1,24 @@
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
-const { v4: uuidv4 } = require("uuid");
 const cloud = require("../config/cloudinaryConfig");
+const ObjectID = require("mongodb").ObjectID;
 
 exports.createCard = asyncHandler(async (req, res, next) => {
   const { cardTitle, tagColor, userId, columnId, boardId } = req.body;
 
   const card = await User.updateOne(
-    { _id: userId, "boards.columns.columnId": columnId },
+    { _id: userId, "boards.columns._id": columnId },
     {
       $push: {
         "boards.$[board].columns.$[column].cards": {
-          cardId: uuidv4(),
+          _id: new ObjectID(),
           cardTitle: cardTitle,
           tagColor: tagColor,
         },
       },
     },
     {
-      arrayFilters: [
-        { "board.boardId": boardId },
-        { "column.columnId": columnId },
-      ],
+      arrayFilters: [{ "board._id": boardId }, { "column._id": columnId }],
     }
   );
 
@@ -36,7 +33,7 @@ exports.updateCardItems = asyncHandler(async (req, res, next) => {
   const targetItem = `boards.$[board].columns.$[column].cards.$[card].${cardItem}`;
 
   const updateStatus = await User.updateOne(
-    { _id: userId, "boards.columns.cards.cardId": cardId },
+    { _id: userId, "boards.columns.cards._id": cardId },
     {
       $set: {
         [targetItem]: value,
@@ -44,9 +41,9 @@ exports.updateCardItems = asyncHandler(async (req, res, next) => {
     },
     {
       arrayFilters: [
-        { "board.boardId": boardId },
-        { "column.columnId": columnId },
-        { "card.cardId": cardId },
+        { "board._id": boardId },
+        { "column._id": columnId },
+        { "card._id": cardId },
       ],
     }
   );
@@ -68,7 +65,7 @@ exports.removeCardItems = asyncHandler(async (req, res, next) => {
         ].cards) {
           const documentCardId =
             document[0].boards[boardIndex].columns[columnIndex].cards[cardIndex]
-              .cardId;
+              ._id;
 
           if (documentCardId === cardId) {
             return {
@@ -84,14 +81,14 @@ exports.removeCardItems = asyncHandler(async (req, res, next) => {
 
   const document = await User.find({
     _id: userId,
-    "boards.columns.cards.cardId": cardId,
+    "boards.columns.cards._id": cardId,
   });
   const { boardIndex, columnIndex, cardIndex } = getDocumentIndex(document);
 
   const targetItem = `boards.${boardIndex}.columns.${columnIndex}.cards.${cardIndex}.${cardItem}`;
 
   const removeStatus = await User.updateOne(
-    { _id: userId, "boards.columns.cards.cardId": cardId },
+    { _id: userId, "boards.columns.cards._id": cardId },
     {
       $unset: { [targetItem]: "" },
     }
@@ -106,20 +103,20 @@ exports.removeCardItems = asyncHandler(async (req, res, next) => {
 exports.createChecklist = asyncHandler(async (req, res, next) => {
   const { checklistItem, cardId, columnId, boardId, userId } = req.body;
   const createStatus = await User.updateOne(
-    { _id: userId, "boards.columns.cards.cardId": cardId },
+    { _id: userId, "boards.columns.cards._id": cardId },
     {
       $push: {
         "boards.$[board].columns.$[column].cards.$[card].checklists": {
           [checklistItem]: false,
-          checklistId: uuidv4(),
+          _id: new ObjectID(),
         },
       },
     },
     {
       arrayFilters: [
-        { "board.boardId": boardId },
-        { "column.columnId": columnId },
-        { "card.cardId": cardId },
+        { "board._id": boardId },
+        { "column._id": columnId },
+        { "card._id": cardId },
       ],
     }
   );
@@ -144,7 +141,7 @@ exports.updateChecklist = asyncHandler(async (req, res, next) => {
   const updateStatus = await User.updateOne(
     {
       _id: userId,
-      "boards.columns.cards.checklists.checklistId": checklistId,
+      "boards.columns.cards.checklists._id": checklistId,
     },
     {
       $set: {
@@ -153,10 +150,10 @@ exports.updateChecklist = asyncHandler(async (req, res, next) => {
     },
     {
       arrayFilters: [
-        { "board.boardId": boardId },
-        { "column.columnId": columnId },
-        { "card.cardId": cardId },
-        { "checklist.checklistId": checklistId },
+        { "board._id": boardId },
+        { "column._id": columnId },
+        { "card._id": cardId },
+        { "checklist._id": checklistId },
       ],
     }
   );
@@ -174,7 +171,7 @@ exports.removeChecklist = asyncHandler(async (req, res, next) => {
   const removeStatus = await User.updateOne(
     {
       _id: userId,
-      "boards.columns.cards.checklists.checklistId": checklistId,
+      "boards.columns.cards.checklists._id": checklistId,
     },
 
     {
@@ -184,9 +181,9 @@ exports.removeChecklist = asyncHandler(async (req, res, next) => {
     },
     {
       arrayFilters: [
-        { "board.boardId": boardId },
-        { "column.columnId": columnId },
-        { "card.cardId": cardId },
+        { "board._id": boardId },
+        { "column._id": columnId },
+        { "card._id": cardId },
       ],
     }
   );

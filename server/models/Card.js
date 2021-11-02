@@ -1,51 +1,43 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const cardSchema = new mongoose.Schema({
   cardTitle: {
     type: String,
-    required: false
-  },
-  cardId: {
-    type: String,
-    required: false
+    required: false,
   },
   tagColor: {
     type: String,
-    required: false
+    required: false,
   },
   description: {
     type: String,
-    required: false
+    required: false,
   },
   deadline: {
     type: Date,
-    default: null
+    default: null,
   },
   comment: {
     type: String,
-    required: false
+    required: false,
   },
   attachment: {
     type: String,
-    required: false
+    required: false,
   },
   checklists: [
     {
-      checklistId: {
-        type: String,
-        required: false
-      },
       item: {
         type: String,
-        required: false
+        required: false,
       },
       checkBox: {
         type: Boolean,
-        required: false
-      }
-    }
-  ]
-})
+        required: false,
+      },
+    },
+  ],
+});
 
-const Card = mongoose.model('card', cardSchema)
-module.exports = Card
+const Card = mongoose.model("card", cardSchema);
+module.exports = Card;

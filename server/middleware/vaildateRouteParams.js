@@ -1,91 +1,66 @@
 const { check, validationResult } = require("express-validator");
 
-exports.validateCreateCardParams = [
-  check("userId", "userId is not defined").not().isEmpty(),
-  check("boardId", "boardId is not defined").not().isEmpty(),
-  check("cardTitle", "cardTitle is not defined").not().isEmpty(),
-  check("tagColor", "tagColor is not defined").not().isEmpty(),
-  check("columnId", "columnId is not defined").not().isEmpty(),
-  (req, res, next) => {
-    const errors = validationResult(req);
+const handleParams = (params) => {
+  return check(params, ` ${params} is not defined`).not().isEmpty();
+};
+const handleError = (req, res, next) => {
+  const errors = validationResult(req);
 
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  },
+  if (!errors.isEmpty())
+    return res.status(400).json({ errors: errors.array() });
+  next();
+};
+
+exports.validateCreateCardParams = [
+  handleParams("userId"),
+  handleParams("boardId"),
+  handleParams("cardTitle"),
+  handleParams("tagColor"),
+  handleParams("columnId"),
+  handleError(req, res, next),
 ];
 
 exports.validateUpdateCardItemsParams = [
-  check("userId", "userId is not defined").not().isEmpty(),
-  check("boardId", "boardId is not defined").not().isEmpty(),
-  check("cardId", "cardId is not defined").not().isEmpty(),
-  check("columnId", "columnId is not defined").not().isEmpty(),
-  check("cardItem", "cardItem is not defined").not().isEmpty(),
-  check("value", "value is not defined").not().isEmpty(),
-  (req, res, next) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  },
+  handleParams("userId"),
+  handleParams("boardId"),
+  handleParams("cardId"),
+  handleParams("columnId"),
+  handleParams("cardItem"),
+  handleParams("value"),
+  handleError(req, res, next),
 ];
 
 exports.validateRemoveCardItemsParams = [
-  check("userId", "userId is not defined").not().isEmpty(),
-  check("cardId", "cardId is not defined").not().isEmpty(),
-  check("cardItem", "cardItem is not defined").not().isEmpty(),
-  (req, res, next) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  },
+  handleParams("userId"),
+  handleParams("cardId"),
+  handleParams("cardItem"),
+  handleError(req, res, next),
 ];
 exports.validateCreateChecklistParams = [
-  check("userId", "userId is not defined").not().isEmpty(),
-  check("boardId", "boardId is not defined").not().isEmpty(),
-  check("cardId", "cardId is not defined").not().isEmpty(),
-  check("columnId", "columnId is not defined").not().isEmpty(),
-  check("checklistItem", "checklistItem is not defined").not().isEmpty(),
-  (req, res, next) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  },
+  handleParams("userId"),
+  handleParams("boardId"),
+  handleParams("cardId"),
+  handleParams("columnId"),
+  handleParams("checklistItem"),
+  handleError(req, res, next),
 ];
 
 exports.validateUpdateChecklistParams = [
-  check("userId", "userId is not defined").not().isEmpty(),
-  check("boardId", "boardId is not defined").not().isEmpty(),
-  check("cardId", "cardId is not defined").not().isEmpty(),
-  check("columnId", "columnId is not defined").not().isEmpty(),
-  check("checklistId", "checklistId is not defined").not().isEmpty(),
-  check("checklistItem", "checklistItem is not defined").not().isEmpty(),
-  check("isChecked", "isChecked is not defined").not().isEmpty(),
-  (req, res, next) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  },
+  handleParams("userId"),
+  handleParams("boardId"),
+  handleParams("cardId"),
+  handleParams("columnId"),
+  handleParams("checklistItem"),
+  handleParams("checklistId"),
+  handleParams("isChecked"),
+  handleError(req, res, next),
 ];
 
 exports.validateRemoveChecklistParams = [
-  check("userId", "userId is not defined").not().isEmpty(),
-  check("boardId", "boardId is not defined").not().isEmpty(),
-  check("cardId", "cardId is not defined").not().isEmpty(),
-  check("columnId", "columnId is not defined").not().isEmpty(),
-  check("checklistId", "checklistId is not defined").not().isEmpty(),
-  (req, res, next) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  },
+  handleParams("userId"),
+  handleParams("boardId"),
+  handleParams("cardId"),
+  handleParams("columnId"),
+  handleParams("checklistId"),
+  handleError(req, res, next),
 ];
