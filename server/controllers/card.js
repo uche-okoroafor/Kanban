@@ -5,14 +5,6 @@ const { v4: uuidv4 } = require("uuid");
 exports.createCard = asyncHandler(async (req, res, next) => {
   const { cardTitle, tagColor, userId, columnId, boardId } = req.body;
 
-  if (!columnId || !userId || !boardId) {
-    res.status(400);
-    throw new Error(
-      `${!boardId ? "boardId" : ""} ${!columnId ? "columnId" : ""}  ${
-        !userId ? "userId" : ""
-      } is undefined`
-    );
-  }
   const card = await User.updateOne(
     { _id: userId, "boards.columns.columnId": columnId },
     {

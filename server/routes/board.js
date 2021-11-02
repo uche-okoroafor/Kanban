@@ -11,19 +11,11 @@ const {
   removeBoard,
 } = require("../controllers/board");
 
-router.route("/create/default-board").post(
-  // protect,
-  validateUserIdParams,
-  createDefaultBoard
-);
-router.route("/create").post(
-  // protect,
-  validateUserIdParams,
-  addBoard
-);
-router.route("/remove/:boardId/:userId").delete(
-  //   validateRemoveBoard,
-  // protect,
-  removeBoard
-);
+router
+  .route("/create/default-board")
+  .post(protect, validateUserIdParams, createDefaultBoard);
+router.route("/create").post(protect, validateUserIdParams, addBoard);
+router
+  .route("/remove/:boardId/:userId")
+  .delete(validateRemoveBoard, protect, removeBoard);
 module.exports = router;
