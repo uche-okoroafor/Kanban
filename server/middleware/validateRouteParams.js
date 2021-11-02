@@ -1,6 +1,6 @@
 const { check, validationResult } = require("express-validator");
 
-exports.validateUserId = [
+exports.validateUserIdParams = [
   check("userId", "userId is not defined").not().isEmpty(),
   (req, res, next) => {
     const errors = validationResult(req);

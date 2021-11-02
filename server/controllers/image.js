@@ -2,7 +2,7 @@ const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const cloud = require("../config/cloudinaryConfig");
 
-exports.uploadImage = async (req, res, next) => {
+exports.uploadImage = asyncHandler(async (req, res, next) => {
   const { userId } = req.body;
   const imageObject = {
     imageName: req.files[0].originalname,
@@ -52,4 +52,4 @@ exports.uploadImage = async (req, res, next) => {
       }
     }
   );
-};
+});
