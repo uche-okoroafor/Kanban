@@ -19,7 +19,6 @@ exports.uploadImage = asyncHandler(async (req, res, next) => {
     imageUrl: uploadStatus.url,
     id: new ObjectID(),
   };
-  await unlinkFile(req.files[0].path);
   const updateStatus = await User.updateOne(
     {
       _id: userId,
@@ -30,6 +29,8 @@ exports.uploadImage = asyncHandler(async (req, res, next) => {
       },
     }
   );
+  await unlinkFile(req.files[0].path);
+
   res.status(200).json({
     success: true,
     data: { updateStatus, imageDetails },
