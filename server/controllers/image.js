@@ -2,7 +2,7 @@ const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const cloud = require("../config/cloudinaryConfig");
 
-exports.uploadImage = asyncHandler(async (req, res, next) => {
+exports.uploadImage = async (req, res, next) => {
   const { userId } = req.body;
   const imageObject = {
     imageName: req.files[0].originalname,
@@ -10,42 +10,46 @@ exports.uploadImage = asyncHandler(async (req, res, next) => {
     imageId: "",
   };
 
-  const imageNameExist = await User.find(
-    {
-      _id: userId,
-      "userImage.imageName": imageObject.imageName,
-    },
+  User.find(
+    { _id: userId, "userImage.imageName": imageObject.imageName },
     (err, callback) => {
       if (err) {
-        res.status(500);
-        throw new Error(
-          `There was a problem creating the image because: ${err.message}`
-        );
+        res.status(400).json({
+          err: err,
+          message: `There was a problem creating the image because: ${err.message}`,
+        });
       } else {
-        const response = await cloud.uploads(imageObject.imageUrl);
-        const imageDetails = {
-          imageName: req.files[0].originalname,
-          imageUrl: response.url,
-          imageId: response.id,
-        };
+        cloud.uploads(imageObject.imageUrl).then((response) => {
+          const imageDetails = {
+            imageName: req.files[0].originalname,
+            imageUrl: response.url,
+            imageId: response.id,
+          };
 
-        const addImage = await User.updateOne(
-          {
-            _id: "617abe11dfebcf80244d35f5",
-            // userId
-          },
-          {
-            $set: {
-              userImage: { imageDetails },
+          User.updateOne(
+            {
+              _id: userId,
             },
-          }
-        );
-        res.status(200).json(addImage);
+            {
+              $set: {
+                userImage: imageDetails,
+              },
+            }
+          )
+            .then((uploadStatus) => {
+              res.status(200).json({
+                success: true,
+                data: { uploadStatus, imageDetails },
+              });
+            })
+            .catch((error) => {
+              res.status(500).json({
+                success: false,
+                message: `Error creating image in the database: ${error.message}`,
+              });
+            });
+        });
       }
     }
   );
-  console.log(imageNameExist);
-
-  res.status(500);
-  throw new Error("something went wrong");
-});
+};
