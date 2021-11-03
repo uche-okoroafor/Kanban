@@ -24,10 +24,10 @@ router
   .route("/create-card")
   .post(protect, validateCreateCardParams, createCard);
 router
-  .route("/add-card/item")
+  .route("/update-card/item")
   .post(protect, validateUpdateCardItemsParams, updateCardItems);
 router
-  .route("/update-card/item")
+  .route("/remove-card/item")
   .post(protect, validateRemoveCardItemsParams, removeCardItems);
 router
   .route("/create/checklist")

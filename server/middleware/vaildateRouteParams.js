@@ -28,7 +28,6 @@ exports.validateUpdateCardItemsParams = [
   handleParams("cardId"),
   handleParams("columnId"),
   handleParams("cardItem"),
-  handleParams("value"),
   (req, res, next) => {
     handleError(req, res, next);
   },

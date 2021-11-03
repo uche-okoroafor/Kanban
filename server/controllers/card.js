@@ -6,8 +6,10 @@ const ObjectID = require("mongodb").ObjectID;
 exports.createCard = asyncHandler(async (req, res, next) => {
   const { cardTitle, tagColor, userId, columnId, boardId } = req.body;
 
-  const card = await User.updateOne(
-    { _id: userId, "boards.columns._id": columnId },
+  const columnObjectId = ObjectID(columnId);
+  const boardObjectId = ObjectID(boardId);
+  const createStatus = await User.updateOne(
+    { _id: userId, "boards.columns._id": columnObjectId },
     {
       $push: {
         "boards.$[board].columns.$[column].cards": {
@@ -18,22 +20,29 @@ exports.createCard = asyncHandler(async (req, res, next) => {
       },
     },
     {
-      arrayFilters: [{ "board._id": boardId }, { "column._id": columnId }],
+      arrayFilters: [
+        { "board._id": boardObjectId },
+        { "column._id": columnObjectId },
+      ],
     }
   );
 
-  res.status(200).json(card);
+  if (createStatus.nModified === 1) {
+    return res.status(200).json({ success: true });
+  }
+
   res.status(500);
   throw new Error("Something went wrong");
 });
 
 exports.updateCardItems = asyncHandler(async (req, res, next) => {
   const { userId, cardItem, value, cardId, columnId, boardId } = req.body;
-
+  const columnObjectId = ObjectID(columnId);
+  const boardObjectId = ObjectID(boardId);
+  const cardObjectId = ObjectID(cardId);
   const targetItem = `boards.$[board].columns.$[column].cards.$[card].${cardItem}`;
-
   const updateStatus = await User.updateOne(
-    { _id: userId, "boards.columns.cards._id": cardId },
+    { _id: userId, "boards.columns.cards._id": cardObjectId },
     {
       $set: {
         [targetItem]: value,
@@ -41,14 +50,16 @@ exports.updateCardItems = asyncHandler(async (req, res, next) => {
     },
     {
       arrayFilters: [
-        { "board._id": boardId },
-        { "column._id": columnId },
-        { "card._id": cardId },
+        { "board._id": boardObjectId },
+        { "column._id": columnObjectId },
+        { "card._id": cardObjectId },
       ],
     }
   );
 
-  res.status(200).json(updateStatus);
+  if (updateStatus.nModified === 1) {
+    return res.status(200).json({ success: true });
+  }
 
   res.status(500);
   throw new Error("Something went wrong");
@@ -57,6 +68,7 @@ exports.updateCardItems = asyncHandler(async (req, res, next) => {
 exports.removeCardItems = asyncHandler(async (req, res, next) => {
   const { cardItem, userId, cardId } = req.body;
 
+  const cardObjectId = ObjectID(cardId);
   const getDocumentIndex = (document) => {
     for (const boardIndex in document[0].boards) {
       for (const columnIndex in document[0].boards[boardIndex].columns) {
@@ -66,8 +78,7 @@ exports.removeCardItems = asyncHandler(async (req, res, next) => {
           const documentCardId =
             document[0].boards[boardIndex].columns[columnIndex].cards[cardIndex]
               ._id;
-
-          if (documentCardId === cardId) {
+          if (documentCardId.toString() === cardObjectId.toString()) {
             return {
               boardIndex,
               columnIndex,
@@ -81,29 +92,32 @@ exports.removeCardItems = asyncHandler(async (req, res, next) => {
 
   const document = await User.find({
     _id: userId,
-    "boards.columns.cards._id": cardId,
+    "boards.columns.cards._id": cardObjectId,
   });
   const { boardIndex, columnIndex, cardIndex } = getDocumentIndex(document);
 
   const targetItem = `boards.${boardIndex}.columns.${columnIndex}.cards.${cardIndex}.${cardItem}`;
 
   const removeStatus = await User.updateOne(
-    { _id: userId, "boards.columns.cards._id": cardId },
+    { _id: userId, "boards.columns.cards._id": cardObjectId },
     {
       $unset: { [targetItem]: "" },
     }
   );
-
-  res.status(200).json(removeStatus);
-
+  if (removeStatus.nModified === 1) {
+    return res.status(200).json({ success: true });
+  }
   res.status(500);
   throw new Error("Something went wrong");
 });
 
 exports.createChecklist = asyncHandler(async (req, res, next) => {
   const { checklistItem, cardId, columnId, boardId, userId } = req.body;
+  const columnObjectId = ObjectID(columnId);
+  const boardObjectId = ObjectID(boardId);
+  const cardObjectId = ObjectID(cardId);
   const createStatus = await User.updateOne(
-    { _id: userId, "boards.columns.cards._id": cardId },
+    { _id: userId, "boards.columns.cards._id": cardObjectId },
     {
       $push: {
         "boards.$[board].columns.$[column].cards.$[card].checklists": {
@@ -114,14 +128,16 @@ exports.createChecklist = asyncHandler(async (req, res, next) => {
     },
     {
       arrayFilters: [
-        { "board._id": boardId },
-        { "column._id": columnId },
-        { "card._id": cardId },
+        { "board._id": boardObjectId },
+        { "column._id": columnObjectId },
+        { "card._id": cardObjectId },
       ],
     }
   );
-  res.status(200).json(createStatus);
 
+  if (createStatus.nModified === 1) {
+    return res.status(200).json({ success: true });
+  }
   res.status(500);
   throw new Error("Something went wrong");
 });
@@ -137,11 +153,16 @@ exports.updateChecklist = asyncHandler(async (req, res, next) => {
     userId,
   } = req.body;
 
+  const boardObjectId = ObjectID(boardId);
+  const columnObjectId = ObjectID(columnId);
+  const cardObjectId = ObjectID(cardId);
+  const checklistObjectId = ObjectID(checklistId);
+
   const targetItem = `boards.$[board].columns.$[column].cards.$[card].checklists.$[checklist].${checklistItem}`;
   const updateStatus = await User.updateOne(
     {
       _id: userId,
-      "boards.columns.cards.checklists._id": checklistId,
+      "boards.columns.cards.checklists._id": checklistObjectId,
     },
     {
       $set: {
@@ -150,14 +171,16 @@ exports.updateChecklist = asyncHandler(async (req, res, next) => {
     },
     {
       arrayFilters: [
-        { "board._id": boardId },
-        { "column._id": columnId },
-        { "card._id": cardId },
-        { "checklist._id": checklistId },
+        { "board._id": boardObjectId },
+        { "column._id": columnObjectId },
+        { "card._id": cardObjectId },
+        { "checklist._id": checklistObjectId },
       ],
     }
   );
-  res.status(200).json(updateStatus);
+  if (updateStatus.nModified === 1) {
+    return res.status(200).json({ success: true });
+  }
 
   res.status(500);
   throw new Error("Something went wrong");
@@ -165,29 +188,35 @@ exports.updateChecklist = asyncHandler(async (req, res, next) => {
 
 exports.removeChecklist = asyncHandler(async (req, res, next) => {
   const { cardId, columnId, boardId, checklistId, userId } = req.body;
+  const boardObjectId = ObjectID(boardId);
+  const columnObjectId = ObjectID(columnId);
+  const cardObjectId = ObjectID(cardId);
+  const checklistObjectId = ObjectID(checklistId);
 
   const targetItem =
     "boards.$[board].columns.$[column].cards.$[card].checklists";
   const removeStatus = await User.updateOne(
     {
       _id: userId,
-      "boards.columns.cards.checklists._id": checklistId,
+      "boards.columns.cards.checklists._id": checklistObjectId,
     },
 
     {
       $pull: {
-        [targetItem]: { checklistId: checklistId },
+        [targetItem]: { _id: checklistObjectId },
       },
     },
     {
       arrayFilters: [
-        { "board._id": boardId },
-        { "column._id": columnId },
-        { "card._id": cardId },
+        { "board._id": boardObjectId },
+        { "column._id": columnObjectId },
+        { "card._id": cardObjectId },
       ],
     }
   );
-  res.status(200).json(removeStatus);
+  if (removeStatus.nModified === 1) {
+    return res.status(200).json({ success: true });
+  }
 
   res.status(500);
   throw new Error("Something went wrong");
