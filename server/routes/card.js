@@ -17,7 +17,6 @@ const {
   createChecklist,
   updateChecklist,
   removeChecklist,
-  addAttachment,
 } = require("../controllers/card");
 
 router
@@ -38,7 +37,5 @@ router
 router
   .route("/remove/checklist")
   .post(protect, validateRemoveChecklistParams, removeChecklist);
-
-router.route("/attachment").post(upload.imageUpload.any(), addAttachment);
 
 module.exports = router;
