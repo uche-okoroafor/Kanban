@@ -17,7 +17,9 @@ exports.validateCreateCardParams = [
   handleParams("cardTitle"),
   handleParams("tagColor"),
   handleParams("columnId"),
-  handleError(req, res, next),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
 ];
 
 exports.validateUpdateCardItemsParams = [
@@ -27,14 +29,18 @@ exports.validateUpdateCardItemsParams = [
   handleParams("columnId"),
   handleParams("cardItem"),
   handleParams("value"),
-  handleError(req, res, next),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
 ];
 
 exports.validateRemoveCardItemsParams = [
   handleParams("userId"),
   handleParams("cardId"),
   handleParams("cardItem"),
-  handleError(req, res, next),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
 ];
 exports.validateCreateChecklistParams = [
   handleParams("userId"),
@@ -42,7 +48,9 @@ exports.validateCreateChecklistParams = [
   handleParams("cardId"),
   handleParams("columnId"),
   handleParams("checklistItem"),
-  handleError(req, res, next),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
 ];
 
 exports.validateUpdateChecklistParams = [
@@ -53,7 +61,9 @@ exports.validateUpdateChecklistParams = [
   handleParams("checklistItem"),
   handleParams("checklistId"),
   handleParams("isChecked"),
-  handleError(req, res, next),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
 ];
 
 exports.validateRemoveChecklistParams = [
@@ -62,5 +72,7 @@ exports.validateRemoveChecklistParams = [
   handleParams("cardId"),
   handleParams("columnId"),
   handleParams("checklistId"),
-  handleError(req, res, next),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
 ];
