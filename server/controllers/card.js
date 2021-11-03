@@ -1,7 +1,10 @@
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
-const cloud = require("../config/cloudinaryConfig");
 const ObjectID = require("mongodb").ObjectID;
+const fs = require("fs");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
+const cloud = require("../config/cloudinaryConfig");
 
 exports.createCard = asyncHandler(async (req, res, next) => {
   const { cardTitle, tagColor, userId, columnId, boardId } = req.body;
@@ -40,12 +43,29 @@ exports.updateCardItems = asyncHandler(async (req, res, next) => {
   const columnObjectId = ObjectID(columnId);
   const boardObjectId = ObjectID(boardId);
   const cardObjectId = ObjectID(cardId);
+  let itemContent = value;
+  if (cardItem === "attachment") {
+    const imageObject = {
+      imageName: req.files[0].originalname,
+      imageUrl: req.files[0].path,
+      imageId: "",
+    };
+    const uploadStatus = await cloud.uploads(imageObject.imageUrl);
+    itemContent = {
+      imageName: req.files[0].originalname,
+      imageUrl: uploadStatus.url,
+      imageId: uploadStatus.id,
+    };
+
+    await unlinkFile(req.files[0].path);
+  }
+
   const targetItem = `boards.$[board].columns.$[column].cards.$[card].${cardItem}`;
   const updateStatus = await User.updateOne(
     { _id: userId, "boards.columns.cards._id": cardObjectId },
     {
       $set: {
-        [targetItem]: value,
+        [targetItem]: itemContent,
       },
     },
     {

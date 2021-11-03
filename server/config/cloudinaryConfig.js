@@ -13,7 +13,8 @@ exports.uploads = (file) => {
       (result) => {
         resolve({ url: result.url, id: result.public_id });
       },
-      { resource_type: "auto" }
+      { resource_type: "auto" },
+      { folder: "MetaMorphic" }
     );
   });
 };

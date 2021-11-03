@@ -7,6 +7,7 @@ const {
   validateCreateChecklistParams,
   validateUpdateChecklistParams,
   validateRemoveChecklistParams,
+  // validateAttachmentParams
 } = require("../middleware/vaildateRouteParams");
 
 const protect = require("../middleware/auth");
@@ -24,7 +25,13 @@ router
   .post(protect, validateCreateCardParams, createCard);
 router
   .route("/update-card/item")
-  .post(protect, validateUpdateCardItemsParams, updateCardItems);
+  .post(
+    protect,
+    validateUpdateCardItemsParams,
+    upload.imageUpload.any(),
+    updateCardItems
+  );
+
 router
   .route("/remove-card/item")
   .post(protect, validateRemoveCardItemsParams, removeCardItems);
