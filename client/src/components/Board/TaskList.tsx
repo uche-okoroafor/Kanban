@@ -1,22 +1,39 @@
 import React from 'react';
+import { Draggable } from "react-beautiful-dnd";
 import Task from './Task';
 import { useBoard } from '../../context/useBoardContext';
 
 interface IProps {
+  provided: any;
+  innerRef: any;
   columnId: string;
+  children: any;
 }
 
-const TaskList = ({ columnId }: IProps): JSX.Element => {
+const TaskList = ({ provided, innerRef, columnId, children }: IProps): JSX.Element => {
   const { data } = useBoard();
 
-  const renderedTasks = data?.columns[columnId].taskIds.map((taskId) => {
+  const renderedTasks = data?.columns[columnId].taskIds.map((taskId, idx) => {
     return (
-      <Task
+      <div 
+        {...provided.droppableProps} 
+        ref={innerRef} 
         key={data.tasks[taskId].id}
-        title={data.tasks[taskId].title}
-        columnId={columnId}
-        taskId={data.tasks[taskId].id}
-      />
+      >
+        {children}
+        <Draggable draggableId="task" index={idx}>
+          {(provided) => (
+            <Task
+              title={data.tasks[taskId].title}
+              columnId={columnId}
+              taskId={data.tasks[taskId].id}
+              provided={provided}
+              innerRef={provided.innerRef}
+            />
+          )}
+        </Draggable>
+        {provided.placeholder}
+      </div>
     );
   });
 
@@ -24,3 +41,22 @@ const TaskList = ({ columnId }: IProps): JSX.Element => {
 };
 
 export default TaskList;
+
+/*  
+const renderedTasks = data?.columns[columnId].taskIds.map((taskId) => {
+  return (
+    <div 
+      {...provided.droppableProps} 
+      ref={innerRef} 
+      key={data.tasks[taskId].id}
+    >
+      {children}
+      <Task
+        title={data.tasks[taskId].title}
+        columnId={columnId}
+        taskId={data.tasks[taskId].id}
+      />
+      {provided.placeholder}
+    </div>
+  );
+*/

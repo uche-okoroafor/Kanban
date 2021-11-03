@@ -1,8 +1,8 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { useAuth } from '../../context/useAuthContext';
-import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useAuth } from '../../context/useAuthContext';
+import { useSocket } from '../../context/useSocketContext';
 import Board from '../../components/Board/Board';
 import { BoardProvider } from '../../context/useBoardContext';
 
@@ -15,7 +15,7 @@ import useStyles from './useStyles';
 */
 
 export default function Dashboard(): JSX.Element {
-  // removed for develop-ankit branch, integrate later
+  // removed for develop-ankit  ]branch, integrate later
   // const classes = useStyles();
 
   const { loggedInUser } = useAuth();
@@ -34,10 +34,10 @@ export default function Dashboard(): JSX.Element {
     return <CircularProgress />;
   }
 
-  return (
-    <BoardProvider>
-      <Board />;
-    </BoardProvider>
+  return (  
+      <BoardProvider>
+        <Board />;
+      </BoardProvider>
   );
 
   /*  

@@ -6,9 +6,19 @@ const ColumnList = (): JSX.Element => {
   const { data } = useBoard();
 
   const renderedColumns = data?.columnOrder.map((el) => {
-    return <Column key={data.columns[el].id} title={data.columns[el].title} columnId={data.columns[el].id} />;
+    return (
+      <Column 
+        key={data.columns[el].id} 
+        title={data.columns[el].title} 
+        columnId={data.columns[el].id} 
+      />
+    );
   });
-  return <React.Fragment>{renderedColumns}</React.Fragment>;
+  return (
+    <React.Fragment>
+      {renderedColumns}
+    </React.Fragment>
+  );
 };
 
 export default ColumnList;

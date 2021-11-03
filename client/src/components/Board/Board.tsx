@@ -8,7 +8,7 @@ import { useBoard } from '../../context/useBoardContext';
 const Board = (): JSX.Element => {
   const { onColumnPrependClick, onColumnAppendClick } = useBoard();
   return (
-    <div>
+    <div>      
       <CssBaseline>
         <Grid container spacing={5} justify="center">
           <Grid item md={1}>

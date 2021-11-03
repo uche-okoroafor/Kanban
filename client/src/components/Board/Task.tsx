@@ -9,23 +9,31 @@ interface IProps {
   title: string;
   columnId: string;
   taskId: string;
+  provided: any;
+  innerRef: any;
 }
 
-const Task = ({ title, columnId, taskId }: IProps): JSX.Element => {
+const Task = ({ title, columnId, taskId, provided, innerRef }: IProps): JSX.Element => {
   const { onTaskDeleteClick } = useBoard();
   return (
-    <CardContent>
-      <Card>
-        <CardHeader
-          title={title}
-          action={
-            <IconButton aria-label="delete" onClick={() => onTaskDeleteClick(columnId, taskId)}>
-              <RemoveCircleIcon />
-            </IconButton>
-          }
-        />
-      </Card>
-    </CardContent>
+    <div
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+      ref={innerRef}
+    >
+      <CardContent>
+        <Card>
+          <CardHeader
+            title={title}
+            action={
+              <IconButton aria-label="delete" onClick={() => onTaskDeleteClick(columnId, taskId)}>
+                <RemoveCircleIcon />
+              </IconButton>
+            }
+          />
+        </Card>
+      </CardContent>
+    </div>
   );
 };
 
