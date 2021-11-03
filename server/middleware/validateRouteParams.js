@@ -1,12 +1,18 @@
 const { check, validationResult } = require("express-validator");
+const handleParams = (params) => {
+  return check(params, `${params} is not defined`).not().isEmpty();
+};
+const handleErrors = (req, res, nex) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty())
+    return res.status(400).json({ errors: errors.array() });
+  next();
+};
 
 exports.validateUserIdParams = [
-  check("userId", "userId is not defined").not().isEmpty(),
+  handleParams("userId"),
   (req, res, next) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
+    handleErrors(req, res, next);
   },
 ];
