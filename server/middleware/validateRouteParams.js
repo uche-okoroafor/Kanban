@@ -11,22 +11,36 @@ const handleError = (req, res, next) => {
   next();
 };
 
+exports.validateAddBoardParams = [
+  handleParams("userId"),
+  handleParams("boardTitle"),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
+];
+
 exports.validateRemoveBoardParams = [
   handleParams("userId"),
   handleParams("boardId"),
-  handleError(req, res, next),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
 ];
 
 exports.validateUserIdParams = [
   handleParams("userId"),
-  handleError(req, res, next),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
 ];
 
 exports.validateCreateColumnParams = [
   handleParams("userId"),
   handleParams("boardId"),
   handleParams("columnTitle"),
-  handleError(req, res, next),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
 ];
 
 exports.validateUpdateColumnParams = [
@@ -34,14 +48,18 @@ exports.validateUpdateColumnParams = [
   handleParams("boardId"),
   handleParams("columnId"),
   handleParams("columnTitle"),
-  handleError(req, res, next),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
 ];
 
 exports.validateColumnParams = [
   handleParams("userId"),
   handleParams("boardId"),
   handleParams("columnId"),
-  handleError(req, res, next),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
 ];
 
 exports.validateMoveCardOutParams = [
@@ -52,7 +70,9 @@ exports.validateMoveCardOutParams = [
   handleParams("cardId"),
   handleParams("targetPosition"),
   handleParams("cardObject"),
-  handleError(req, res, next),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
 ];
 
 exports.validateMoveCardInParams = [
@@ -62,7 +82,9 @@ exports.validateMoveCardInParams = [
   handleParams("cardId"),
   handleParams("targetPosition"),
   handleParams("cardObject"),
-  handleError(req, res, next),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
 ];
 
 exports.validateCreateCardParams = [
@@ -71,5 +93,7 @@ exports.validateCreateCardParams = [
   handleParams("cardTitle"),
   handleParams("tagColor"),
   handleParams("columnId"),
-  handleError(req, res, next),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
 ];

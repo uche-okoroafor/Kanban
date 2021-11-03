@@ -1,25 +1,25 @@
 {
   "boards": {
     "boardTitle": "New Board",
-    "_id": "d93bbef3-ca27-4767-9d3d-acf17e29cc17",
+    "_id": "",
     "columns": [
       {
-        "_id": "d93bbef3-ca27-4767-9d3d-acf18e29cc18",
+        "_id": "",
         "columnTitle": "In Progress",
         "cards": [
           {
-            "_id": "d93bbef3-ca27-4767-9d3d-acf19e29cc19",
+            "_id": "",
             "cardTitle": "New Card",
             "description": ""
           }
         ]
       },
       {
-        "_id": "d93bbef3-ca27-4767-9d3d-acf20e29cc20",
+        "_id": "",
         "columnTitle": "Completed",
         "cards": [
           {
-            "_id": "d93bbef3-ca27-4767-9d3d-acf21e29cc21",
+            "_id": "",
             "cardTitle": "New Card",
             "description": ""
           }

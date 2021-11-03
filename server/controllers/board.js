@@ -14,7 +14,9 @@ exports.createDefaultBoard = asyncHandler(async (req, res, next) => {
       },
     }
   );
-  res.status(200).json(board);
+  if (board.nModified === 1) {
+    return res.status(200).json({ success: true });
+  }
 
   res.status(500);
   throw new Error("Something went wrong");
@@ -34,24 +36,27 @@ exports.addBoard = asyncHandler(async (req, res, next) => {
       },
     }
   );
-  res.status(200).json(board);
-
+  if (board.nModified === 1) {
+    return res.status(200).json({ success: true });
+  }
   res.status(500);
   throw new Error("Something went wrong");
 });
 
 exports.removeBoard = asyncHandler(async (req, res, next) => {
-  const { userId, boardId } = req.params;
-
-  const board = await User.updateOne(
-    { _id: userId, "boards.boardId": boardId },
+  const { boardId, userId } = req.params;
+  const boardObjectId = ObjectID(boardId);
+  const upBoard = await User.updateOne(
+    { _id: userId, "boards._id": boardObjectId },
     {
       $pull: {
-        boards: { boardId: boardId },
+        boards: { _id: boardObjectId },
       },
     }
   );
-  res.status(200).json(board);
+  if (upBoard.nModified === 1) {
+    return res.status(200).json({ success: true });
+  }
 
   res.status(500);
   throw new Error("Something went wrong");

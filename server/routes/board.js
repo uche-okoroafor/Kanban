@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const protect = require("../middleware/auth");
 const {
-  validateRemoveBoard,
+  validateRemoveBoardParams,
+  validateAddBoardParams,
   validateUserIdParams,
 } = require("../middleware/validateRouteParams");
 const {
@@ -14,8 +15,8 @@ const {
 router
   .route("/create/default-board")
   .post(protect, validateUserIdParams, createDefaultBoard);
-router.route("/create").post(protect, validateUserIdParams, addBoard);
+router.route("/create").post(protect, validateAddBoardParams, addBoard);
 router
   .route("/remove/:boardId/:userId")
-  .delete(validateRemoveBoard, protect, removeBoard);
+  .delete(protect, validateRemoveBoardParams, removeBoard);
 module.exports = router;

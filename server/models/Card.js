@@ -5,38 +5,22 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  tagColor: {
+  cardTagColor: {
     type: String,
     required: false,
   },
-  description: {
+  cardDescription: {
     type: String,
     required: false,
   },
-  deadline: {
+  cardDeadline: {
     type: Date,
     default: null,
   },
-  comment: {
+  cardComment: {
     type: String,
     required: false,
   },
-  attachment: {
-    type: String,
-    required: false,
-  },
-  checklists: [
-    {
-      item: {
-        type: String,
-        required: false,
-      },
-      checkBox: {
-        type: Boolean,
-        required: false,
-      },
-    },
-  ],
 });
 
 const Card = mongoose.model("card", cardSchema);
