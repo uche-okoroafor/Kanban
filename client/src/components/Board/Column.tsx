@@ -14,13 +14,21 @@ interface IProps {
   columnId: string;
 }
 
-//const onDragEnd = (result: never, provided: never) => console.log(`result: ${result}, provided: ${provided}`);
-
 const Column = ({ title, columnId }: IProps): JSX.Element => {
   const { data, onColumnDeleteClick, onTaskAddClick } = useBoard();
 
+  const onDragEnd = (result: any, provided: any) => {
+    const { destination, source, draggableId, type } = result;
+  
+    //if(!destination) return;
+    //if(destination.droppableId === source.droppableId && destination.index === source.index) return;
+
+    //const beg = data ? console.log(data.columns[source.droppableId]) : console.log('null');
+    const end = data ? console.log(destination): console.log('null');
+  };
+
   return (
-    <DragDropContext onDragEnd={() => console.log('onDragEnd called!')}>
+    <DragDropContext onDragEnd={onDragEnd}>
       <Grid item md={3}>
         <Card>
           <CardHeader
@@ -33,7 +41,8 @@ const Column = ({ title, columnId }: IProps): JSX.Element => {
           />
           {data ? data.columns[columnId].taskIds[0] ? 
             <Droppable
-              droppableId="droppable"
+              droppableId={columnId}
+              type="task"
             >
               {provided => (  
                 <TaskList
