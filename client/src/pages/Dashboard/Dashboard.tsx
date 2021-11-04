@@ -7,6 +7,7 @@ import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
 import ChatSideBanner from '../../components/ChatSideBanner/ChatSideBanner';
 import { useEffect } from 'react';
+import { Button } from '@material-ui/core';
 
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
@@ -30,7 +31,12 @@ export default function Dashboard(): JSX.Element {
   return (
     <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
       <CssBaseline />
+
       <Grid item className={classes.drawerWrapper}>
+        {' '}
+        <Button color="primary" onClick={() => history.push('/calendar')}>
+          Calendar
+        </Button>
         <ChatSideBanner loggedInUser={loggedInUser} />
       </Grid>
     </Grid>
