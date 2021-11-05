@@ -37,15 +37,19 @@ export default function Dashboard(): JSX.Element {
     return <CircularProgress />;
   }
 
-  console.log(file);
-
   return (
     <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
       <CssBaseline />
       <Grid item className={classes.drawerWrapper}>
         <ChatSideBanner onHandleOpen={handleOpen} loggedInUser={loggedInUser} />
         <DropZone open={open && !file} onHandleClose={handleClose} onSetFile={setFile} />
-        <RenderFile onHandleClose={handleClose} file={file} open={file ? true : false} onSetFile={setFile} />
+        <RenderFile
+          onHandleClose={handleClose}
+          file={file}
+          open={file ? true : false}
+          onSetFile={setFile}
+          setOpen={setOpen}
+        />
       </Grid>
     </Grid>
   );

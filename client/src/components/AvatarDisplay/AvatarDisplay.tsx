@@ -12,7 +12,7 @@ const AvatarDisplay = ({ user, onHandleOpen }: Props): JSX.Element => {
     <Avatar
       onClick={onHandleOpen}
       alt="Profile Image"
-      src={user.profileUrl || `https://robohash.org/${user.email}.png`}
+      src={user.imageUrl || `https://robohash.org/${user.email}.png`}
     />
   );
 };

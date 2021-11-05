@@ -10,9 +10,10 @@ interface Props {
   onHandleClose: () => void;
   open: boolean;
   onSetFile: any;
+  setOpen: any;
 }
 
-const RenderFile = ({ file, onHandleClose, open, onSetFile }: Props): JSX.Element => {
+const RenderFile = ({ file, onHandleClose, open, onSetFile, setOpen }: Props): JSX.Element => {
   const sizeInBytes = `${(parseInt(file?.size) / (1024 * 1024)).toFixed(2)} MB`;
   const fileFormat = file?.type.split('/')[1];
   const classes = useStyles();
@@ -30,17 +31,22 @@ const RenderFile = ({ file, onHandleClose, open, onSetFile }: Props): JSX.Elemen
         updateSnackBarMessage(data.error.message);
         setUploadState('picture upload failed!');
         onSetFile(null);
+        setOpen(false);
+        setTimeout(() => {
+          setUploadState('');
+        }, 3000);
       } else if (data.success) {
         updateLoginContext(data.success);
         setUploadState('picture uploaded successfully');
         onSetFile(null);
+        setOpen(false);
+        setTimeout(() => {
+          setUploadState('');
+        }, 3000);
       } else {
         updateSnackBarMessage('Unexpected error! Please try again');
       }
     });
-    setTimeout(() => {
-      setUploadState('');
-    }, 1000);
   };
   return (
     <Modal

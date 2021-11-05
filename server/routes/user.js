@@ -12,6 +12,6 @@ const upload = multer({
 
 router.route("/").get(protect, searchUsers);
 
-router.route("/upload").post(protect, upload.single("image"), uploadImage);
+router.route("/upload").put(protect, upload.single("image"), uploadImage);
 
 module.exports = router;
