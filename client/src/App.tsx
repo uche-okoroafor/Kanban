@@ -6,15 +6,16 @@ import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
-import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import { useImmerReducer } from 'use-immer';
-import { authReducer, authState } from './state';
+//import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+//import { useImmerReducer } from 'use-immer';
+//import { authReducer, authState } from './state';
 import './App.css';
 import Calender from './pages/Calender/Calender';
 import AppLayout from './components/AppLayout/AppLayout';
+import Profile from './pages/Profile/Profile';
 
 function App(): JSX.Element {
-  const [state] = useImmerReducer(authReducer, authState);
+  //const [state] = useImmerReducer(authReducer, authState);
 
   return (
     <MuiThemeProvider theme={theme}>
@@ -27,8 +28,9 @@ function App(): JSX.Element {
               <Route
                 render={(props: RouteComponentProps) => (
                   <AppLayout {...props}>
-                    <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
-                    <ProtectedRoute path="/calender" token={state.token} component={Calender} />
+                    <Route exact path="/" component={Dashboard} />
+                    <Route path="/calender" component={Calender} />
+                    <Route path="/profile" component={Profile} />
                   </AppLayout>
                 )}
               />

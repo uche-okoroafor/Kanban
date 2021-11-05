@@ -2,6 +2,7 @@ import { ListItem, ListItemIcon, Menu, MenuItem, MenuProps, Typography } from '@
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 /**
  * AvatarMenu component props
@@ -9,7 +10,6 @@ import React from 'react';
  * @interface
  */
 interface AvatarMenuProps extends MenuProps {
-  onClickProfile?: React.MouseEventHandler<HTMLLIElement>;
   onClickLogOut?: React.MouseEventHandler<HTMLLIElement>;
 }
 
@@ -19,17 +19,21 @@ interface AvatarMenuProps extends MenuProps {
  * @param AvatarMenuProps
  * @returns {JSX.Element}
  */
-export default function AvatarMenu({ onClickProfile, onClickLogOut, ...rest }: AvatarMenuProps): JSX.Element {
+export default function AvatarMenu({ onClickLogOut, ...rest }: AvatarMenuProps): JSX.Element {
   return (
     <>
       <Menu {...rest}>
-        <MenuItem onClick={onClickProfile}>
-          <ListItem>
-            <ListItemIcon>
-              <PersonOutlineOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            <Typography variant="body1">Profile</Typography>
-          </ListItem>
+        <MenuItem>
+          <Link to="/profile" style={{ textDecoration: 'none' }}>
+            <ListItem>
+              <ListItemIcon>
+                <PersonOutlineOutlinedIcon fontSize="small" />
+              </ListItemIcon>
+              <Typography variant="body1" style={{ color: 'black' }}>
+                Profile
+              </Typography>
+            </ListItem>
+          </Link>
         </MenuItem>
         <MenuItem onClick={onClickLogOut}>
           <ListItem>

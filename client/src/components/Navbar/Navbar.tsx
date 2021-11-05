@@ -40,9 +40,6 @@ export default function Navbar(): JSX.Element {
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleClose}
-            onClickProfile={() => {
-              // handles profile option in the menu
-            }}
             onClickLogOut={() => {
               // handles logout option in the menu
             }}
