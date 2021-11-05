@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route, RouteComponentProps } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import { ProtectedRouteProps } from '../../interface/Route';
 
 /**
@@ -8,28 +8,8 @@ import { ProtectedRouteProps } from '../../interface/Route';
  * @param ProtectedRouteProps
  * @returns {JSX.Element}
  */
-const ProtectedRoute = ({ component: Component, token, ...rest }: ProtectedRouteProps): JSX.Element => {
-  return (
-    <Route
-      {...rest}
-      render={(props: RouteComponentProps) => {
-        if (token) {
-          return <Component {...rest} {...props} />;
-        } else {
-          return (
-            <Redirect
-              to={{
-                pathname: '/login',
-                state: {
-                  from: props.location,
-                },
-              }}
-            />
-          );
-        }
-      }}
-    />
-  );
+const ProtectedRoute = ({ token, ...rest }: ProtectedRouteProps): JSX.Element => {
+  return token ? <Route {...rest} /> : <Redirect to="/login" />;
 };
 
 export default ProtectedRoute;
