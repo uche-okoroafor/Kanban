@@ -23,7 +23,7 @@ const Column = ({ title, columnId }: IProps): JSX.Element => {
     //if(!destination) return;
     //if(destination.droppableId === source.droppableId && destination.index === source.index) return;
 
-    //const beg = data ? console.log(data.columns[source.droppableId]) : console.log('null');
+    const beg = data ? console.log(data.columns[source.droppableId]) : console.log('null');
     const end = data ? console.log(destination): console.log('null');
   };
 
