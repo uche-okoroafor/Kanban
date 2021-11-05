@@ -1,13 +1,27 @@
 const User = require("../models/User");
 const Board = require("../models/Board");
+const Column = require("../models/Column");
+const Card = require("../models/Card");
 const asyncHandler = require("express-async-handler");
 const ObjectID = require("mongodb").ObjectID;
-const { board } = require("./defaultBoardContents/defaultBoardContents.json");
+const {
+  board,
+  columnProgress,
+  columnCompleted,
+  card,
+} = require("./defaultBoardContents/defaultBoardContents.json");
 
 exports.createDefaultBoard = asyncHandler(async (req, res, next) => {
   const { userId } = req.params;
 
   const createBoard = await Board.create(board);
+  const createColumnProgress = await Column.create(columnProgress);
+  const createColumnCompleted = await Column.create(columnCompleted);
+  const createCard = await Card.create(card);
+
+  createColumnProgress.cards.push(createCard);
+  createColumnCompleted.cards.push(createCard);
+  createBoard.columns = [createColumnProgress, createColumnCompleted];
 
   const createStatus = await User.updateOne(
     { _id: userId },

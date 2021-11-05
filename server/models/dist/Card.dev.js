@@ -5,7 +5,7 @@ var mongoose = require("mongoose");
 var cardSchema = new mongoose.Schema({
   cardTitle: {
     type: String,
-    required: false,
+    required: true,
   },
   tagColor: {
     type: String,

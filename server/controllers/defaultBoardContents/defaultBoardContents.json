@@ -1,26 +1,19 @@
 {
   "board": {
     "boardTitle": "New Board",
+    "columns": []
+  },
 
-    "columns": [
-      {
-        "columnTitle": "In Progress",
-        "cards": [
-          {
-            "cardTitle": "New Card",
-            "description": ""
-          }
-        ]
-      },
-      {
-        "columnTitle": "Completed",
-        "cards": [
-          {
-            "cardTitle": "New Card",
-            "description": ""
-          }
-        ]
-      }
-    ]
+  "columnProgress": {
+    "columnTitle": "In Progress",
+    "cards": []
+  },
+  "columnCompleted": {
+    "columnTitle": "Completed",
+    "cards": []
+  },
+  "card": {
+    "cardTitle": "New Card",
+    "description": ""
   }
 }

@@ -4,15 +4,27 @@ var User = require("../models/User");
 
 var Board = require("../models/Board");
 
+var Column = require("../models/Column");
+
+var Card = require("../models/Card");
+
 var asyncHandler = require("express-async-handler");
 
 var ObjectID = require("mongodb").ObjectID;
 
 var _require = require("./defaultBoardContents/defaultBoardContents.json"),
-  board = _require.board;
+  board = _require.board,
+  columnProgress = _require.columnProgress,
+  columnCompleted = _require.columnCompleted,
+  card = _require.card;
 
 exports.createDefaultBoard = asyncHandler(function _callee(req, res, next) {
-  var userId, createBoard, createStatus;
+  var userId,
+    createBoard,
+    createColumnProgress,
+    createColumnCompleted,
+    createCard,
+    createStatus;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch ((_context.prev = _context.next)) {
@@ -24,6 +36,24 @@ exports.createDefaultBoard = asyncHandler(function _callee(req, res, next) {
         case 3:
           createBoard = _context.sent;
           _context.next = 6;
+          return regeneratorRuntime.awrap(Column.create(columnProgress));
+
+        case 6:
+          createColumnProgress = _context.sent;
+          _context.next = 9;
+          return regeneratorRuntime.awrap(Column.create(columnCompleted));
+
+        case 9:
+          createColumnCompleted = _context.sent;
+          _context.next = 12;
+          return regeneratorRuntime.awrap(Card.create(card));
+
+        case 12:
+          createCard = _context.sent;
+          createColumnProgress.cards.push(createCard);
+          createColumnCompleted.cards.push(createCard);
+          createBoard.columns = [createColumnProgress, createColumnCompleted];
+          _context.next = 18;
           return regeneratorRuntime.awrap(
             User.updateOne(
               {
@@ -37,11 +67,11 @@ exports.createDefaultBoard = asyncHandler(function _callee(req, res, next) {
             )
           );
 
-        case 6:
+        case 18:
           createStatus = _context.sent;
 
           if (!(createStatus.nModified === 1)) {
-            _context.next = 9;
+            _context.next = 21;
             break;
           }
 
@@ -52,11 +82,11 @@ exports.createDefaultBoard = asyncHandler(function _callee(req, res, next) {
             })
           );
 
-        case 9:
+        case 21:
           res.status(500);
           throw new Error("Something went wrong");
 
-        case 11:
+        case 23:
         case "end":
           return _context.stop();
       }
