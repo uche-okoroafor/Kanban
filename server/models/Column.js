@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const columnSchema = new mongoose.Schema({
   columnTitle: {
-    Types: String,
-    required: false,
+    type: String,
+    required: true,
   },
   cards: { type: Schema.Types.Array, ref: "card" },
 });

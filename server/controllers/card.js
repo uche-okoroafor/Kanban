@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Card = require("../models/Card");
 const asyncHandler = require("express-async-handler");
 const ObjectID = require("mongodb").ObjectID;
 const fs = require("fs");
@@ -7,19 +8,17 @@ const unlinkFile = util.promisify(fs.unlink);
 const cloud = require("../config/cloudinaryConfig");
 
 exports.createCard = asyncHandler(async (req, res, next) => {
-  const { cardTitle, tagColor, userId, columnId, boardId } = req.body;
+  const { cardTitle, tagColor, userId, columnId, boardId } = req.params;
 
   const columnObjectId = ObjectID(columnId);
   const boardObjectId = ObjectID(boardId);
+
+  const createCard = await Card.create({ cardTitle, tagColor });
   const createStatus = await User.updateOne(
     { _id: userId, "boards.columns._id": columnObjectId },
     {
       $push: {
-        "boards.$[board].columns.$[column].cards": {
-          _id: new ObjectID(),
-          cardTitle: cardTitle,
-          tagColor: tagColor,
-        },
+        "boards.$[board].columns.$[column].cards": createCard,
       },
     },
     {
@@ -37,7 +36,6 @@ exports.createCard = asyncHandler(async (req, res, next) => {
   res.status(500);
   throw new Error("Something went wrong");
 });
-
 exports.updateCardItems = asyncHandler(async (req, res, next) => {
   const { userId, cardItem, value, cardId, columnId, boardId } = req.body;
   const columnObjectId = ObjectID(columnId);
