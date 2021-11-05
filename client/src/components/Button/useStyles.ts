@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 const useStlyes = makeStyles({
   createButton: {
     backgroundColor: '#759cfc',
-    padding: '5%',
+    padding: '1%',
     fontSize: '16px',
     '&:hover': {
       backgroundColor: '#99b5fc',

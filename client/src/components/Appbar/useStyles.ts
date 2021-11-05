@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    marginTop: '2%',
+    marginTop: '1%',
   },
   appBarContainer: {
     backgroundColor: '#759cfc',
@@ -12,6 +12,7 @@ const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    padding: '0% 2%',
   },
   appBarTitle: {
     fontSize: '18px',

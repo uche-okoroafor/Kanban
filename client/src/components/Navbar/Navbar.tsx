@@ -1,4 +1,4 @@
-import { Container, Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import React from 'react';
 import useStyles from './useStyles';
 import KanbanLogo from '../../Images/logo.png';
@@ -21,16 +21,14 @@ export default function Navbar(): JSX.Element {
   };
 
   return (
-    <Container className={classses.root}>
+    <Box className={classses.root}>
       <Grid container spacing={2}>
         <Grid item md={3} className={classses.container}>
           <img src={KanbanLogo} alt="kanban-logo" />
         </Grid>
-        <Grid item md={6} className={classses.navButtonContainer}>
+        <Grid item md={9} className={classses.avatarContainer}>
           <NavButton title="Dashboard" to="/" icon={<DashboardOutlined />} />
           <NavButton title="Calender" to="/calender" icon={<CalendarTodayOutlined />} />
-        </Grid>
-        <Grid item md={3} className={classses.avatarContainer}>
           <CreateBoardButton
             onClick={() => {
               // handles the create board functionality
@@ -51,6 +49,6 @@ export default function Navbar(): JSX.Element {
           />
         </Grid>
       </Grid>
-    </Container>
+    </Box>
   );
 }

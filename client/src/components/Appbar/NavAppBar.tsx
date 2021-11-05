@@ -1,4 +1,4 @@
-import { AppBar, Container, IconButton, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Box, IconButton, Toolbar, Typography } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 import React from 'react';
 import useStyles from './useStyles';
@@ -22,18 +22,20 @@ export default function NavAppBar({ onClickMenu }: NavAppBarProps): JSX.Element 
   const classes = useStyles();
   return (
     <>
-      <div className={classes.root}>
+      <Box className={classes.root}>
         <AppBar className={classes.appBarContainer} position="static" elevation={0}>
-          <Toolbar>
-            <Container className={classes.appBarItems}>
+          <Toolbar className={classes.appBarItems}>
+            <Box>
               <Typography className={classes.appBarTitle}>My school Board</Typography>
+            </Box>
+            <Box>
               <IconButton onClick={onClickMenu}>
                 <Menu className={classes.menuButton} />
               </IconButton>
-            </Container>
+            </Box>
           </Toolbar>
         </AppBar>
-      </div>
+      </Box>
     </>
   );
 }
