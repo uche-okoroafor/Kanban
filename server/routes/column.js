@@ -19,14 +19,14 @@ const {
 } = require("../controllers/column");
 
 router
-  .route("/create-column")
+  .route("/create-column/:columnTitle/:boardId/:userId")
   .post(protect, validateCreateColumnParams, createColumn);
 router
   .route("/update-column")
-  .post(protect, validateUpdateColumnParams, updateColumn);
+  .patch(protect, validateUpdateColumnParams, updateColumn);
 router
-  .route("/remove-column")
-  .post(protect, validateColumnParams, removeColumn);
+  .route("/remove-column/columns/:columnId/boards/:boardId/:userId")
+  .delete(protect, validateColumnParams, removeColumn);
 router.route("/move-column").post(protect, validateColumnParams, moveColumn);
 router
   .route("/move-card-within-column")

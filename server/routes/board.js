@@ -13,9 +13,11 @@ const {
 } = require("../controllers/board");
 
 router
-  .route("/create/default-board")
+  .route("/create/default-board/:userId")
   .post(protect, validateUserIdParams, createDefaultBoard);
-router.route("/create").post(protect, validateAddBoardParams, addBoard);
+router
+  .route("/create/:boardTitle/:userId")
+  .post(protect, validateAddBoardParams, addBoard);
 router
   .route("/remove/:boardId/:userId")
   .delete(protect, validateRemoveBoardParams, removeBoard);

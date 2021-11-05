@@ -1,20 +1,23 @@
 const User = require("../models/User");
+const Board = require("../models/Board");
 const asyncHandler = require("express-async-handler");
 const ObjectID = require("mongodb").ObjectID;
-const { boards } = require("./defaultBoardContents/defaultBoardContents.json");
+const { board } = require("./defaultBoardContents/defaultBoardContents.json");
 
 exports.createDefaultBoard = asyncHandler(async (req, res, next) => {
-  const { userId } = req.body;
+  const { userId } = req.params;
 
-  const board = await User.updateOne(
+  const createBoard = await Board.create(board);
+
+  const createStatus = await User.updateOne(
     { _id: userId },
     {
       $push: {
-        boards: boards,
+        boards: createBoard,
       },
     }
   );
-  if (board.nModified === 1) {
+  if (createStatus.nModified === 1) {
     return res.status(200).json({ success: true });
   }
 
@@ -23,20 +26,20 @@ exports.createDefaultBoard = asyncHandler(async (req, res, next) => {
 });
 
 exports.addBoard = asyncHandler(async (req, res, next) => {
-  const { userId, boardTitle } = req.body;
+  const { userId, boardTitle } = req.params;
 
-  const board = await User.updateOne(
+  const board = await Board.create({
+    boardTitle,
+  });
+  const createStatus = await User.updateOne(
     { _id: userId },
     {
       $push: {
-        boards: {
-          boardTitle,
-          _id: new ObjectID(),
-        },
+        boards: board,
       },
     }
   );
-  if (board.nModified === 1) {
+  if (createStatus.nModified === 1) {
     return res.status(200).json({ success: true });
   }
   res.status(500);
@@ -45,8 +48,12 @@ exports.addBoard = asyncHandler(async (req, res, next) => {
 
 exports.removeBoard = asyncHandler(async (req, res, next) => {
   const { boardId, userId } = req.params;
+
   const boardObjectId = ObjectID(boardId);
-  const upBoard = await User.updateOne(
+
+  const removeBoard = await Board.deleteOne({ _id: boardId });
+
+  const removeStatus = await User.updateOne(
     { _id: userId, "boards._id": boardObjectId },
     {
       $pull: {
@@ -54,8 +61,8 @@ exports.removeBoard = asyncHandler(async (req, res, next) => {
       },
     }
   );
-  if (upBoard.nModified === 1) {
-    return res.status(200).json({ success: true });
+  if (removeStatus.nModified === 1) {
+    return res.status(200).json({ sucess: true, removeBoard });
   }
 
   res.status(500);

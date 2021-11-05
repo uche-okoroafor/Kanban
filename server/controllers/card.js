@@ -1,21 +1,20 @@
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const ObjectID = require("mongodb").ObjectID;
+const Card = require("../models/Card");
 
 exports.createCard = asyncHandler(async (req, res, next) => {
-  const { cardTitle, tagColor, userId, columnId, boardId } = req.body;
+  const { cardTitle, tagColor, userId, columnId, boardId } = req.params;
 
   const columnObjectId = ObjectID(columnId);
   const boardObjectId = ObjectID(boardId);
+
+  const createCard = await Card.create({ cardTitle, tagColor });
   const createStatus = await User.updateOne(
     { _id: userId, "boards.columns._id": columnObjectId },
     {
       $push: {
-        "boards.$[board].columns.$[column].cards": {
-          _id: new ObjectID(),
-          cardTitle: cardTitle,
-          tagColor: tagColor,
-        },
+        "boards.$[board].columns.$[column].cards": createCard,
       },
     },
     {

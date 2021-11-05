@@ -1,9 +1,16 @@
 const User = require("../models/User");
+const Column = require("../models/Column");
+
 const asyncHandler = require("express-async-handler");
 const ObjectID = require("mongodb").ObjectID;
 
 exports.createColumn = asyncHandler(async (req, res, next) => {
-  const { columnTitle, userId, boardId } = req.body;
+  const { columnTitle, userId, boardId } = req.params;
+
+  const column = await Column.create({
+    columnTitle: columnTitle,
+  });
+
   const boardObjectId = ObjectID(boardId);
   const createStatus = await User.updateOne(
     {
@@ -12,7 +19,7 @@ exports.createColumn = asyncHandler(async (req, res, next) => {
     },
     {
       $push: {
-        "boards.$.columns": { columnTitle: columnTitle, _id: new ObjectID() },
+        "boards.$.columns": column,
       },
     }
   );
@@ -29,6 +36,12 @@ exports.updateColumn = asyncHandler(async (req, res, next) => {
   const boardObjectId = ObjectID(boardId);
   const columnObjectId = ObjectID(columnId);
 
+  const updateColumn = await Column.updateOne(
+    { _id: columnId },
+    {
+      $set: { columnTitle: columnTitle },
+    }
+  );
   const updateStatus = await User.updateOne(
     { _id: userId, "boards.columns._id": columnObjectId },
     {
@@ -44,16 +57,18 @@ exports.updateColumn = asyncHandler(async (req, res, next) => {
     }
   );
   if (updateStatus.nModified === 1) {
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, updateColumn });
   }
   res.status(500);
   throw new Error("Something went wrong");
 });
 
 exports.removeColumn = asyncHandler(async (req, res, next) => {
-  const { columnId, userId, boardId } = req.body;
+  const { columnId, userId, boardId } = req.params;
   const boardObjectId = ObjectID(boardId);
   const columnObjectId = ObjectID(columnId);
+
+  const removeColumn = await Column.deleteOne({ _id: columnId });
   const removeStatus = await User.updateOne(
     { _id: userId, "boards.columns._id": columnObjectId },
     {
@@ -66,7 +81,7 @@ exports.removeColumn = asyncHandler(async (req, res, next) => {
     }
   );
   if (removeStatus.nModified === 1) {
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, removeColumn });
   }
 
   res.status(500);

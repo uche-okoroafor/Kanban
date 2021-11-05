@@ -1,25 +1,21 @@
 {
-  "boards": {
+  "board": {
     "boardTitle": "New Board",
-    "_id": "",
+
     "columns": [
       {
-        "_id": "",
         "columnTitle": "In Progress",
         "cards": [
           {
-            "_id": "",
             "cardTitle": "New Card",
             "description": ""
           }
         ]
       },
       {
-        "_id": "",
         "columnTitle": "Completed",
         "cards": [
           {
-            "_id": "",
             "cardTitle": "New Card",
             "description": ""
           }
