@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
     flexDirection: 'column',
     minHeight: '100vh',
-    paddingTop: 23,
+    paddingTop: 180,
   },
   welcome: {
     fontSize: 26,
@@ -22,6 +22,7 @@ const useStyles = makeStyles(() => ({
     color: '#000000',
     fontWeight: 700,
     fontFamily: "'Open Sans'",
+    textAlign: 'center',
   },
   background: {
     backgroundImage: `url(${Image})`,
