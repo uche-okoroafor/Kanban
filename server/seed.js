@@ -17,9 +17,9 @@ async function seed() {
         await mongoose.connection.db.dropDatabase()
     
         await User.create({
-            username: "DemoUser",
-            email: "demo@kanban.com",
-            password: "123456"
+            username: process.env.USERNAME,
+            email: process.env.EMAIL,
+            password: process.env.PASSWORD
         })
     } catch (error) {
         console.error(error)
