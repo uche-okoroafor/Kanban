@@ -84,12 +84,42 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
   }
 });
 
+// @route POST /auth/demo-login
+// @desc Login demo user
+// @access Public
+exports.demoLogin = asyncHandler(async (req, res, next) => {
+
+  const user = await User.findOne({ email: "demo@kanban.com" });
+
+  if (!user) {
+    res.sendStatus(404)
+  }
+
+
+  const token = generateToken(145464654)
+  const secondsInWeek = 604800;
+
+   res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: secondsInWeek * 1000
+   });
+  
+  res.status(201).json({
+      success: {
+        user: {
+          id: user._id,
+          username: user.username,
+          email: user.email
+        }
+      }
+    });
+})
+
 // @route GET /auth/user
 // @desc Get user data with valid token
 // @access Private
 exports.loadUser = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id);
-
   if (!user) {
     res.status(401);
     throw new Error("Not authorized");
