@@ -2,10 +2,6 @@ const User = require("../models/User");
 const Card = require("../models/Card");
 const asyncHandler = require("express-async-handler");
 const ObjectID = require("mongodb").ObjectID;
-const fs = require("fs");
-const util = require("util");
-const unlinkFile = util.promisify(fs.unlink);
-const cloud = require("../config/cloudinaryConfig");
 
 exports.createCard = asyncHandler(async (req, res, next) => {
   const { cardTitle, tagColor, userId, columnId, boardId } = req.params;
@@ -41,29 +37,13 @@ exports.updateCardItems = asyncHandler(async (req, res, next) => {
   const columnObjectId = ObjectID(columnId);
   const boardObjectId = ObjectID(boardId);
   const cardObjectId = ObjectID(cardId);
-  let itemContent = value;
-  if (cardItem === "attachment") {
-    const imageObject = {
-      imageName: req.files[0].originalname,
-      imageUrl: req.files[0].path,
-      imageId: "",
-    };
-    const uploadStatus = await cloud.uploads(imageObject.imageUrl);
-    itemContent = {
-      imageName: req.files[0].originalname,
-      imageUrl: uploadStatus.url,
-      imageId: uploadStatus.id,
-    };
-
-    await unlinkFile(req.files[0].path);
-  }
 
   const targetItem = `boards.$[board].columns.$[column].cards.$[card].${cardItem}`;
   const updateStatus = await User.updateOne(
     { _id: userId, "boards.columns.cards._id": cardObjectId },
     {
       $set: {
-        [targetItem]: itemContent,
+        [targetItem]: value,
       },
     },
     {
@@ -125,117 +105,6 @@ exports.removeCardItems = asyncHandler(async (req, res, next) => {
   if (removeStatus.nModified === 1) {
     return res.status(200).json({ success: true });
   }
-  res.status(500);
-  throw new Error("Something went wrong");
-});
-
-exports.createChecklist = asyncHandler(async (req, res, next) => {
-  const { checklistItem, cardId, columnId, boardId, userId } = req.body;
-  const columnObjectId = ObjectID(columnId);
-  const boardObjectId = ObjectID(boardId);
-  const cardObjectId = ObjectID(cardId);
-  const createStatus = await User.updateOne(
-    { _id: userId, "boards.columns.cards._id": cardObjectId },
-    {
-      $push: {
-        "boards.$[board].columns.$[column].cards.$[card].checklists": {
-          [checklistItem]: false,
-          _id: new ObjectID(),
-        },
-      },
-    },
-    {
-      arrayFilters: [
-        { "board._id": boardObjectId },
-        { "column._id": columnObjectId },
-        { "card._id": cardObjectId },
-      ],
-    }
-  );
-
-  if (createStatus.nModified === 1) {
-    return res.status(200).json({ success: true });
-  }
-  res.status(500);
-  throw new Error("Something went wrong");
-});
-
-exports.updateChecklist = asyncHandler(async (req, res, next) => {
-  const {
-    checklistItem,
-    isChecked,
-    cardId,
-    columnId,
-    boardId,
-    checklistId,
-    userId,
-  } = req.body;
-
-  const boardObjectId = ObjectID(boardId);
-  const columnObjectId = ObjectID(columnId);
-  const cardObjectId = ObjectID(cardId);
-  const checklistObjectId = ObjectID(checklistId);
-
-  const targetItem = `boards.$[board].columns.$[column].cards.$[card].checklists.$[checklist].${checklistItem}`;
-  const updateStatus = await User.updateOne(
-    {
-      _id: userId,
-      "boards.columns.cards.checklists._id": checklistObjectId,
-    },
-    {
-      $set: {
-        [targetItem]: isChecked,
-      },
-    },
-    {
-      arrayFilters: [
-        { "board._id": boardObjectId },
-        { "column._id": columnObjectId },
-        { "card._id": cardObjectId },
-        { "checklist._id": checklistObjectId },
-      ],
-    }
-  );
-  if (updateStatus.nModified === 1) {
-    return res.status(200).json({ success: true });
-  }
-
-  res.status(500);
-  throw new Error("Something went wrong");
-});
-
-exports.removeChecklist = asyncHandler(async (req, res, next) => {
-  const { cardId, columnId, boardId, checklistId, userId } = req.body;
-  const boardObjectId = ObjectID(boardId);
-  const columnObjectId = ObjectID(columnId);
-  const cardObjectId = ObjectID(cardId);
-  const checklistObjectId = ObjectID(checklistId);
-
-  const targetItem =
-    "boards.$[board].columns.$[column].cards.$[card].checklists";
-  const removeStatus = await User.updateOne(
-    {
-      _id: userId,
-      "boards.columns.cards.checklists._id": checklistObjectId,
-    },
-
-    {
-      $pull: {
-        [targetItem]: { _id: checklistObjectId },
-      },
-    },
-    {
-      arrayFilters: [
-        { "board._id": boardObjectId },
-        { "column._id": columnObjectId },
-        { "card._id": cardObjectId },
-      ],
-    }
-  );
-  if (removeStatus.nModified === 1) {
-    return res.status(200).json({ success: true });
-  }
-
   res.status(500);
   throw new Error("Something went wrong");
 });

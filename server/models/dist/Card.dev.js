@@ -9,11 +9,9 @@ var cardSchema = new mongoose.Schema({
   },
   cardColor: {
     type: String,
-    required: false,
   },
   cardDescription: {
     type: String,
-    required: false,
   },
   cardDeadline: {
     type: Date,
@@ -21,7 +19,6 @@ var cardSchema = new mongoose.Schema({
   },
   comment: {
     type: String,
-    required: false,
   },
 });
 var Card = mongoose.model("card", cardSchema);

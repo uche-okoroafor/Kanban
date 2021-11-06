@@ -22,14 +22,6 @@ var asyncHandler = require("express-async-handler");
 
 var ObjectID = require("mongodb").ObjectID;
 
-var fs = require("fs");
-
-var util = require("util");
-
-var unlinkFile = util.promisify(fs.unlink);
-
-var cloud = require("../config/cloudinaryConfig");
-
 exports.createCard = asyncHandler(function _callee(req, res, next) {
   var _req$params,
     cardTitle,
@@ -126,9 +118,6 @@ exports.updateCardItems = asyncHandler(function _callee2(req, res, next) {
     columnObjectId,
     boardObjectId,
     cardObjectId,
-    itemContent,
-    imageObject,
-    uploadStatus,
     targetItem,
     updateStatus;
 
@@ -146,35 +135,9 @@ exports.updateCardItems = asyncHandler(function _callee2(req, res, next) {
           columnObjectId = ObjectID(columnId);
           boardObjectId = ObjectID(boardId);
           cardObjectId = ObjectID(cardId);
-          itemContent = value;
-
-          if (!(cardItem === "attachment")) {
-            _context2.next = 13;
-            break;
-          }
-
-          imageObject = {
-            imageName: req.files[0].originalname,
-            imageUrl: req.files[0].path,
-            imageId: "",
-          };
-          _context2.next = 9;
-          return regeneratorRuntime.awrap(cloud.uploads(imageObject.imageUrl));
-
-        case 9:
-          uploadStatus = _context2.sent;
-          itemContent = {
-            imageName: req.files[0].originalname,
-            imageUrl: uploadStatus.url,
-            imageId: uploadStatus.id,
-          };
-          _context2.next = 13;
-          return regeneratorRuntime.awrap(unlinkFile(req.files[0].path));
-
-        case 13:
           targetItem =
             "boards.$[board].columns.$[column].cards.$[card].".concat(cardItem);
-          _context2.next = 16;
+          _context2.next = 7;
           return regeneratorRuntime.awrap(
             User.updateOne(
               {
@@ -182,7 +145,7 @@ exports.updateCardItems = asyncHandler(function _callee2(req, res, next) {
                 "boards.columns.cards._id": cardObjectId,
               },
               {
-                $set: _defineProperty({}, targetItem, itemContent),
+                $set: _defineProperty({}, targetItem, value),
               },
               {
                 arrayFilters: [
@@ -200,11 +163,11 @@ exports.updateCardItems = asyncHandler(function _callee2(req, res, next) {
             )
           );
 
-        case 16:
+        case 7:
           updateStatus = _context2.sent;
 
           if (!(updateStatus.nModified === 1)) {
-            _context2.next = 19;
+            _context2.next = 10;
             break;
           }
 
@@ -215,11 +178,11 @@ exports.updateCardItems = asyncHandler(function _callee2(req, res, next) {
             })
           );
 
-        case 19:
+        case 10:
           res.status(500);
           throw new Error("Something went wrong");
 
-        case 21:
+        case 12:
         case "end":
           return _context2.stop();
       }
@@ -329,266 +292,6 @@ exports.removeCardItems = asyncHandler(function _callee3(req, res, next) {
         case 15:
         case "end":
           return _context3.stop();
-      }
-    }
-  });
-});
-exports.createChecklist = asyncHandler(function _callee4(req, res, next) {
-  var _boards$BoardColu;
-
-  var _req$body3,
-    checklistItem,
-    cardId,
-    columnId,
-    boardId,
-    userId,
-    columnObjectId,
-    boardObjectId,
-    cardObjectId,
-    createStatus;
-
-  return regeneratorRuntime.async(function _callee4$(_context4) {
-    while (1) {
-      switch ((_context4.prev = _context4.next)) {
-        case 0:
-          (_req$body3 = req.body),
-            (checklistItem = _req$body3.checklistItem),
-            (cardId = _req$body3.cardId),
-            (columnId = _req$body3.columnId),
-            (boardId = _req$body3.boardId),
-            (userId = _req$body3.userId);
-          columnObjectId = ObjectID(columnId);
-          boardObjectId = ObjectID(boardId);
-          cardObjectId = ObjectID(cardId);
-          _context4.next = 6;
-          return regeneratorRuntime.awrap(
-            User.updateOne(
-              {
-                _id: userId,
-                "boards.columns.cards._id": cardObjectId,
-              },
-              {
-                $push: {
-                  "boards.$[board].columns.$[column].cards.$[card].checklists":
-                    ((_boards$BoardColu = {}),
-                    _defineProperty(_boards$BoardColu, checklistItem, false),
-                    _defineProperty(_boards$BoardColu, "_id", new ObjectID()),
-                    _boards$BoardColu),
-                },
-              },
-              {
-                arrayFilters: [
-                  {
-                    "board._id": boardObjectId,
-                  },
-                  {
-                    "column._id": columnObjectId,
-                  },
-                  {
-                    "card._id": cardObjectId,
-                  },
-                ],
-              }
-            )
-          );
-
-        case 6:
-          createStatus = _context4.sent;
-
-          if (!(createStatus.nModified === 1)) {
-            _context4.next = 9;
-            break;
-          }
-
-          return _context4.abrupt(
-            "return",
-            res.status(200).json({
-              success: true,
-            })
-          );
-
-        case 9:
-          res.status(500);
-          throw new Error("Something went wrong");
-
-        case 11:
-        case "end":
-          return _context4.stop();
-      }
-    }
-  });
-});
-exports.updateChecklist = asyncHandler(function _callee5(req, res, next) {
-  var _req$body4,
-    checklistItem,
-    isChecked,
-    cardId,
-    columnId,
-    boardId,
-    checklistId,
-    userId,
-    boardObjectId,
-    columnObjectId,
-    cardObjectId,
-    checklistObjectId,
-    targetItem,
-    updateStatus;
-
-  return regeneratorRuntime.async(function _callee5$(_context5) {
-    while (1) {
-      switch ((_context5.prev = _context5.next)) {
-        case 0:
-          (_req$body4 = req.body),
-            (checklistItem = _req$body4.checklistItem),
-            (isChecked = _req$body4.isChecked),
-            (cardId = _req$body4.cardId),
-            (columnId = _req$body4.columnId),
-            (boardId = _req$body4.boardId),
-            (checklistId = _req$body4.checklistId),
-            (userId = _req$body4.userId);
-          boardObjectId = ObjectID(boardId);
-          columnObjectId = ObjectID(columnId);
-          cardObjectId = ObjectID(cardId);
-          checklistObjectId = ObjectID(checklistId);
-          targetItem =
-            "boards.$[board].columns.$[column].cards.$[card].checklists.$[checklist].".concat(
-              checklistItem
-            );
-          _context5.next = 8;
-          return regeneratorRuntime.awrap(
-            User.updateOne(
-              {
-                _id: userId,
-                "boards.columns.cards.checklists._id": checklistObjectId,
-              },
-              {
-                $set: _defineProperty({}, targetItem, isChecked),
-              },
-              {
-                arrayFilters: [
-                  {
-                    "board._id": boardObjectId,
-                  },
-                  {
-                    "column._id": columnObjectId,
-                  },
-                  {
-                    "card._id": cardObjectId,
-                  },
-                  {
-                    "checklist._id": checklistObjectId,
-                  },
-                ],
-              }
-            )
-          );
-
-        case 8:
-          updateStatus = _context5.sent;
-
-          if (!(updateStatus.nModified === 1)) {
-            _context5.next = 11;
-            break;
-          }
-
-          return _context5.abrupt(
-            "return",
-            res.status(200).json({
-              success: true,
-            })
-          );
-
-        case 11:
-          res.status(500);
-          throw new Error("Something went wrong");
-
-        case 13:
-        case "end":
-          return _context5.stop();
-      }
-    }
-  });
-});
-exports.removeChecklist = asyncHandler(function _callee6(req, res, next) {
-  var _req$body5,
-    cardId,
-    columnId,
-    boardId,
-    checklistId,
-    userId,
-    boardObjectId,
-    columnObjectId,
-    cardObjectId,
-    checklistObjectId,
-    targetItem,
-    removeStatus;
-
-  return regeneratorRuntime.async(function _callee6$(_context6) {
-    while (1) {
-      switch ((_context6.prev = _context6.next)) {
-        case 0:
-          (_req$body5 = req.body),
-            (cardId = _req$body5.cardId),
-            (columnId = _req$body5.columnId),
-            (boardId = _req$body5.boardId),
-            (checklistId = _req$body5.checklistId),
-            (userId = _req$body5.userId);
-          boardObjectId = ObjectID(boardId);
-          columnObjectId = ObjectID(columnId);
-          cardObjectId = ObjectID(cardId);
-          checklistObjectId = ObjectID(checklistId);
-          targetItem =
-            "boards.$[board].columns.$[column].cards.$[card].checklists";
-          _context6.next = 8;
-          return regeneratorRuntime.awrap(
-            User.updateOne(
-              {
-                _id: userId,
-                "boards.columns.cards.checklists._id": checklistObjectId,
-              },
-              {
-                $pull: _defineProperty({}, targetItem, {
-                  _id: checklistObjectId,
-                }),
-              },
-              {
-                arrayFilters: [
-                  {
-                    "board._id": boardObjectId,
-                  },
-                  {
-                    "column._id": columnObjectId,
-                  },
-                  {
-                    "card._id": cardObjectId,
-                  },
-                ],
-              }
-            )
-          );
-
-        case 8:
-          removeStatus = _context6.sent;
-
-          if (!(removeStatus.nModified === 1)) {
-            _context6.next = 11;
-            break;
-          }
-
-          return _context6.abrupt(
-            "return",
-            res.status(200).json({
-              success: true,
-            })
-          );
-
-        case 11:
-          res.status(500);
-          throw new Error("Something went wrong");
-
-        case 13:
-        case "end":
-          return _context6.stop();
       }
     }
   });

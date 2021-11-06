@@ -1,13 +1,19 @@
-const { check, validationResult } = require("express-validator");
+"use strict";
 
-const handleParams = (params) => {
-  return check(params, ` ${params} is not defined`).not().isEmpty();
+var _require = require("express-validator"),
+  check = _require.check,
+  validationResult = _require.validationResult;
+
+var handleParams = function handleParams(params) {
+  return check(params, " ".concat(params, " is not defined")).not().isEmpty();
 };
-const handleError = (req, res, next) => {
-  const errors = validationResult(req);
 
+var handleError = function handleError(req, res, next) {
+  var errors = validationResult(req);
   if (!errors.isEmpty())
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(400).json({
+      errors: errors.array(),
+    });
   next();
 };
 
@@ -17,27 +23,25 @@ exports.validateCreateCardParams = [
   handleParams("cardTitle"),
   handleParams("tagColor"),
   handleParams("columnId"),
-  (req, res, next) => {
+  function (req, res, next) {
     handleError(req, res, next);
   },
 ];
-
 exports.validateUpdateCardItemsParams = [
   handleParams("userId"),
   handleParams("boardId"),
   handleParams("cardId"),
   handleParams("columnId"),
   handleParams("cardItem"),
-  (req, res, next) => {
+  function (req, res, next) {
     handleError(req, res, next);
   },
 ];
-
 exports.validateRemoveCardItemsParams = [
   handleParams("userId"),
   handleParams("cardId"),
   handleParams("cardItem"),
-  (req, res, next) => {
+  function (req, res, next) {
     handleError(req, res, next);
   },
 ];
