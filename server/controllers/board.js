@@ -12,7 +12,7 @@ const {
 } = require("./defaultBoardContents/defaultBoardContents.json");
 
 exports.createDefaultBoard = asyncHandler(async (req, res, next) => {
-  const { userId } = req.params;
+  const userId = req.user.id;
 
   const createBoard = await Board.create(board);
   const createColumnProgress = await Column.create(columnProgress);
@@ -40,7 +40,9 @@ exports.createDefaultBoard = asyncHandler(async (req, res, next) => {
 });
 
 exports.addBoard = asyncHandler(async (req, res, next) => {
-  const { userId, boardTitle } = req.params;
+  const userId = req.user.id;
+
+  const { boardTitle } = req.params;
 
   const board = await Board.create({
     boardTitle,
@@ -61,7 +63,9 @@ exports.addBoard = asyncHandler(async (req, res, next) => {
 });
 
 exports.removeBoard = asyncHandler(async (req, res, next) => {
-  const { boardId, userId } = req.params;
+  const userId = req.user.id;
+
+  const { boardId } = req.params;
 
   const boardObjectId = ObjectID(boardId);
 

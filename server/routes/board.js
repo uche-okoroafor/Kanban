@@ -4,7 +4,6 @@ const protect = require("../middleware/auth");
 const {
   validateRemoveBoardParams,
   validateAddBoardParams,
-  validateUserIdParams,
 } = require("../middleware/validateRouteParams");
 const {
   createDefaultBoard,
@@ -12,13 +11,11 @@ const {
   removeBoard,
 } = require("../controllers/board");
 
+router.route("/create/default-board").post(protect, createDefaultBoard);
 router
-  .route("/create/default-board/:userId")
-  .post(protect, validateUserIdParams, createDefaultBoard);
-router
-  .route("/create/:boardTitle/:userId")
+  .route("/create/:boardTitle")
   .post(protect, validateAddBoardParams, addBoard);
 router
-  .route("/remove/:boardId/:userId")
+  .route("/remove/:boardId")
   .delete(protect, validateRemoveBoardParams, removeBoard);
 module.exports = router;

@@ -7,7 +7,7 @@ const {
 } = require("../middleware/validateRouteParams");
 
 router
-  .route("/create-card/:boardId/:columnId/:userId/:cardTitle/:tagColor")
+  .route("/create-card/:boardId/:columnId/:cardTitle/:tagColor")
   .post(protect, validateCreateCardParams, createCard);
 
 module.exports = router;

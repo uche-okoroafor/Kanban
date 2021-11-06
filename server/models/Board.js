@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 const boardSchema = new mongoose.Schema({
   boardTitle: {
     type: String,
-    required: false,
+    required: true,
+  },
+  boardId: {
+    type: String,
   },
   columns: { type: Schema.Types.Array, ref: "column" },
 });

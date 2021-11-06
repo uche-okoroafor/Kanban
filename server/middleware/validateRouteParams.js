@@ -12,7 +12,6 @@ const handleError = (req, res, next) => {
 };
 
 exports.validateAddBoardParams = [
-  handleParams("userId"),
   handleParams("boardTitle"),
   (req, res, next) => {
     handleError(req, res, next);
@@ -20,22 +19,13 @@ exports.validateAddBoardParams = [
 ];
 
 exports.validateRemoveBoardParams = [
-  handleParams("userId"),
   handleParams("boardId"),
   (req, res, next) => {
     handleError(req, res, next);
   },
 ];
 
-exports.validateUserIdParams = [
-  handleParams("userId"),
-  (req, res, next) => {
-    handleError(req, res, next);
-  },
-];
-
 exports.validateCreateColumnParams = [
-  handleParams("userId"),
   handleParams("boardId"),
   handleParams("columnTitle"),
   (req, res, next) => {
@@ -44,7 +34,6 @@ exports.validateCreateColumnParams = [
 ];
 
 exports.validateUpdateColumnParams = [
-  handleParams("userId"),
   handleParams("boardId"),
   handleParams("columnId"),
   handleParams("columnTitle"),
@@ -54,7 +43,6 @@ exports.validateUpdateColumnParams = [
 ];
 
 exports.validateColumnParams = [
-  handleParams("userId"),
   handleParams("boardId"),
   handleParams("columnId"),
   (req, res, next) => {
@@ -63,7 +51,6 @@ exports.validateColumnParams = [
 ];
 
 exports.validateMoveCardOutParams = [
-  handleParams("userId"),
   handleParams("boardId"),
   handleParams("initialColumnId"),
   handleParams("targetColumnId"),
@@ -76,7 +63,6 @@ exports.validateMoveCardOutParams = [
 ];
 
 exports.validateMoveCardInParams = [
-  handleParams("userId"),
   handleParams("boardId"),
   handleParams("columnId"),
   handleParams("cardId"),
@@ -88,7 +74,6 @@ exports.validateMoveCardInParams = [
 ];
 
 exports.validateCreateCardParams = [
-  handleParams("userId"),
   handleParams("boardId"),
   handleParams("cardTitle"),
   handleParams("tagColor"),

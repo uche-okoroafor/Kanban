@@ -4,7 +4,9 @@ const ObjectID = require("mongodb").ObjectID;
 const Card = require("../models/Card");
 
 exports.createCard = asyncHandler(async (req, res, next) => {
-  const { cardTitle, tagColor, userId, columnId, boardId } = req.params;
+  const userId = req.user.id;
+
+  const { cardTitle, tagColor, columnId, boardId } = req.params;
 
   const columnObjectId = ObjectID(columnId);
   const boardObjectId = ObjectID(boardId);

@@ -5,7 +5,9 @@ const asyncHandler = require("express-async-handler");
 const ObjectID = require("mongodb").ObjectID;
 
 exports.createColumn = asyncHandler(async (req, res, next) => {
-  const { columnTitle, userId, boardId } = req.params;
+  const userId = req.user.id;
+
+  const { columnTitle, boardId } = req.params;
 
   const column = await Column.create({
     columnTitle: columnTitle,
@@ -32,7 +34,9 @@ exports.createColumn = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateColumn = asyncHandler(async (req, res, next) => {
-  const { columnTitle, columnId, userId, boardId } = req.body;
+  const userId = req.user.id;
+
+  const { columnTitle, columnId, boardId } = req.body;
   const boardObjectId = ObjectID(boardId);
   const columnObjectId = ObjectID(columnId);
 
@@ -64,7 +68,9 @@ exports.updateColumn = asyncHandler(async (req, res, next) => {
 });
 
 exports.removeColumn = asyncHandler(async (req, res, next) => {
-  const { columnId, userId, boardId } = req.params;
+  const userId = req.user.id;
+
+  const { columnId, boardId } = req.params;
   const boardObjectId = ObjectID(boardId);
   const columnObjectId = ObjectID(columnId);
 
@@ -89,7 +95,9 @@ exports.removeColumn = asyncHandler(async (req, res, next) => {
 });
 
 exports.moveColumn = asyncHandler(async (req, res, next) => {
-  const { userId, columnId, boardId, targetPosition, columnObject } = req.body;
+  const userId = req.user.id;
+
+  const { columnId, boardId, targetPosition, columnObject } = req.body;
   const boardObjectId = ObjectID(boardId);
   const columnObjectId = ObjectID(columnId);
   columnObject._id = ObjectID(columnObject._id);
@@ -136,8 +144,9 @@ exports.moveColumn = asyncHandler(async (req, res, next) => {
 });
 
 exports.moveCardWithinColumn = asyncHandler(async (req, res, next) => {
-  const { userId, cardId, columnId, boardId, targetPosition, cardObject } =
-    req.body;
+  const userId = req.user.id;
+
+  const { cardId, columnId, boardId, targetPosition, cardObject } = req.body;
   const boardObjectId = ObjectID(boardId);
   const columnObjectId = ObjectID(columnId);
   const cardObjectId = ObjectID(cardId);
@@ -192,8 +201,9 @@ exports.moveCardWithinColumn = asyncHandler(async (req, res, next) => {
 });
 
 exports.moveCardOutsideColumn = asyncHandler(async (req, res, next) => {
+  const userId = req.user.id;
+
   const {
-    userId,
     cardId,
     initialColumnId,
     targetColumnId,
