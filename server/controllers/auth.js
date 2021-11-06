@@ -89,13 +89,7 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
 // @access Public
 exports.demoLogin = asyncHandler(async (req, res, next) => {
 
-  const { email, password } = req.body;
-
-  if (!email || !password || email !=="demo@kanban.com" || password !== "123456") {
-    res.sendStatus(400)
-  }
-
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email: "demo@kanban.com" });
 
   if (!user) {
     res.sendStatus(404)
