@@ -12,7 +12,6 @@ const handleError = (req, res, next) => {
 };
 
 exports.validateCreateCardParams = [
-  handleParams("userId"),
   handleParams("boardId"),
   handleParams("cardTitle"),
   handleParams("tagColor"),
@@ -23,7 +22,6 @@ exports.validateCreateCardParams = [
 ];
 
 exports.validateUpdateCardItemsParams = [
-  handleParams("userId"),
   handleParams("boardId"),
   handleParams("cardId"),
   handleParams("columnId"),
@@ -34,7 +32,6 @@ exports.validateUpdateCardItemsParams = [
 ];
 
 exports.validateRemoveCardItemsParams = [
-  handleParams("userId"),
   handleParams("cardId"),
   handleParams("cardItem"),
   (req, res, next) => {

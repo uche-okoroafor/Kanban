@@ -4,7 +4,9 @@ const asyncHandler = require("express-async-handler");
 const ObjectID = require("mongodb").ObjectID;
 
 exports.createCard = asyncHandler(async (req, res, next) => {
-  const { cardTitle, tagColor, userId, columnId, boardId } = req.params;
+  const userId = req.user.id;
+
+  const { cardTitle, tagColor, columnId, boardId } = req.params;
 
   const columnObjectId = ObjectID(columnId);
   const boardObjectId = ObjectID(boardId);
@@ -33,7 +35,8 @@ exports.createCard = asyncHandler(async (req, res, next) => {
   throw new Error("Something went wrong");
 });
 exports.updateCardItems = asyncHandler(async (req, res, next) => {
-  const { userId, cardItem, value, cardId, columnId, boardId } = req.body;
+  const userId = req.user.id;
+  const { cardItem, value, cardId, columnId, boardId } = req.body;
   const columnObjectId = ObjectID(columnId);
   const boardObjectId = ObjectID(boardId);
   const cardObjectId = ObjectID(cardId);
@@ -64,7 +67,9 @@ exports.updateCardItems = asyncHandler(async (req, res, next) => {
 });
 
 exports.removeCardItems = asyncHandler(async (req, res, next) => {
-  const { cardItem, userId, cardId } = req.body;
+  const userId = req.user.id;
+
+  const { cardItem, cardId } = req.body;
 
   const cardObjectId = ObjectID(cardId);
   const getDocumentIndex = (document) => {
