@@ -15,16 +15,4 @@ export const theme = createMuiTheme({
   shape: {
     borderRadius: 5,
   },
-  overrides: {
-    MuiInput: {
-      input: {
-        '&::placeholder': {
-          color: '#000',
-          opacity: '100%',
-          fontWeight: 'bold',
-          textAlign: 'center',
-        },
-      },
-    },
-  },
 });
