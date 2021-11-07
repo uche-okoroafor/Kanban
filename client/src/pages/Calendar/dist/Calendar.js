@@ -23,39 +23,28 @@ var startOfHour_1 = require('date-fns/startOfHour');
 require('./styles.css');
 require('react-big-calendar/lib/addons/dragAndDrop/styles.css');
 require('react-big-calendar/lib/css/react-big-calendar.css');
+var react_2 = require('react');
+var Card = function (_a) {
+  var event = _a.event;
+  // console.log(props);
+  return react_2['default'].createElement(
+    react_2['default'].Fragment,
+    null,
+    react_2['default'].createElement(core_1.Box, {
+      style: {
+        height: '5px',
+        width: '20%',
+        background: event.tagColor,
+        borderRadius: '10px',
+      },
+    }),
+    react_2['default'].createElement(core_1.Typography, { variant: 'h6', className: 'eventTitle' }, event.title),
+  );
+};
 var CalendarPage = function () {
   var _a = react_1.useState(event_1['default']),
     events = _a[0],
     setEvents = _a[1];
-  var spanCard = document.createElement('span');
-  var divCard = document.createElement('div');
-  // const cardContentContainer = document.createElement('div');
-  var eventElement = document.getElementsByClassName('rbc-event');
-  var text = document.createTextNode('uche okoroafor');
-  spanCard.appendChild(text);
-  // element.classList.add('class-1')
-  // eventElement[0].appendChild(spanCard);
-  // if (eventElement) {
-  //   for (const index in eventElement) {
-  //     eventElement[index].appendChild(spanCard);
-  //     eventElement[index].appendChild(divCard);
-  //   }
-  // }
-  react_1.useEffect(
-    function () {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    },
-    [event_1['default']],
-  );
-  // const span = document.createElement('span');
-  // const text = document.createTextNode('new text');
-  // span.appendChild(text);
-  // document.querySelectorAll('.rbc-event')[0].appendChild(span);
-  // eventContainer.forEach((element) => element.appendChild(span));
-  // console.log(document.querySelectorAll('.rbc-addons-dnd-resize-ew-anchor div'));
-  // document.querySelector('rbc-event div')
-  // document.querySelectorAll('.rbc-event').push(span);
-  // const eventContainer =
   var onEventDrop = function (data) {
     var start = data.start,
       end = data.end;
@@ -66,26 +55,11 @@ var CalendarPage = function () {
       return event.id !== draggedEvent.id;
     });
     setEvents(__spreadArrays(filteredEvents, [draggedEvent]));
-    // for (const index in eventElement) {
-    //   eventElement[index].appendChild(spanCard);
-    //   eventElement[index].appendChild(divCard);
-    // }
-    document.getElementsByClassName('rbc-event')[0].appendChild(spanCard);
-    document.getElementsByClassName('rbc-event')[1].appendChild(spanCard);
-    document.getElementsByClassName('rbc-event')[2].appendChild(spanCard);
-    document.getElementsByClassName('rbc-event')[3].appendChild(spanCard);
-    document.getElementsByClassName('rbc-event')[4].appendChild(spanCard);
-    document.getElementsByClassName('rbc-event')[5].appendChild(spanCard);
-    // document.getElementsByClassName('rbc-event')[6].appendChild(divCard);
-    // document.getElementsByClassName('rbc-event')[7].appendChild(divCard);
-    // document.getElementsByClassName('rbc-event')[0].appendChild(divCard);
-    // document.getElementsByClassName('rbc-event')[0].appendChild(divCard);
-    // updateCardItem("cardDealine",cardId,boardId,columnId,userId,value)
   };
-  return React.createElement(
+  return react_2['default'].createElement(
     core_1.Container,
     { style: { backgroundColor: 'white' } },
-    React.createElement(DnDCalendar, {
+    react_2['default'].createElement(DnDCalendar, {
       defaultView: 'month',
       events: events,
       localizer: localizer,
@@ -93,6 +67,12 @@ var CalendarPage = function () {
       defaultDate: new Date(2015, 3, 12),
       style: {
         height: '100vh',
+      },
+      views: {
+        month: true,
+      },
+      components: {
+        event: Card,
       },
     }),
   );
