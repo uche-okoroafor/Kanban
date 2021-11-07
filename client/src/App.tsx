@@ -24,7 +24,6 @@ function App(): JSX.Element {
               <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
               <Route path="/login" component={Login} />
               <Route path="/calendar" component={Calendar} />
-
               <Route path="/signup" component={Signup} />
               <Route path="*">
                 <Redirect to="/login" />
