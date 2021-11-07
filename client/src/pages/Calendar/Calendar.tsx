@@ -15,7 +15,7 @@ import './styles.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-const CalendarPage: FC = () => {
+const BigCalendar: FC = () => {
   const [events, setEvents] = useState<ICard[]>(card);
 
   const onEventDrop: withDragAndDropProps['onEventDrop'] = (data) => {
@@ -34,7 +34,6 @@ const CalendarPage: FC = () => {
         events={events}
         localizer={localizer}
         onEventDrop={onEventDrop}
-        defaultDate={new Date(2015, 3, 12)}
         style={{
           height: '100vh',
         }}
@@ -67,4 +66,4 @@ const localizer = dateFnsLocalizer({
 //@ts-ignore
 const DnDCalendar = withDragAndDrop(Calendar);
 
-export default CalendarPage;
+export default BigCalendar;
