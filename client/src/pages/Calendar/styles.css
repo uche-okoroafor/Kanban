@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
-/* @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200&display=swap'); */
 
 .rbc-calendar {
   font-family: 'Mukta', sans-serif;
@@ -16,18 +15,18 @@
   outline: 5px auto #c0ccda !important;
 }
 
-.rbc-date-cell {
+/* .rbc-date-cell {
   text-align: left !important;
   color: #899ad7 !important;
   font-weight: 600 !important;
-}
-.rbc-date-cell a {
+} */
+/* .rbc-date-cell a {
   padding: 7px 5px;
-}
+} */
 .rbc-event-content,
 .eventTitle {
   border: none !important;
-  font-size: 10px !important;
+  font-size: 11px !important;
   font-weight: 600 !important;
 }
 
@@ -78,16 +77,10 @@
   border-top-right-radius: 10px !important;
 }
 .rbc-row-bg :nth-last-child(5) {
-  /* border-radius: none !important; */
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
 }
 
-.rbc-btn-group {
-  /* display: none !important; */
-  position: absolute;
-  left: 0;
-}
 .rbc-show-more {
   color: #6879b9 !important;
 }
@@ -102,10 +95,6 @@
   color: #fbfcfd !important;
   background-color: #819fe9 !important;
   border-color: #5b85f0 !important;
-}
-
-.rbc-day-slot .rbc-events-container {
-  /* background-color: #f4f6ff !important; */
 }
 
 .rbc-toolbar button {
@@ -123,4 +112,20 @@
 }
 .rbc-toolbar {
   position: relative !important;
+}
+.rbc-btn-group {
+  position: absolute;
+  left: 0;
+}
+@media only screen and (max-width: 600px) {
+  .rbc-btn-group {
+    position: relative;
+    left: auto;
+  }
+  .rbc-toolbar {
+    flex-direction: column !important;
+  }
+  .rbc-toolbar-label {
+    padding-top: 10px !important;
+  }
 }
