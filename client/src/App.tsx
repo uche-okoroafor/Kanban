@@ -7,7 +7,9 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+
 import Calendar from './pages/Calendar/Calendar';
+
 import { useImmerReducer } from 'use-immer';
 import { authReducer, authState } from './state';
 import './App.css';
@@ -23,6 +25,7 @@ function App(): JSX.Element {
             <Switch>
               <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
               <Route path="/login" component={Login} />
+
               <Route path="/calendar" component={Calendar} />
               <Route path="/signup" component={Signup} />
               <Route path="*">

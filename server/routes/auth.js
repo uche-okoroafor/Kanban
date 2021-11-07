@@ -7,8 +7,11 @@ const {
   loginUser,
   loadUser,
   logoutUser,
-  demoLogin,
+
+  demoLogin
 } = require("../controllers/auth");
+
+
 
 router.route("/register").post(validateRegister, registerUser);
 
