@@ -1,5 +1,5 @@
-import { Container, Box, Typography } from '@material-ui/core';
-import tasks from './event';
+import { Container } from '@material-ui/core';
+import card from './card';
 import { FC, useState } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import withDragAndDrop, { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop';
@@ -8,60 +8,22 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import enUS from 'date-fns/locale/en-US';
-import { CardEvent } from '../../interface/Calender';
-import Card from './Card/Card';
+import { ICard } from '../../interface/Calender';
+import { CardContainer, DayHeader, MonthHeader } from './CalenderProps/CalenderProps';
 import './styles.css';
 
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-const DateHeader = (props: any): JSX.Element => {
-  // console.log(props);
-  return (
-    <>
-      {!props.isOffRange && (
-        <Typography
-          style={{
-            padding: '7px 5px',
-            color: ' #899ad7',
-            fontWeight: 600,
-          }}
-          align="left"
-        >
-          {props.label[0] === '0' ? props.label[1] : props.label}
-        </Typography>
-      )}
-    </>
-  );
-};
-
-const MonthHeader = (props: any): JSX.Element => {
-  return (
-    <>
-      {!props.isOffRange && (
-        <Typography
-          style={{
-            padding: '7px 5px',
-            color: ' #899ad7',
-            fontWeight: 600,
-          }}
-        >
-          {props.label.slice(0, 3)}
-        </Typography>
-      )}
-    </>
-  );
-};
-
 const CalendarPage: FC = () => {
-  const [events, setEvents] = useState<CardEvent[]>(tasks);
+  const [events, setEvents] = useState<ICard[]>(card);
 
   const onEventDrop: withDragAndDropProps['onEventDrop'] = (data) => {
-    const { start, end } = data;
-    const draggedEvent: CardEvent = data.event;
+    const { start, end, event } = data;
+    const draggedEvent: ICard = event;
     draggedEvent.start = new Date(start);
     draggedEvent.end = new Date(end);
-    const filteredEvents = events.filter((event: CardEvent) => event.id !== draggedEvent.id);
+    const filteredEvents = events.filter((event: ICard) => event.id !== draggedEvent.id);
     setEvents([...filteredEvents, draggedEvent]);
   };
 
@@ -80,10 +42,9 @@ const CalendarPage: FC = () => {
           month: true,
         }}
         components={{
-          event: Card,
           month: {
-            dateHeader: DateHeader,
-            event: Card,
+            dateHeader: DayHeader,
+            event: CardContainer,
             header: MonthHeader,
           },
         }}
