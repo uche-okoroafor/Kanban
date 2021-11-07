@@ -41,6 +41,19 @@ var Card = function (_a) {
     react_2['default'].createElement(core_1.Typography, { variant: 'h6', className: 'eventTitle' }, event.title),
   );
 };
+// interface ICard {
+//   id: string;
+//   title: string;
+//   color: string;
+//   start: Date | string;
+//   end: Date | string;
+//   attachement?: string;
+//   checkList?: string[];
+//   comment?: string;
+//   cover?: string;
+//   description?: string;
+//   tag?: string;
+// }
 var CalendarPage = function () {
   var _a = react_1.useState(event_1['default']),
     events = _a[0],
