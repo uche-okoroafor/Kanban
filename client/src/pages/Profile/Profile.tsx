@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Container, Avatar, TextField, Button, Typography, IconButton } from '@material-ui/core';
 import useStyles from './useStyles';
+import AppDropModal from '../../components/AppDropModal/AppDropModal';
+import DropZone from '../../components/DropZone/DropZone';
 
 interface FormValues {
   userName?: string;
@@ -10,6 +12,15 @@ interface FormValues {
 
 export default function Profile(): JSX.Element {
   const [values, setValues] = useState<FormValues>({});
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = event.target;
@@ -27,7 +38,7 @@ export default function Profile(): JSX.Element {
           <Typography className={classes.title} variant="h6">
             Edit Profile
           </Typography>
-          <IconButton>
+          <IconButton onClick={handleOpen}>
             <Avatar className={classes.avatar} />
           </IconButton>
         </Box>
@@ -67,6 +78,9 @@ export default function Profile(): JSX.Element {
           Update Profile
         </Button>
       </Container>
+      <AppDropModal open={isOpen} onClose={handleClose}>
+        <DropZone />
+      </AppDropModal>
     </Box>
   );
 }
