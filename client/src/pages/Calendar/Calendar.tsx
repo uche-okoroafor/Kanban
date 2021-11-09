@@ -1,5 +1,5 @@
 import { Container } from '@material-ui/core';
-import card from './card';
+import cards from '../../mocks/cards';
 import { FC, useState } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import withDragAndDrop, { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop';
@@ -9,14 +9,14 @@ import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import enUS from 'date-fns/locale/en-US';
 import { ICard } from '../../interface/Calender';
-import { CardContainer, DayHeader, MonthHeader } from './CalenderProps/CalenderProps';
+import { CardContainer, DayHeader, MonthHeader } from './CalendarComponents/CalendarComponents';
 import './styles.css';
 
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const BigCalendar: FC = () => {
-  const [events, setEvents] = useState<ICard[]>(card);
+  const [events, setEvents] = useState<ICard[]>(cards);
 
   const onEventDrop: withDragAndDropProps['onEventDrop'] = (data) => {
     const { start, end, event } = data;
