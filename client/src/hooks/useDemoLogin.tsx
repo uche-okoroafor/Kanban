@@ -2,12 +2,12 @@ import login from '../helpers/APICalls/login';
 import { useAuth } from '../context/useAuthContext';
 import { useSnackBar } from '../context/useSnackbarContext';
 
-const useDemoLogin = () => {
+const useDemoLogin = (): { demoLogin: () => void } => {
   const { updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
 
-  const demoLogin = () => {
-    login('DEMO_LOGIN', 'null', 'null').then((data) => {
+  const demoLogin = (): void => {
+    login('DEMO_LOGIN').then((data) => {
       if (data.error) {
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {

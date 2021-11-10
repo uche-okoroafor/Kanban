@@ -1,7 +1,7 @@
 import { AuthApiData, DemoAuthData } from '../../interface/AuthApiData';
 import { FetchOptions } from '../../interface/FetchOptions';
 
-const login = async (option: string, email: string, password: string): Promise<AuthApiData> => {
+const login = async (option: string, email?: string, password?: string): Promise<AuthApiData> => {
   switch (option) {
     case 'USER_LOGIN':
       const fetchOptions: FetchOptions = {
