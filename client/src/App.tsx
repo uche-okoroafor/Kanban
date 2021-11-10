@@ -1,6 +1,6 @@
 import { MuiThemeProvider } from '@material-ui/core';
 import { theme } from './themes/theme';
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect, Switch, RouteComponentProps } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
@@ -13,6 +13,8 @@ import Calendar from './pages/Calendar/Calendar';
 import { useImmerReducer } from 'use-immer';
 import { authReducer, authState } from './state';
 import './App.css';
+import Calender from './pages/Calender/Calender';
+import AppLayout from './components/AppLayout/AppLayout';
 
 function App(): JSX.Element {
   const [state] = useImmerReducer(authReducer, authState);
@@ -23,13 +25,18 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <SocketProvider>
             <Switch>
-              <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
-              <Route path="/Dashboard" component={Dashboard} />
-
               <Route path="/login" component={Login} />
 
               <Route path="/calendar" component={Calendar} />
               <Route path="/signup" component={Signup} />
+              <Route
+                render={(props: RouteComponentProps) => (
+                  <AppLayout {...props}>
+                    <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
+                    <ProtectedRoute path="/calender" token={state.token} component={Calender} />
+                  </AppLayout>
+                )}
+              />
               <Route path="*">
                 <Redirect to="/login" />
               </Route>
