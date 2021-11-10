@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import useStyles from './useStyles';
-import { Box, Modal, Typography } from '@material-ui/core';
+import { Box, Modal, Typography, Input } from '@material-ui/core';
 import Image from '../../Images/upload.png';
 
 interface Props {
   open: boolean;
   onHandleClose: () => void;
-  onSetFile: any;
+  onSetFile: (acceptableFile: { [prop: string]: string | number }) => void;
 }
 
 const DropZone = ({ open, onHandleClose, onSetFile }: Props): JSX.Element => {
@@ -33,7 +33,7 @@ const DropZone = ({ open, onHandleClose, onSetFile }: Props): JSX.Element => {
       aria-describedby="modal-modal-description"
     >
       <Box className={classes.dropBox} {...getRootProps()}>
-        <input {...getInputProps()} />
+        <Input inputProps={{ ...getInputProps() }} />
         <Box
           className={isDragAccept ? classes.imageBoxAccept : isDragReject ? classes.imageBoxReject : classes.imageBox}
         >
@@ -43,7 +43,10 @@ const DropZone = ({ open, onHandleClose, onSetFile }: Props): JSX.Element => {
           ) : (
             <Box className={classes.typographyBox}>
               <Typography className={classes.typography}>
-                drop your profile picture, <span className={classes.typographySpan}>browse</span>
+                drop your profile picture,{' '}
+                <Box component="span" className={classes.typographySpan}>
+                  browse
+                </Box>
               </Typography>
               <Typography className={classes.typography}>Only jpeg & png files supported</Typography>
             </Box>

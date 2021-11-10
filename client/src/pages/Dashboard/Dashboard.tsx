@@ -13,7 +13,7 @@ import RenderFile from '../../components/RenderFile/RenderFile';
 
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<{ [prop: string]: string | number } | null>(null);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
