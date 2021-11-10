@@ -95,11 +95,14 @@ exports.demoLogin = asyncHandler(async (req, res, next) => {
   if (!user) {
     res.sendStatus(404);
   }
-  console.log(user);
+
   const id = user._id.toString()
   const token = generateToken(id);
+
+
+
+  const token = generateToken(user._id)
   const secondsInWeek = 604800;
-  console.log(token)
   res.cookie("token", token, {
     httpOnly: true,
     maxAge: secondsInWeek * 1000,
