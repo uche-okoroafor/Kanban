@@ -6,7 +6,7 @@ const BasePlugin = require("../models/BasePlugin");
  * @function
  */
 exports.verifyPlugin = asyncHandler(async (req, res, next) => {
-  // checking if the plugin exists
+  // checking if the plugin exists..
   const { pluginId } = req.params;
   const plugin = await BasePlugin.findById(pluginId);
 
