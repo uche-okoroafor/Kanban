@@ -8,7 +8,6 @@ const boardSchema = new mongoose.Schema({
   },
   boardId: {
     type: String,
-    required: false,
   },
   columns: { type: Schema.Types.Array, ref: "column" },
 });
