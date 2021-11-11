@@ -10,3 +10,8 @@ export interface AuthApiData {
   error?: { message: string };
   success?: AuthApiDataSuccess;
 }
+
+export interface DemoAuthData {
+  error?: { message: string };
+  success?: AuthApiDataSuccess;
+}

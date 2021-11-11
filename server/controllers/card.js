@@ -1,7 +1,8 @@
 const User = require("../models/User");
-const Card = require("../models/Card");
 const asyncHandler = require("express-async-handler");
 const ObjectID = require("mongodb").ObjectID;
+const Card = require("../models/Card");
+
 
 exports.createCard = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
@@ -112,4 +113,4 @@ exports.removeCardItems = asyncHandler(async (req, res, next) => {
   }
   res.status(500);
   throw new Error("Something went wrong");
-});
+

@@ -5,7 +5,8 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  cardColor: {
+
+  tagColor: {
     type: String,
   },
   cardDescription: {
@@ -15,7 +16,9 @@ const cardSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
+
   comment: {
+
     type: String,
   },
   plugins: [],
