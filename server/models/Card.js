@@ -18,6 +18,7 @@ const cardSchema = new mongoose.Schema({
   comment: {
     type: String,
   },
+  plugins: [],
 });
 
 const Card = mongoose.model("card", cardSchema);
