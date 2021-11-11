@@ -5,6 +5,7 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
   tagColor: {
     type: String,
   },
@@ -15,7 +16,9 @@ const cardSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
-  cardComment: {
+
+  comment: {
+
     type: String,
   },
 });
