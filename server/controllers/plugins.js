@@ -2,22 +2,15 @@ const asyncHandler = require("express-async-handler");
 const Card = require("./../models/Card");
 const BasePlugin = require("../models/BasePlugin");
 
-/**
- * Activates a plugin in a card.
- * @function
- */
 exports.activate = asyncHandler(async (req, res) => {
-  // get parameters from the request.
   const { pluginName } = req.params;
   const response = await BasePlugin.attach(Card, pluginName);
 
   if (response.status === 400) {
-    res.sendStatus(400);
-    res.json({ message: response.message });
+    res.status(400).json({ message: response.message });
   }
 
-  res.sendStatus(200);
-  res.json({ response });
+  res.status(200).json({ response });
 });
 
 /**
@@ -29,26 +22,26 @@ exports.destroy = asyncHandler(async (req, res) => {
   const plugin = await BasePlugin.detach(Card, pluginId);
 
   if (!plugin) {
-    res.sendStatus(400);
-    res.json({ message: "Plugin does not exist." });
+    res.status(400).json({ message: "Plugin does not exist." });
   }
 
   const deletedPlugin = await BasePlugin.findByIdAndDelete(pluginId);
-  res.sendStatus(200);
-  res.json({ plugin: deletedPlugin });
+  res.status(200).json({ plugin: deletedPlugin });
 });
 
+/**
+ * Retrieves all the plugins in a particular card.
+ * @function
+ */
 exports.getAllPlugins = asyncHandler(async (req, res) => {
   const { cardId } = req.params;
   const card = await Card.findById(cardId);
 
   if (!card) {
-    res.sendStatus(400);
-    res.json({ message: "Card does not exist." });
+    res.status(400).json({ message: "Card does not exist." });
   }
 
-  res.sendStatus(200);
-  res.json({ plugins: card.plugins });
+  res.status(200).json({ plugins: card.plugins });
 });
 
 /**
@@ -56,13 +49,11 @@ exports.getAllPlugins = asyncHandler(async (req, res) => {
  * @function
  */
 exports.getPlugin = asyncHandler(async (req, res) => {
-  // We have access to the req.plugin
   const response = await req.plugin.get();
   if (response.status === 200) {
-    res.json(response.data);
+    res.status(200).json(response.data);
   } else {
-    res.sendStatus(400);
-    res.json({ message: "Plugin not available" });
+    res.status(400).json({ message: "Plugin not available" });
   }
 });
 
@@ -74,10 +65,9 @@ exports.createPlugin = asyncHandler(async (req, res) => {
   const data = req.body;
   const response = await req.plugin.create(data);
   if (response.status === 200) {
-    res.json(response.data);
+    res.status(200).json(response.data);
   } else {
-    res.sendStatus(400);
-    res.json({ message: "Error creating plugin" });
+    res.status(400).json({ message: "Error creating plugin" });
   }
 });
 
@@ -89,10 +79,9 @@ exports.updatePlugin = asyncHandler(async (req, res) => {
   const data = req.body;
   const response = await req.plugin.update(data);
   if (response.status === 200) {
-    res.json(response.data);
+    res.status(200).json(response.data);
   } else {
-    res.sendStatus(400);
-    res.json({ message: "Error updating plugin" });
+    res.status(400).json({ message: "Error updating plugin" });
   }
 });
 
@@ -103,9 +92,8 @@ exports.updatePlugin = asyncHandler(async (req, res) => {
 exports.deletePlugin = asyncHandler(async (req, res) => {
   const response = await req.plugin.delete();
   if (response.status === 200) {
-    res.json(response.data);
+    res.status(200).json(response.data);
   } else {
-    res.sendStatus(400);
-    res.json({ message: "Error updating plugin" });
+    res.status(400).json({ message: "Error updating plugin" });
   }
 });
