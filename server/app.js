@@ -12,12 +12,13 @@ const cors = require("cors");
 
 
 
+
 const authRouter = require('./routes/auth')
 const userRouter = require('./routes/user')
 const boardRouter = require('./routes/board')
 const columnRouter = require('./routes/column')
 const cardRouter = require('./routes/card')
-
+const imageRouter = require("./routes/image");
 const { json, urlencoded } = express
 
 
@@ -26,7 +27,9 @@ const app = express();
 const server = http.createServer(app);
 
 
+
 app.use(cors());
+
 
 
 const io = socketio(server, {
@@ -58,6 +61,7 @@ app.use('/users', userRouter)
 app.use('/card', cardRouter)
 app.use('/column', columnRouter)
 app.use('/board', boardRouter)
+app.use("/image", imageRouter);
 
 
 if (process.env.NODE_ENV === 'production') {
