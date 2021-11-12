@@ -11,6 +11,9 @@ const handleError = (req, res, next) => {
   next();
 };
 
+
+
+
 exports.validateAddBoardParams = [
   handleParams("boardTitle"),
   (req, res, next) => {
@@ -78,6 +81,25 @@ exports.validateCreateCardParams = [
   handleParams("cardTitle"),
   handleParams("tagColor"),
   handleParams("columnId"),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
+];
+
+
+exports.validateUpdateCardItemsParams = [
+  handleParams("boardId"),
+  handleParams("cardId"),
+  handleParams("columnId"),
+  handleParams("cardItem"),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
+];
+
+exports.validateRemoveCardItemsParams = [
+  handleParams("cardId"),
+  handleParams("cardItem"),
   (req, res, next) => {
     handleError(req, res, next);
   },
