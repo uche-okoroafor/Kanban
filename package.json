@@ -6,9 +6,5 @@
   },
   "scripts": {
     "prepare": "husky install"
-  },
-  "dependencies": {
-    "date-fns": "^2.25.0",
-    "react-big-calendar": "^0.38.0"
   }
 }
