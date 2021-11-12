@@ -4,21 +4,20 @@ const http = require("http");
 const express = require("express");
 const socketio = require("socket.io");
 const { notFound, errorHandler } = require("./middleware/error");
+const connectDB = require("./db");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const cors = require("cors")
 
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
-
+const checkRouter = require("./routes/plugins");
+const pluginRouter = require("./routes/plugins");
 const { json, urlencoded } = express;
 
-
+connectDB();
 const app = express();
 const server = http.createServer(app);
-
-app.use(cors())
 
 const io = socketio(server, {
   cors: {
@@ -45,6 +44,8 @@ app.use((req, res, next) => {
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
+app.use("/check", checkRouter);
+app.use("/plugins", pluginRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
