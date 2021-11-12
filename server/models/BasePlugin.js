@@ -31,7 +31,9 @@ BasePluginSchema.methods.attach = async (Model, pluginName) => {
   if (!plugin) {
     return {
       status: 400,
-      data: "Plugin does not exist.",
+      data: {
+        message: "Plugin does not exist.",
+      },
     };
   }
   return await Model.findByIdAndUpdate(cardId, {
