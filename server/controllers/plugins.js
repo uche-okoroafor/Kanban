@@ -7,7 +7,7 @@ exports.activate = asyncHandler(async (req, res) => {
   const response = await BasePlugin.attach(Card, pluginName);
 
   if (response.status === 400) {
-    res.status(400).json({ message: response.message });
+    res.status(response.status).json(response.data);
   }
 
   res.status(200).json({ response });
