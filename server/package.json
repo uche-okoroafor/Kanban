@@ -6,7 +6,6 @@
     "test": "test"
   },
   "scripts": {
-    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./bin/www",
     "seed": "node seed.js"
