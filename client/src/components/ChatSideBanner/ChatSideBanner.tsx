@@ -10,10 +10,11 @@ import AuthMenu from '../AuthMenu/AuthMenu';
 
 interface Props {
   loggedInUser: User;
+  onHandleOpen: () => void;
   handleDrawerToggle?: () => void;
 }
 
-const ChatSideBanner = ({ loggedInUser }: Props): JSX.Element => {
+const ChatSideBanner = ({ onHandleOpen, loggedInUser }: Props): JSX.Element => {
   const [search, setSearch] = useState<string>('test');
   const [newChatUser, setNewChatUser] = useState<User | null>(null);
   const classes = useStyles();
@@ -29,7 +30,7 @@ const ChatSideBanner = ({ loggedInUser }: Props): JSX.Element => {
   return (
     <Grid className={classes.chatSideBanner}>
       <Box className={classes.userPanel}>
-        <AvatarDisplay loggedIn user={loggedInUser} />
+        <AvatarDisplay onHandleOpen={onHandleOpen} loggedIn user={loggedInUser} />
         <Typography className={classes.userText} variant="h5">
           {loggedInUser.username}
         </Typography>

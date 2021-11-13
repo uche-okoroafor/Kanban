@@ -18,7 +18,7 @@ export default function Register(): JSX.Element {
   const { updateSnackBarMessage } = useSnackBar();
 
   const handleDemoLogin = () => {
-    demoLogin('demo@kanban.com', '123456').then((data) => {
+    demoLogin().then((data) => {
       if (data.error) {
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {

@@ -25,7 +25,7 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
   const user = await User.create({
     username,
     email,
-    password
+    password,
   });
 
   if (user) {
@@ -34,7 +34,7 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: secondsInWeek * 1000
+      maxAge: secondsInWeek * 1000,
     });
 
     res.status(201).json({
@@ -42,9 +42,10 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
         user: {
           id: user._id,
           username: user.username,
-          email: user.email
-        }
-      }
+          email: user.email,
+          imageUrl: user.imageUrl,
+        },
+      },
     });
   } else {
     res.status(400);
@@ -66,7 +67,7 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: secondsInWeek * 1000
+      maxAge: secondsInWeek * 1000,
     });
 
     res.status(200).json({
@@ -74,9 +75,10 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
         user: {
           id: user._id,
           username: user.username,
-          email: user.email
-        }
-      }
+          email: user.email,
+          imageUrl: user.imageUrl,
+        },
+      },
     });
   } else {
     res.status(401);
@@ -88,38 +90,35 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
 // @desc Login demo user
 // @access Public
 exports.demoLogin = asyncHandler(async (req, res, next) => {
-
-  const { email, password } = req.body;
-
-  if (!email || !password || email !=="demo@kanban.com" || password !== "123456") {
-    res.sendStatus(400)
-  }
-
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email: "demo@kanban.com" });
 
   if (!user) {
-    res.sendStatus(404)
+    res.sendStatus(404);
   }
+
+  const id = user._id.toString()
+  const token = generateToken(id);
+
 
 
   const token = generateToken(user._id)
   const secondsInWeek = 604800;
+  res.cookie("token", token, {
+    httpOnly: true,
+    maxAge: secondsInWeek * 1000,
+  });
 
-   res.cookie("token", token, {
-      httpOnly: true,
-      maxAge: secondsInWeek * 1000
-   });
-  
   res.status(201).json({
-      success: {
-        user: {
-          id: user._id,
-          username: user.username,
-          email: user.email
-        }
-      }
-    });
-})
+    success: {
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        imageUrl: user.imageUrl,
+      },
+    },
+  });
+});
 
 // @route GET /auth/user
 // @desc Get user data with valid token
@@ -136,9 +135,10 @@ exports.loadUser = asyncHandler(async (req, res, next) => {
       user: {
         id: user._id,
         username: user.username,
-        email: user.email
-      }
-    }
+        email: user.email,
+        imageUrl: user.imageUrl,
+      },
+    },
   });
 });
 
