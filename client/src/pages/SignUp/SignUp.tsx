@@ -8,7 +8,7 @@ import useStyles from './useStyles';
 import register from '../../helpers/APICalls/register';
 import SignUpForm from './SignUpForm/SignUpForm';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
-import { demoLogin } from '../../helpers/APICalls/login';
+import useDemoLogin from '../../hooks/useDemoLogin';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 
@@ -16,17 +16,10 @@ export default function Register(): JSX.Element {
   const classes = useStyles();
   const { updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
+  const { demoLogin } = useDemoLogin();
 
   const handleDemoLogin = () => {
-    demoLogin().then((data) => {
-      if (data.error) {
-        updateSnackBarMessage(data.error.message);
-      } else if (data.success) {
-        updateLoginContext(data.success);
-      } else {
-        updateSnackBarMessage('Unexpected error! Please try again');
-      }
-    });
+    demoLogin();
   };
 
   const handleSubmit = (

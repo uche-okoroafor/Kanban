@@ -1,3 +1,4 @@
+
 import login from '../helpers/APICalls/login';
 import { useAuth } from '../context/useAuthContext';
 import { useSnackBar } from '../context/useSnackbarContext';
@@ -22,3 +23,4 @@ const useDemoLogin = (): { demoLogin: () => void } => {
 };
 
 export default useDemoLogin;
+
