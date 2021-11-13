@@ -27,10 +27,11 @@ exports.searchUsers = asyncHandler(async (req, res, next) => {
 
 exports.uploadImage = asyncHandler(async (req, res, next) => {
   if (!req.file) {
+    res.status(400)
     throw new Error("No file provided!");
   }
 
-  const user = await User.findById(mongoose.Types.ObjectId(req.user.id));
+  const user = await User.findById(req.user.id);
 
   if (!user) {
     res.status(404);
@@ -47,6 +48,7 @@ exports.uploadImage = asyncHandler(async (req, res, next) => {
   });
 
   const { secure_url, public_id } = uploadedImage;
+
   user.imageUrl = secure_url;
   user.imagePublicId = public_id;
 

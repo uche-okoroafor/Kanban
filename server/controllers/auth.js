@@ -95,8 +95,8 @@ exports.demoLogin = asyncHandler(async (req, res, next) => {
   if (!user) {
     res.sendStatus(404);
   }
-  const id = user._id.toString()
-  const token = generateToken(id);
+  
+  const token = generateToken(user._id);
 
 
   const secondsInWeek = 604800;
