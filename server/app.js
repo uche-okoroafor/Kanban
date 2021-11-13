@@ -15,6 +15,7 @@ const { v2: cloudinary } = pkg;
 
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
+const pluginsRouter = require("./routes/plugins");
 
 const { json, urlencoded } = express;
 
@@ -25,7 +26,7 @@ const server = http.createServer(app);
 const whitelist = ["http://localhost:3000"];
 const corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
@@ -67,6 +68,7 @@ app.use((req, res, next) => {
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
+app.use("/plugins", pluginsRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));

@@ -43,7 +43,7 @@ exports.uploadImage = asyncHandler(async (req, res, next) => {
 
   const uploadedImage = await cloudinary.uploader.upload(req.file.path, {
     folder: "kanban",
-    resourc_type: "auto",
+    resource_type: "auto",
   });
 
   const { secure_url, public_id } = uploadedImage;
