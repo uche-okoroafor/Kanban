@@ -1,7 +1,7 @@
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import LoginForm from './LoginForm';
 
-const props = { handleSubmit: jest.fn() };
+const props = { handleSubmit: jest.fn(), handleDemoLogin: jest.fn() };
 
 describe('LoginForm tests', () => {
   test('smoke test', () => {
