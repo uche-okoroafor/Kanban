@@ -63,7 +63,10 @@ ChecklistPluginSchema.methods.get = function _callee(_ref) {
           });
 
         case 9:
-          throw new Error("something went wrong");
+          return _context.abrupt("return", {
+            response: 500,
+            message: message,
+          });
 
         case 10:
         case "end":
@@ -112,7 +115,10 @@ ChecklistPluginSchema.methods.create = function _callee2(_ref2) {
           });
 
         case 9:
-          throw new Error("something went wrong");
+          return _context2.abrupt("return", {
+            response: 500,
+            message: message,
+          });
 
         case 10:
         case "end":
@@ -170,7 +176,10 @@ ChecklistPluginSchema.methods.update = function _callee3(_ref3) {
           });
 
         case 9:
-          throw new Error("something went wrong");
+          return _context3.abrupt("return", {
+            response: 500,
+            message: message,
+          });
 
         case 10:
         case "end":
@@ -226,7 +235,10 @@ ChecklistPluginSchema.methods.patch = function _callee4(_ref4) {
           });
 
         case 9:
-          throw new Error("something went wrong");
+          return _context4.abrupt("return", {
+            response: 500,
+            message: message,
+          });
 
         case 10:
         case "end":
@@ -281,7 +293,10 @@ ChecklistPluginSchema.methods["delete"] = function _callee5(_ref5) {
           });
 
         case 9:
-          throw new Error("something went wrong");
+          return _context5.abrupt("return", {
+            response: 500,
+            message: message,
+          });
 
         case 10:
         case "end":

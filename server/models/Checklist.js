@@ -30,7 +30,7 @@ ChecklistPluginSchema.methods.get = async ({ params }) => {
   if (data) {
     return { status: 200, data };
   }
-  throw new Error("something went wrong");
+  return { response: 500, message };
 };
 
 ChecklistPluginSchema.methods.create = async ({ body }) => {
@@ -49,7 +49,7 @@ ChecklistPluginSchema.methods.create = async ({ body }) => {
       data,
     };
   }
-  throw new Error("something went wrong");
+  return { response: 500, message };
 };
 
 ChecklistPluginSchema.methods.update = async ({ body }) => {
@@ -70,7 +70,7 @@ ChecklistPluginSchema.methods.update = async ({ body }) => {
       data,
     };
   }
-  throw new Error("something went wrong");
+  return { response: 500, message };
 };
 
 ChecklistPluginSchema.methods.patch = async ({ body }) => {
@@ -91,7 +91,7 @@ ChecklistPluginSchema.methods.patch = async ({ body }) => {
       data,
     };
   }
-  throw new Error("something went wrong");
+  return { response: 500, message };
 };
 
 ChecklistPluginSchema.methods.delete = async ({ body }) => {
@@ -112,5 +112,5 @@ ChecklistPluginSchema.methods.delete = async ({ body }) => {
       data,
     };
   }
-  throw new Error("something went wrong");
+  return { response: 500, message };
 };
