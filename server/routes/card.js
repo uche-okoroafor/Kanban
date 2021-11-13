@@ -4,7 +4,7 @@ const {
   validateCreateCardParams,
   validateUpdateCardItemsParams,
   validateRemoveCardItemsParams,
-} = require("../middleware/vaildateRouteParams");
+} = require("../middleware/validateRouteParams");
 
 const protect = require("../middleware/auth");
 const {
