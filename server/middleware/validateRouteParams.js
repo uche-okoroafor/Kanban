@@ -82,3 +82,21 @@ exports.validateCreateCardParams = [
     handleError(req, res, next);
   },
 ];
+
+exports.validateUpdateCardItemsParams = [
+  handleParams("boardId"),
+  handleParams("cardId"),
+  handleParams("columnId"),
+  handleParams("cardItem"),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
+];
+
+exports.validateRemoveCardItemsParams = [
+  handleParams("cardId"),
+  handleParams("cardItem"),
+  (req, res, next) => {
+    handleError(req, res, next);
+  },
+];

@@ -1,29 +1,29 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const Schema = mongoose.Schema
 
+const Schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   register_date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
- boards: { type: Schema.Types.Array, ref: 'board' }
-
+  userImage: { type: Schema.Types.Object, ref: "Image" },
+  boards: { type: Schema.Types.Array, ref: "board" },
 });
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
