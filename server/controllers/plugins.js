@@ -35,13 +35,13 @@ exports.destroy = asyncHandler(async (req, res) => {
  */
 exports.getAllPlugins = asyncHandler(async (req, res) => {
   const { cardId } = req.params;
-  const card = await Card.findById(cardId);
+  const card = await BasePlugin.find({ resourceId: cardId });
 
   if (!card) {
     res.status(400).json({ message: "Card does not exist." });
   }
 
-  res.status(200).json({ plugins: card.plugins });
+  res.status(200).json({ plugins: card });
 });
 
 /**
@@ -51,9 +51,9 @@ exports.getAllPlugins = asyncHandler(async (req, res) => {
 exports.getPlugin = asyncHandler(async (req, res) => {
   const response = await req.plugin.get();
   if (response.status === 200) {
-    res.status(200).json(response.data);
+    res.status(response.status).json(response.data);
   } else {
-    res.status(400).json({ message: "Plugin not available" });
+    res.status(response.status).json(response.data);
   }
 });
 
@@ -65,9 +65,9 @@ exports.createPlugin = asyncHandler(async (req, res) => {
   const data = req.body;
   const response = await req.plugin.create(data);
   if (response.status === 200) {
-    res.status(200).json(response.data);
+    res.status(response.status).json(response.data);
   } else {
-    res.status(400).json({ message: "Error creating plugin" });
+    res.status(response.status).json(response.data);
   }
 });
 
@@ -79,9 +79,9 @@ exports.updatePlugin = asyncHandler(async (req, res) => {
   const data = req.body;
   const response = await req.plugin.update(data);
   if (response.status === 200) {
-    res.status(200).json(response.data);
+    res.status(response.status).json(response.data);
   } else {
-    res.status(400).json({ message: "Error updating plugin" });
+    res.status(response.status).json(response.data);
   }
 });
 
@@ -92,8 +92,8 @@ exports.updatePlugin = asyncHandler(async (req, res) => {
 exports.deletePlugin = asyncHandler(async (req, res) => {
   const response = await req.plugin.delete();
   if (response.status === 200) {
-    res.status(200).json(response.data);
+    res.status(response.status).json(response.data);
   } else {
-    res.status(400).json({ message: "Error updating plugin" });
+    res.status(response.status).json(response.data);
   }
 });
