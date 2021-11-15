@@ -7,7 +7,7 @@ const useDemoLogin = (): { demoLogin: () => void } => {
   const { updateSnackBarMessage } = useSnackBar();
 
   const demoLogin = () => {
-    login('DEMO_LOGIN', 'null', 'null').then((data) => {
+    login('DEMO_LOGIN').then((data) => {
       if (data.error) {
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {

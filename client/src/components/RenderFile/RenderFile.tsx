@@ -29,20 +29,14 @@ const RenderFile = ({ file, onHandleClose, open, onSetFile, setOpen }: Props): J
     uploadProfileImage(file).then((data) => {
       if (data.error) {
         updateSnackBarMessage(data.error.message);
-        setUploadState('picture upload failed!');
         onSetFile(null);
         setOpen(false);
-        setTimeout(() => {
-          setUploadState('');
-        }, 3000);
+        setUploadState('');
       } else if (data.success) {
         updateLoginContext(data.success);
-        setUploadState('picture uploaded successfully');
         onSetFile(null);
         setOpen(false);
-        setTimeout(() => {
-          setUploadState('');
-        }, 3000);
+        setUploadState('');
       } else {
         updateSnackBarMessage('Unexpected error! Please try again');
       }
@@ -61,7 +55,7 @@ const RenderFile = ({ file, onHandleClose, open, onSetFile, setOpen }: Props): J
           <Typography>{file?.name}</Typography>
           <Typography>{sizeInBytes}</Typography>
           <Button onClick={handleUpload} className={classes.buttonStyle} color="primary" variant="contained">
-            {uploadState ? uploadState : 'Upload'}
+            Upload
           </Button>
         </Box>
       </Box>
