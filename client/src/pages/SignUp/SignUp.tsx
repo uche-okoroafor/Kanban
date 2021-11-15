@@ -8,6 +8,7 @@ import useStyles from './useStyles';
 import register from '../../helpers/APICalls/register';
 import SignUpForm from './SignUpForm/SignUpForm';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
+import { demoLogin } from '../../helpers/APICalls/login';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 
@@ -15,6 +16,18 @@ export default function Register(): JSX.Element {
   const classes = useStyles();
   const { updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
+
+  const handleDemoLogin = () => {
+    demoLogin().then((data) => {
+      if (data.error) {
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        updateLoginContext(data.success);
+      } else {
+        updateSnackBarMessage('Unexpected error! Please try again');
+      }
+    });
+  };
 
   const handleSubmit = (
     { username, email, password }: { email: string; password: string; username: string },
@@ -51,7 +64,7 @@ export default function Register(): JSX.Element {
                 </Typography>
               </Grid>
             </Grid>
-            <SignUpForm handleSubmit={handleSubmit} />
+            <SignUpForm handleSubmit={handleSubmit} handleDemoLogin={handleDemoLogin} />
           </Box>
           <Box p={1} alignSelf="center" />
         </Box>
