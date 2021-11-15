@@ -9,7 +9,6 @@ require("dotenv").config();
 
 var app = require("../app").app;
 var http = require("http");
-var connectDb = require("../db");
 
 /**
  * Get port from environment and store in Express.
@@ -29,7 +28,6 @@ var server = require("../app").server;
  */
 
 server.listen(process.env.PORT);
-connectDb();
 server.on("error", onError);
 server.on("listening", onListening);
 
