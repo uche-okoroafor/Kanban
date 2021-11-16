@@ -1,13 +1,13 @@
-import useStyles from '../useStyles';
+import useStyles from '../../useStyles';
 import { useEffect, useState } from 'react';
 import { Box } from '@material-ui/core';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { saveCardItem } from '../../../helpers/APICalls/cardApiCalls';
-import { IIds } from '../../../interface/Boards';
-import { useSnackBar } from '../../../context/useSnackbarContext';
-import { useBoard } from '../../../context/useBoardContext';
+import { saveCardItem } from '../../../../helpers/APICalls/cardApiCalls';
+import { IIds } from '../../../../interface/Boards';
+import { useSnackBar } from '../../../../context/useSnackbarContext';
+import { useBoard } from '../../../../context/useBoardContext';
 
 interface Props {
   tagColor: string | undefined;

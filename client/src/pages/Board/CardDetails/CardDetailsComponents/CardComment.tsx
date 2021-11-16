@@ -1,58 +1,41 @@
 import { IconButton } from '@mui/material';
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import useStyles from '../useStyles';
+import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
+import useStyles from '../../useStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from 'react';
-import { Box, Typography, CircularProgress, TextareaAutosize } from '@material-ui/core';
+import { Box, Typography, TextareaAutosize, CircularProgress } from '@material-ui/core';
 import Button from '@mui/material/Button';
 import DialogContentText from '@mui/material/DialogContentText';
-import { saveCardItem, deleteCardItem } from '../../../helpers/APICalls/cardApiCalls';
-import { IIds } from '../../../interface/Boards';
-import { useSnackBar } from '../../../context/useSnackbarContext';
-import { useBoard } from '../../../context/useBoardContext';
+import { saveCardItem, deleteCardItem } from '../../../../helpers/APICalls/cardApiCalls';
+import { IIds } from '../../../../interface/Boards';
+import { useSnackBar } from '../../../../context/useSnackbarContext';
+import { useBoard } from '../../../../context/useBoardContext';
 
 interface Props {
-  description: string | undefined;
+  comment: string | undefined;
   disableSetting: boolean;
   ids: IIds | undefined;
 }
 
-export default function CardDescription({ description, disableSetting, ids }: Props): JSX.Element {
+export default function CardComment({ comment, disableSetting, ids }: Props): JSX.Element {
   const classes = useStyles();
-  const [newDescription, setNewDescription] = useState(description);
+  const [newComment, setNewComment] = useState(comment);
   const { updateSnackBarMessage } = useSnackBar();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { updateBoards, boards } = useBoard();
 
   useEffect(() => {
-    setNewDescription(description);
+    setNewComment(comment);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [boards]);
 
-  const handleSaveDescription = async (): Promise<void> => {
-    saveCardItem('description', newDescription, ids).then((data) => {
-      setIsSubmitting(true);
-      if (data.error) {
-        // updateSnackBarMessage(data.error.message);
-      } else if (data.success) {
-        updateBoards();
-      } else {
-        // should not get here from backend but this catch is for an unknown issue
-        console.error({ data });
-
-        // updateSnackBarMessage('An unexpected error occurred. Please try again');
-      }
-    });
-    setIsSubmitting(false);
-  };
-
-  const handleDeleteDescription = async (): Promise<void> => {
-    deleteCardItem('description', newDescription, ids).then((data) => {
-      setIsSubmitting(true);
+  const handleSaveComment = async (): Promise<void> => {
+    setIsSubmitting(true);
+    saveCardItem('comment', newComment, ids).then((data) => {
       if (data.error) {
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {
-        // updateCardContext(data.success);
+        updateBoards();
       } else {
         // should not get here from backend but this catch is for an unknown issue
         console.error({ data });
@@ -62,44 +45,57 @@ export default function CardDescription({ description, disableSetting, ids }: Pr
     });
     setIsSubmitting(false);
   };
+  const handleDeleteComment = async (): Promise<void> => {
+    setIsSubmitting(true);
+    deleteCardItem('comment', newComment, ids).then((data) => {
+      if (data.error) {
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        updateBoards();
+      } else {
+        // should not get here from backend but this catch is for an unknown issue
+        console.error({ data });
+
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
+    setIsSubmitting(false);
+  };
+
   return (
     <>
       <Box className={classes.dialogContentTextContainer}>
         <DialogContentText className={classes.dialogContentText}>
-          <DescriptionOutlinedIcon className={classes.textSpacing} />
+          <ModeCommentOutlinedIcon className={classes.textSpacing} />
           <Typography className={classes.cardItemTitle} variant="h6">
-            {' '}
-            Description:
+            Add Comment:
           </Typography>
         </DialogContentText>
         <Box className={classes.textAreaContainer}>
           <TextareaAutosize
-            value={newDescription}
+            value={newComment}
             aria-label="minimum height"
-            onChange={(e) => setNewDescription(e.target.value)}
-            placeholder="This Card has no Description "
+            placeholder="There is no description for this card"
             className={classes.textArea}
-            style={{ minHeight: '5rem' }}
             disabled={disableSetting}
+            onChange={(e) => setNewComment(e.target.value)}
           />
-
           <Box className={classes.saveButtonContainer}>
             {' '}
             <Button
-              onClick={handleSaveDescription}
+              onClick={handleSaveComment}
               disabled={disableSetting || isSubmitting}
-              variant="contained"
               size="small"
+              variant="contained"
             >
               {isSubmitting ? <CircularProgress style={{ fontSize: 0, width: '20px', height: '20px' }} /> : 'Save'}
             </Button>{' '}
             <IconButton
               disabled={disableSetting}
-              aria-label="close"
-              style={{ fontSize: '20px' }}
               color="primary"
+              aria-label="close"
               size="small"
-              onClick={handleDeleteDescription}
+              onClick={handleDeleteComment}
             >
               <CloseIcon />
             </IconButton>

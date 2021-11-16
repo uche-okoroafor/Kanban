@@ -1,4 +1,4 @@
-import useStyles from '../useStyles';
+import useStyles from '../../useStyles';
 import { Box, Typography } from '@material-ui/core';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';

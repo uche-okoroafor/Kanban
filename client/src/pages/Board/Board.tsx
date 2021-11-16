@@ -10,14 +10,15 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import CardTitle from './CardDialogComponents/CardTitle';
-import CardColor from './CardDialogComponents/CardColor';
-import CardDescription from './CardDialogComponents/CardDescription';
-import CardDeadline from './CardDialogComponents/CardDeadline';
-import CardComment from './CardDialogComponents/CardComment';
-import CardChecklist from './CardDialogComponents/CardChecklist';
-import CardAttachment from './CardDialogComponents/CardAttachment';
-import CardOperationBtns from './CardDialogComponents/CardOperationBtns';
+import CardTitle from './CardDetails/CardDetailsComponents/CardTitle';
+import CardColor from './CardDetails/CardDetailsComponents/CardColor';
+import CardDescription from './CardDetails/CardDetailsComponents/CardDescription';
+import CardDeadline from './CardDetails/CardDetailsComponents/CardDeadline';
+import CardComment from './CardDetails/CardDetailsComponents/CardComment';
+import CardChecklist from './CardDetails/CardDetailsComponents/CardChecklist';
+import CardAttachment from './CardDetails/CardDetailsComponents/CardAttachment';
+import CardOperationBtns from './CardDetails/CardDetailsComponents/CardOperationBtns';
+import CardDetails from './CardDetails/CardDetails';
 import mockCard from '../../mocks/mockCard';
 import { ICard, IIds, IBoard } from '../../interface/Boards';
 import Stack from '@mui/material/Stack';
@@ -95,63 +96,7 @@ export default function Board(): JSX.Element {
         ))}
       </Stack>
 
-      <Dialog open={openDialog} maxWidth="xl" onClose={closeCardDetails}>
-        <DialogTitle style={{ paddingBottom: '5px' }} className={classes.dialogTitle}>
-          <IconButton
-            aria-label="close"
-            sx={{ position: 'absolute', right: 0, marginRight: '10px' }}
-            onClick={() => setOpenDialog(false)}
-          >
-            <CloseIcon />
-          </IconButton>
-          <Box display="flex" alignItems="center" style={{ whiteSpace: 'nowrap', maxWidth: '40%' }}>
-            <DashboardOutlinedIcon style={{ marginRight: '10px' }} />
-            <CardTitle ids={ids} disableSetting={disableSetting} cardTitle={displayedCard?.cardTitle} />{' '}
-            <CardColor ids={ids} disableSetting={disableSetting} tagColor={displayedCard?.tagColor} />
-            <IconButton
-              aria-label="close"
-              color={disableSetting ? 'default' : 'primary'}
-              onClick={() => setDisableSetting(!disableSetting)}
-            >
-              <SettingsIcon />
-            </IconButton>
-          </Box>
-          <Typography style={{ paddingLeft: '2rem', fontSize: '0.8rem' }}>In List {'column Title'} </Typography>
-        </DialogTitle>
-
-        <DialogContent
-          style={{
-            width: 800,
-            padding: '20px 30px',
-            display: 'flex',
-          }}
-        >
-          <Box flexGrow="1">
-            {' '}
-            {!displayChecklist && !displayAttachment ? (
-              <>
-                <CardDescription ids={ids} description={displayedCard?.description} disableSetting={disableSetting} />
-                <CardDeadline ids={ids} deadline={displayedCard?.deadline} disableSetting={disableSetting} />
-                <CardComment ids={ids} comment={displayedCard?.comment} disableSetting={disableSetting} />
-              </>
-            ) : displayChecklist ? (
-              <CardChecklist ids={ids} checklist={displayedCard?.checklist} disableSetting={disableSetting} />
-            ) : (
-              <CardAttachment ids={ids} attachment={displayedCard?.attachment} disableSetting={disableSetting} />
-            )}
-          </Box>
-          <Box>
-            <CardOperationBtns
-              setDisableSetting={setDisableSetting}
-              displayAttachment={displayAttachment}
-              displayChecklist={displayChecklist}
-              setDisplayChecklist={setDisplayChecklist}
-              setDisplayAttachment={setDisplayAttachment}
-            />
-          </Box>
-        </DialogContent>
-        <DialogActions></DialogActions>
-      </Dialog>
+      <CardDetails openDialog={openDialog} setOpenDialog={setOpenDialog} ids={ids} displayedCard={displayedCard} />
     </Grid>
   );
 }

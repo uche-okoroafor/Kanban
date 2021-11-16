@@ -1,11 +1,11 @@
-import useStyles from '../useStyles';
+import useStyles from '../../useStyles';
 import { useEffect, useState } from 'react';
 import { Typography } from '@material-ui/core';
 import { TextField } from '@mui/material';
-import { saveCardItem } from '../../../helpers/APICalls/cardApiCalls';
-import { IIds } from '../../../interface/Boards';
-import { useSnackBar } from '../../../context/useSnackbarContext';
-import { useBoard } from '../../../context/useBoardContext';
+import { saveCardItem } from '../../../../helpers/APICalls/cardApiCalls';
+import { IIds } from '../../../../interface/Boards';
+import { useSnackBar } from '../../../../context/useSnackbarContext';
+import { useBoard } from '../../../../context/useBoardContext';
 
 interface Props {
   cardTitle: string | undefined;

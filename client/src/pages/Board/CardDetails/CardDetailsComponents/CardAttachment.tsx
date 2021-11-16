@@ -1,6 +1,6 @@
 import { IconButton } from '@mui/material';
 import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
-import useStyles from '../useStyles';
+import useStyles from '../../useStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { Box, Typography, TextField } from '@material-ui/core';
@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import DialogContentText from '@mui/material/DialogContentText';
 import Stack from '@mui/material/Stack';
 // import { saveAttachment, deleteAttachment } from '../../../helpers/APICalls/cardApiCalls';
-import { IIds } from '../../../interface/Boards';
+import { IIds } from '../../../../interface/Boards';
 
 interface Props {
   attachment: { imageName: string; imageSource: string; _id: number | string } | undefined;

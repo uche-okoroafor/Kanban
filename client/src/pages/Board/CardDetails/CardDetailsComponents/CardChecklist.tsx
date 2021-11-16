@@ -1,6 +1,6 @@
 import { IconButton, CircularProgress } from '@mui/material';
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
-import useStyles from '../useStyles';
+import useStyles from '../../useStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { Box, Typography, TextField } from '@material-ui/core';
@@ -9,7 +9,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
 // import { saveListItem, checkItem, deleteList } from '../../../helpers/APICalls/cardApiCalls';
-import { IIds } from '../../../interface/Boards';
+import { IIds } from '../../../../interface/Boards';
 
 interface Props {
   checklist: any;

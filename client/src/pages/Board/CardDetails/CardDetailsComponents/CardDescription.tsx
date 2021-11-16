@@ -1,59 +1,41 @@
 import { IconButton } from '@mui/material';
-import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
-import useStyles from '../useStyles';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import useStyles from '../../useStyles';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, CircularProgress, Typography } from '@material-ui/core';
+import { useEffect, useState } from 'react';
+import { Box, Typography, CircularProgress, TextareaAutosize } from '@material-ui/core';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import * as React from 'react';
-import { IIds } from '../../../interface/Boards';
 import DialogContentText from '@mui/material/DialogContentText';
-import { saveCardItem, deleteCardItem } from '../../../helpers/APICalls/cardApiCalls';
-import { useSnackBar } from '../../../context/useSnackbarContext';
-import { useState, useEffect } from 'react';
-import { useBoard } from '../../../context/useBoardContext';
+import { saveCardItem, deleteCardItem } from '../../../../helpers/APICalls/cardApiCalls';
+import { IIds } from '../../../../interface/Boards';
+import { useSnackBar } from '../../../../context/useSnackbarContext';
+import { useBoard } from '../../../../context/useBoardContext';
 
 interface Props {
-  deadline: string | undefined;
+  description: string | undefined;
   disableSetting: boolean;
   ids: IIds | undefined;
 }
 
-export default function CardDeadline({ deadline, disableSetting, ids }: Props): JSX.Element {
+export default function CardDescription({ description, disableSetting, ids }: Props): JSX.Element {
   const classes = useStyles();
-  const [date, setDate] = useState(deadline);
+  const [newDescription, setNewDescription] = useState(description);
   const { updateSnackBarMessage } = useSnackBar();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { updateBoards, boards } = useBoard();
 
   useEffect(() => {
-    setDate(deadline);
+    setNewDescription(description);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [boards]);
 
-  const handleSaveDeadline = async (): Promise<void> => {
-    setIsSubmitting(true);
-    saveCardItem('deadline', date, ids).then((data) => {
-      if (data.error) {
-        // updateSnackBarMessage(data.error.message);
-      } else if (data.success) {
-        updateBoards();
-      } else {
-        // should not get here from backend but this catch is for an unknown issue
-        console.error({ data });
-
-        // updateSnackBarMessage('An unexpected error occurred. Please try again');
-      }
-    });
-    setIsSubmitting(false);
-  };
-  const handleDeleteDeadline = async (): Promise<void> => {
-    setIsSubmitting(true);
-
-    deleteCardItem('deadline', date, ids).then((data) => {
+  const handleSaveDescription = async (): Promise<void> => {
+    saveCardItem('description', newDescription, ids).then((data) => {
+      setIsSubmitting(true);
       if (data.error) {
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {
+        updateBoards();
       } else {
         // should not get here from backend but this catch is for an unknown issue
         console.error({ data });
@@ -64,49 +46,60 @@ export default function CardDeadline({ deadline, disableSetting, ids }: Props): 
     setIsSubmitting(false);
   };
 
+  const handleDeleteDescription = async (): Promise<void> => {
+    deleteCardItem('description', newDescription, ids).then((data) => {
+      setIsSubmitting(true);
+      if (data.error) {
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        // updateCardContext(data.success);
+      } else {
+        // should not get here from backend but this catch is for an unknown issue
+        console.error({ data });
+
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
+    setIsSubmitting(false);
+  };
   return (
     <>
       <Box className={classes.dialogContentTextContainer}>
         <DialogContentText className={classes.dialogContentText}>
-          <AccessTimeOutlinedIcon className={classes.textSpacing} />
+          <DescriptionOutlinedIcon className={classes.textSpacing} />
           <Typography className={classes.cardItemTitle} variant="h6">
             {' '}
-            Deadline:
+            Description:
           </Typography>
         </DialogContentText>
         <Box className={classes.textAreaContainer}>
-          <Box>
-            {' '}
-            <TextField
-              id="datetime-local"
-              type="datetime-local"
-              defaultValue={date}
-              onChange={(e) => setDate(e.target.value)}
-              sx={{ width: 250 }}
-              disabled={disableSetting}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="standard"
-            />
-          </Box>
+          <TextareaAutosize
+            value={newDescription}
+            aria-label="minimum height"
+            onChange={(e) => setNewDescription(e.target.value)}
+            placeholder="This Card has no Description "
+            className={classes.textArea}
+            style={{ minHeight: '5rem' }}
+            disabled={disableSetting}
+          />
+
           <Box className={classes.saveButtonContainer}>
             {' '}
             <Button
-              variant="contained"
-              onClick={handleSaveDeadline}
+              onClick={handleSaveDescription}
               disabled={disableSetting || isSubmitting}
+              variant="contained"
               size="small"
             >
               {isSubmitting ? <CircularProgress style={{ fontSize: 0, width: '20px', height: '20px' }} /> : 'Save'}
             </Button>{' '}
             <IconButton
-              aria-label="close"
-              color="primary"
               disabled={disableSetting}
+              aria-label="close"
               style={{ fontSize: '20px' }}
-              onClick={handleDeleteDeadline}
+              color="primary"
               size="small"
+              onClick={handleDeleteDescription}
             >
               <CloseIcon />
             </IconButton>
