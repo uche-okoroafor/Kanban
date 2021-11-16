@@ -9,16 +9,20 @@ const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
+const cors = require("cors");
+
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
-const checkRouter = require("./routes/plugins");
-const pluginRouter = require("./routes/plugins");
+const boardRouter = require("./routes/board");
+const columnRouter = require("./routes/column");
+const cardRouter = require("./routes/card");
+const imageRouter = require("./routes/image");
 const { json, urlencoded } = express;
 
-connectDB();
 const app = express();
 const server = http.createServer(app);
 
+app.use(cors());
 const io = socketio(server, {
   cors: {
     origin: "*",
@@ -44,8 +48,13 @@ app.use((req, res, next) => {
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
-app.use("/check", checkRouter);
-app.use("/plugins", pluginRouter);
+
+
+app.use("/card", cardRouter);
+app.use("/column", columnRouter);
+app.use("/board", boardRouter);
+app.use("/image", imageRouter);
+
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
