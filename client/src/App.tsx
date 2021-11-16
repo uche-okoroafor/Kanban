@@ -12,6 +12,7 @@ import { authReducer, authState } from './state';
 import './App.css';
 import Calender from './pages/Calender/Calender';
 import AppLayout from './components/AppLayout/AppLayout';
+import { BoardProvider } from './context/useBoardContext';
 
 function App(): JSX.Element {
   const [state] = useImmerReducer(authReducer, authState);
@@ -21,21 +22,23 @@ function App(): JSX.Element {
       <BrowserRouter>
         <SnackBarProvider>
           <SocketProvider>
-            <Switch>
-              <Route path="/login" component={Login} />
-              <Route path="/signup" component={Signup} />
-              <Route
-                render={(props: RouteComponentProps) => (
-                  <AppLayout {...props}>
-                    <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
-                    <ProtectedRoute path="/calender" token={state.token} component={Calender} />
-                  </AppLayout>
-                )}
-              />
-              <Route path="*">
-                <Redirect to="/login" />
-              </Route>
-            </Switch>
+            <BoardProvider>
+              <Switch>
+                <Route path="/login" component={Login} />
+                <Route path="/signup" component={Signup} />
+                <Route
+                  render={(props: RouteComponentProps) => (
+                    <AppLayout {...props}>
+                      <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
+                      <ProtectedRoute path="/calender" token={state.token} component={Calender} />
+                    </AppLayout>
+                  )}
+                />
+                <Route path="*">
+                  <Redirect to="/login" />
+                </Route>
+              </Switch>
+            </BoardProvider>
           </SocketProvider>
         </SnackBarProvider>
       </BrowserRouter>
