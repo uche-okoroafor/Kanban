@@ -8,7 +8,7 @@ import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { useImmerReducer } from 'use-immer';
-import { authReducer, authState } from './state';
+import { authReducer, authState } from './state/auth/authContext';
 import './App.css';
 import Calender from './pages/Calender/Calender';
 import AppLayout from './components/AppLayout/AppLayout';
