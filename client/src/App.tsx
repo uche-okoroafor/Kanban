@@ -13,6 +13,8 @@ import './App.css';
 import Calender from './pages/Calender/Calender';
 import AppLayout from './components/AppLayout/AppLayout';
 import { BoardProvider } from './context/useBoardContext';
+import { KanbanProvider } from './context/useKanbanContext';
+
 
 function App(): JSX.Element {
   const [state] = useImmerReducer(authReducer, authState);
@@ -23,6 +25,7 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <SocketProvider>
             <BoardProvider>
+            <KanbanProvider>
               <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
@@ -39,6 +42,7 @@ function App(): JSX.Element {
                 </Route>
               </Switch>
             </BoardProvider>
+            </KanbanProvider>
           </SocketProvider>
         </SnackBarProvider>
       </BrowserRouter>

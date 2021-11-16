@@ -1,12 +1,10 @@
-import { Box, Typography } from '@material-ui/core';
-import React from 'react';
+import { Box } from '@material-ui/core';
+import Board from '../../components/Kanban/Board';
 
 export default function Dashboard(): JSX.Element {
   return (
-    <>
-      <Box>
-        <Typography variant="h1">Dashboard Screen</Typography>
-      </Box>
-    </>
+    <Box m={2}>
+      <Board />
+    </Box>
   );
 }
