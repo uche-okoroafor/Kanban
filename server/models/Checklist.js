@@ -24,19 +24,25 @@ const ChecklistPluginSchema = BasePlugin.discriminator(
 ChecklistPluginSchema.methods.get = async ({ params }) => {
   const { checklistItemId } = params;
   if (!checklistItemId) {
-    throw new Error("checklistItemId is not defined");
+    return {
+      status: 400,
+      message: "checklistItemId is not defined",
+    };
   }
   const data = await this.model("ChecklistPlugin").findById(checklistItemId);
   if (data) {
     return { status: 200, data };
   }
-  return { response: 500, message };
+  return { response: 500, message: "something went wrong" };
 };
 
 ChecklistPluginSchema.methods.create = async ({ body }) => {
   const { checklistItem } = body;
-  if (!checklistItem) {
-    throw new Error("checklistItem is not defined");
+  if (!checklistItemId) {
+    return {
+      status: 400,
+      message: "checklistItemId is not defined",
+    };
   }
 
   const data = await mongoose.model("ChecklistPlugin").create({
@@ -49,13 +55,16 @@ ChecklistPluginSchema.methods.create = async ({ body }) => {
       data,
     };
   }
-  return { response: 500, message };
+  return { response: 500, message: "something went wrong" };
 };
 
 ChecklistPluginSchema.methods.update = async ({ body }) => {
   const { checklistItem, checklistItemId, isChecked } = body;
   if (!checklistItemId || !isChecked || !checklistItem) {
-    throw new Error("required params is not defined");
+    return {
+      status: 400,
+      message: "required params is not defined",
+    };
   }
 
   const data = await mongoose
@@ -70,13 +79,16 @@ ChecklistPluginSchema.methods.update = async ({ body }) => {
       data,
     };
   }
-  return { response: 500, message };
+  return { response: 500, message: "something went wrong" };
 };
 
 ChecklistPluginSchema.methods.patch = async ({ body }) => {
   const { checklistItemId, isChecked } = body;
   if (!checklistItemId || !isChecked) {
-    throw new Error("required params is not defined");
+    return {
+      response: 400,
+      message: "required params is not defined",
+    };
   }
 
   const data = await mongoose
@@ -91,13 +103,16 @@ ChecklistPluginSchema.methods.patch = async ({ body }) => {
       data,
     };
   }
-  return { response: 500, message };
+  return { response: 500, message: "something went wrong" };
 };
 
 ChecklistPluginSchema.methods.delete = async ({ body }) => {
   const { checklistItemId } = body;
   if (!checklistItemId) {
-    throw new Error("checklistItemId is not defined");
+    return {
+      response: 400,
+      message: "checklistItemId is not defined",
+    };
   }
 
   const data = await mongoose
@@ -112,5 +127,5 @@ ChecklistPluginSchema.methods.delete = async ({ body }) => {
       data,
     };
   }
-  return { response: 500, message };
+  return { response: 500, message: "something went wrong" };
 };
