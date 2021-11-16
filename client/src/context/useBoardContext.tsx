@@ -1,4 +1,3 @@
-// import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { IBoard } from '../interface/Boards';
 import { getUserBoards } from '../helpers/APICalls/boardApiCalls';
