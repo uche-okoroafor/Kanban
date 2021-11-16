@@ -10,6 +10,7 @@ import ChatSideBanner from '../../components/ChatSideBanner/ChatSideBanner';
 import { useEffect } from 'react';
 import DropZone from '../../components/DropZone/DropZone';
 import RenderFile from '../../components/RenderFile/RenderFile';
+import CardCover from '../../components/CardCoverPlugin/CardCover';
 
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
@@ -42,6 +43,7 @@ export default function Dashboard(): JSX.Element {
       <CssBaseline />
       <Grid item className={classes.drawerWrapper}>
         <ChatSideBanner onHandleOpen={handleOpen} loggedInUser={loggedInUser} />
+        <CardCover />
         <DropZone open={open && !file} onHandleClose={handleClose} onSetFile={setFile} />
         <RenderFile
           onHandleClose={handleClose}
