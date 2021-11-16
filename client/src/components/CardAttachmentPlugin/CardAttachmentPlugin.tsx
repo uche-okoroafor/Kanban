@@ -3,7 +3,7 @@ import { Box, Button, Modal, TextField, Typography } from '@material-ui/core';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import useStyles from './useStyles';
-import CardCoverDropzone from './CardCoverDropzone';
+import CardAttachmentDropzone from './CardAttachmentDropzone';
 
 interface Props {
   handleSubmitCover: (
@@ -22,11 +22,11 @@ interface Props {
       description: string;
     }>,
   ) => void;
-  onSetFile: (acceptableFile: { [prop: string]: string | number }) => void;
-  file: { [prop: string]: string | number } | null;
+  onSetFile: (acceptableFile: { [props: string]: string | number }[]) => void;
+  file: { [props: string]: string | number }[] | null;
 }
 
-export default function CardCoverPlugin({ handleSubmitCover, onSetFile, file }: Props): JSX.Element {
+export default function CardAttachmentPlugin({ handleSubmitCover, onSetFile, file }: Props): JSX.Element {
   const [open, setOpen] = useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -54,7 +54,7 @@ export default function CardCoverPlugin({ handleSubmitCover, onSetFile, file }: 
         >
           {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
             <form onSubmit={handleSubmit} noValidate>
-              <Typography variant="h5">Add Card Cover</Typography>
+              <Typography variant="h5">Add Attachments</Typography>
               <TextField
                 id="name"
                 margin="normal"
@@ -79,10 +79,10 @@ export default function CardCoverPlugin({ handleSubmitCover, onSetFile, file }: 
                 value={values.description}
                 onChange={handleChange}
               />
-              <CardCoverDropzone onSetFile={onSetFile} file={file} />
+              <CardAttachmentDropzone onSetFile={onSetFile} file={file} />
               <Box>
                 <Button type="submit" size="large" variant="contained" color="primary" fullWidth>
-                  UPLOAD COVER
+                  UPLOAD ATTACHMENTS
                 </Button>
               </Box>
             </form>
