@@ -11,10 +11,11 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Calendar from './pages/Calendar/Calendar';
 
 import { useImmerReducer } from 'use-immer';
-import { authReducer, authState } from './state';
+import { authReducer, authState } from './state/auth/authContext';
 import './App.css';
 import Calender from './pages/Calender/Calender';
 import AppLayout from './components/AppLayout/AppLayout';
+import { KanbanProvider } from './context/useKanbanContext';
 
 function App(): JSX.Element {
   const [state] = useImmerReducer(authReducer, authState);
@@ -24,23 +25,23 @@ function App(): JSX.Element {
       <BrowserRouter>
         <SnackBarProvider>
           <SocketProvider>
-            <Switch>
-              <Route path="/login" component={Login} />
-
-              <Route path="/calendar" component={Calendar} />
-              <Route path="/signup" component={Signup} />
-              <Route
-                render={(props: RouteComponentProps) => (
-                  <AppLayout {...props}>
-                    <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
-                    <ProtectedRoute path="/calender" token={state.token} component={Calender} />
-                  </AppLayout>
-                )}
-              />
-              <Route path="*">
-                <Redirect to="/login" />
-              </Route>
-            </Switch>
+            <KanbanProvider>
+              <Switch>
+                <Route path="/login" component={Login} />
+                <Route path="/signup" component={Signup} />
+                <Route
+                  render={(props: RouteComponentProps) => (
+                    <AppLayout {...props}>
+                      <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
+                      <ProtectedRoute path="/calender" token={state.token} component={Calender} />
+                    </AppLayout>
+                  )}
+                />
+                <Route path="*">
+                  <Redirect to="/login" />
+                </Route>
+              </Switch>
+            </KanbanProvider>
           </SocketProvider>
         </SnackBarProvider>
       </BrowserRouter>
