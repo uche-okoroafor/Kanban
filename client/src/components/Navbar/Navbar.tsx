@@ -8,7 +8,11 @@ import CreateBoardButton from '../Button/CreateBoardButton';
 import AvatarButton from '../AvatarButton/AvatarButton';
 import AvatarMenu from '../AvatarMenu/AvatarMenu';
 
-export default function Navbar(): JSX.Element {
+interface Props {
+  onHandleOpen?: React.MouseEventHandler<HTMLLIElement>;
+}
+
+export default function Navbar({onHandleOpen}: Props): JSX.Element {
   const classses = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -40,9 +44,7 @@ export default function Navbar(): JSX.Element {
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleClose}
-            onClickProfile={() => {
-              // handles profile option in the menu
-            }}
+            onClickProfile={onHandleOpen}
             onClickLogOut={() => {
               // handles logout option in the menu
             }}

@@ -6,7 +6,7 @@ import Image from '../../Images/upload.png';
 
 interface Props {
   open: boolean;
-  onHandleClose: () => void;
+  onHandleClose?: React.MouseEventHandler<HTMLElement>;
   onSetFile: (acceptableFile: { [prop: string]: string | number }) => void;
 }
 
@@ -33,10 +33,10 @@ const DropZone = ({ open, onHandleClose, onSetFile }: Props): JSX.Element => {
       aria-describedby="modal-modal-description"
     >
       <Box className={classes.dropBox} {...getRootProps()}>
-        <Input inputProps={{ ...getInputProps() }} />
         <Box
           className={isDragAccept ? classes.imageBoxAccept : isDragReject ? classes.imageBoxReject : classes.imageBox}
         >
+        <Input inputProps={{ ...getInputProps() }} />
           <img loading="lazy" className={classes.uploadImage} src={Image} alt="" />
           {isDragReject ? (
             <Typography>Sorry, This app only supports images and mp3</Typography>

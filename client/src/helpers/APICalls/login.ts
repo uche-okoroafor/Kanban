@@ -25,6 +25,8 @@ const login = async (option: string, email?: string, password?: string): Promise
         .catch(() => ({
           error: { message: 'Unable to connect to server in demo mode. Please try again' },
         }));
+    default:
+      throw new Error("Unexpected error occured!")
   }
 };
 

@@ -9,7 +9,7 @@ import { ProtectedRouteProps } from '../../interface/Route';
  * @returns {JSX.Element}
  */
 const ProtectedRoute = ({ token, ...rest }: ProtectedRouteProps): JSX.Element => {
-  return !token ? <Route {...rest} /> : <Redirect to="/login" />;
+  return token ? <Route {...rest} /> : <Redirect to="/login" />;
 };
 
 export default ProtectedRoute;
