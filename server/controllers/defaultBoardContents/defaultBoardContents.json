@@ -5,15 +5,15 @@
   },
 
   "columnProgress": {
-    "columnTitle": "In Progress",
+    "name": "In Progress",
     "cards": []
   },
   "columnCompleted": {
-    "columnTitle": "Completed",
+    "name": "Completed",
     "cards": []
   },
   "card": {
-    "cardTitle": "New Card",
+    "name": "New Card",
     "description": ""
   }
 }
