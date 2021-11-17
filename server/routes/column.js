@@ -32,7 +32,7 @@ router
   .route("/move-card-within-column")
   .post(protect, validateMoveCardInParams, moveCardWithinColumn);
 router
-  .route("/movd-card-outside-column")
+  .route("/move-card-outside-column")
   .post(protect, validateMoveCardOutParams, moveCardOutsideColumn);
 
 module.exports = router;

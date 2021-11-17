@@ -10,7 +10,7 @@ exports.createColumn = asyncHandler(async (req, res, next) => {
   const { columnTitle, boardId } = req.params;
 
   const column = await Column.create({
-    columnTitle: columnTitle,
+    name: columnTitle,
   });
 
   const boardObjectId = ObjectID(boardId);
@@ -43,14 +43,14 @@ exports.updateColumn = asyncHandler(async (req, res, next) => {
   const updateColumn = await Column.updateOne(
     { _id: columnId },
     {
-      $set: { columnTitle: columnTitle },
+      $set: { name: columnTitle },
     }
   );
   const updateStatus = await User.updateOne(
     { _id: userId, "boards.columns._id": columnObjectId },
     {
       $set: {
-        "boards.$[board].columns.$[column].columnTitle": columnTitle,
+        "boards.$[board].columns.$[column].name": columnTitle,
       },
     },
     {
