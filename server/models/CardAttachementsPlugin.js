@@ -20,12 +20,13 @@ const CardAttachementsPluginSchema = BasePlugin.discriminator("CardAttachementsP
   }]
 }, { timestamps: true }));
 
-CardAttachementsPluginSchema.methods.get = async function ({ cardAttachementsPluginId }) {
-  if (!cardAttachementsPluginId) {
+CardAttachementsPluginSchema.methods.get = async function ({ params }) {
+  if (!params) {
     const err = new Error("Not a valid request!");
     err.statusCode = 400;
     throw err;
   }
+  const { cardAttachementsPluginId } = params
   const data = await this.model("CardAttachementsPlugin").findById(cardAttachementsPluginId).populate("attachements");
   return {
     status: 200,
@@ -69,12 +70,13 @@ CardAttachementsPluginSchema.methods.create = async function ({ files, body }) {
   };
 };
 
-CardAttachementsPluginSchema.methods.update = async function ({ files, body, cardAttachementsPluginId }) {
-  if (!cardAttachementsPluginId) {
+CardAttachementsPluginSchema.methods.update = async function ({ files, body, params }) {
+  if (!params) {
     const err = new Error("Invalid request!");
     err.statusCode = 400;
     throw err;
   }
+  const { cardAttachementsPluginId } = params
   const cardAttachementPlugin = await this.model("CardAttachementsPlugin").findById(cardAttachementsPluginId);
   if (files) {
     const imagePaths = files.map(file => file.path);
@@ -109,12 +111,13 @@ CardAttachementsPluginSchema.methods.update = async function ({ files, body, car
 
 };
 
-CardAttachementsPluginSchema.methods.delete = async function ({ cardAttachementsPluginId }) {
-  if (!cardAttachementsPluginId) {
+CardAttachementsPluginSchema.methods.delete = async function ({ params }) {
+  if (!params) {
     const err = new Error("Invalid request!");
     err.statusCode = 400;
     throw err;
   }
+  const { cardAttachementsPluginId } = params
   const cardAttachementPlugin = await this.model("CardAttachementsPlugin").findById(cardAttachementsPluginId);
 
   const attachedImages = cardAttachementPlugin.attachements;
