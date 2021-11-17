@@ -38,10 +38,10 @@ ChecklistPluginSchema.methods.get = async ({ params }) => {
 
 ChecklistPluginSchema.methods.create = async ({ body }) => {
   const { checklistItem } = body;
-  if (!checklistItemId) {
+  if (!checklistItem) {
     return {
       status: 400,
-      message: "checklistItemId is not defined",
+      message: "checklistItem is not defined",
     };
   }
 
