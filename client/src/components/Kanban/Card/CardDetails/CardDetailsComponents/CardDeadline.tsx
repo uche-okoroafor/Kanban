@@ -85,12 +85,10 @@ export default function CardDeadline({ dueDate, disableSetting, ids }: Props): J
         <Box className={classes.textAreaContainer}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateTimePicker
-              sx={{ width: 250 }}
               disabled={disableSetting}
-              label="Date&Time picker"
               value={date}
               onChange={handleChange}
-              renderInput={(params) => <TextField {...params} />}
+              renderInput={(params) => <TextField variant="standard" sx={{ width: 250 }} {...params} />}
             />
           </LocalizationProvider>
           <Box className={classes.saveButtonContainer}>
