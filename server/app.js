@@ -5,8 +5,8 @@ const http = require("http");
 const express = require("express");
 const socketio = require("socket.io");
 const { notFound, errorHandler } = require("./middleware/error");
-const connectDB = require("./db");
 const { join } = require("path");
+const connectDB = require("./db")
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
@@ -25,7 +25,7 @@ const server = http.createServer(app);
 const whitelist = ["http://localhost:3000"];
 const corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
@@ -35,6 +35,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD,

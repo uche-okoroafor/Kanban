@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
+const mongoose = require("mongoose");
 
 // @route POST /auth/register
 // @desc Register user
@@ -95,19 +96,14 @@ exports.demoLogin = asyncHandler(async (req, res, next) => {
   if (!user) {
     res.sendStatus(404);
   }
-
-  const id = user._id.toString()
-  const token = generateToken(id);
-
-
-
-  const token = generateToken(user._id)
+  
+  const token = generateToken(user._id);
   const secondsInWeek = 604800;
   res.cookie("token", token, {
     httpOnly: true,
     maxAge: secondsInWeek * 1000,
   });
-
+  
   res.status(201).json({
     success: {
       user: {
@@ -124,7 +120,7 @@ exports.demoLogin = asyncHandler(async (req, res, next) => {
 // @desc Get user data with valid token
 // @access Private
 exports.loadUser = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  const user = await User.findById(mongoose.Types.ObjectId(req.user.id));
   if (!user) {
     res.status(401);
     throw new Error("Not authorized");
