@@ -1,24 +1,21 @@
 const mongoose = require("mongoose");
 
 const cardSchema = new mongoose.Schema({
-  cardTitle: {
+  name: {
     type: String,
     required: true,
   },
-
-  tagColor: {
+  tag: {
     type: String,
   },
-  cardDescription: {
+  description: {
     type: String,
   },
-  cardDeadline: {
+  dueDate: {
     type: Date,
     default: null,
   },
-
   comment: {
-
     type: String,
   },
 });
