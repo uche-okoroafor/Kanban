@@ -112,6 +112,7 @@ exports.demoLogin = asyncHandler(async (req, res, next) => {
         email: user.email,
         imageUrl: user.imageUrl,
       },
+      token: token
     },
   });
 });

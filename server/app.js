@@ -11,6 +11,7 @@ const logger = require("morgan");
 const cors = require("cors");
 const pkg = require("cloudinary");
 const { v2: cloudinary } = pkg;
+const connectDB = require("./db")
 
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
