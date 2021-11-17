@@ -2,48 +2,52 @@ import { IconButton, CircularProgress } from '@mui/material';
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import useStyles from '../../useStyles';
 import CloseIcon from '@mui/icons-material/Close';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Typography, TextField } from '@material-ui/core';
 import Button from '@mui/material/Button';
 import DialogContentText from '@mui/material/DialogContentText';
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
-// import { saveListItem, checkItem, deleteList } from '../../../helpers/APICalls/cardApiCalls';
-import { IIds } from '../../../../interface/Boards';
+import { IIds } from '../../../../../interface/Boards';
 
 interface Props {
-  checklist: any;
+  checklist: { item: string; isChecked: boolean; id: string }[] | undefined;
   disableSetting: boolean;
   ids: IIds | undefined;
 }
 
 export default function CardChecklist({ checklist, disableSetting, ids }: Props): JSX.Element {
   const classes = useStyles();
-  const [list, setList] = useState(checklist);
+  const [list, setList] = useState([
+    {
+      item: 'Demo',
+      isChecked: false,
+      id: '1',
+    },
+  ]);
   const [newItem, setNewItem] = useState('');
   const [displayInput, setDisplayInput] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSaveCheckList = async (): Promise<void> => {
-    // try {
-    //   const response = await saveListItem();
-    //   setDisplayInput(false);
-    //   setNewItem('');
-    // } catch (err) {}
+  useEffect(() => {
+    if (checklist) {
+      setList(checklist);
+    }
+  }, [checklist]);
 
-    setList([...list, { item: newItem, isChecked: false }]);
+  const handleSaveCheckList = async (): Promise<void> => {
+    // api call to save it to the database
+
+    setList([...list, { item: newItem, isChecked: false, id: '12' }]);
+    setNewItem('');
   };
 
   const handleCheck = async (id: string): Promise<void> => {
-    //   try {
-    //     const response = await checkItem();
-    //   } catch (err) {}
+    // api call to checkitems it to the database
   };
 
   const handleDeleteList = async (id: string): Promise<void> => {
-    //   try {
-    //     const response = await deleteList();
-    //   } catch (err) {}
+    // api call to delete it to the database
   };
   return (
     <>
@@ -55,7 +59,7 @@ export default function CardChecklist({ checklist, disableSetting, ids }: Props)
         <Box style={{ paddingLeft: '40px', width: '90%' }}>
           <Box>
             <Stack>
-              {list.map((item: any) => (
+              {list.map((item: any, index: number) => (
                 <Box
                   display="flex"
                   alignItems="center"
@@ -63,7 +67,7 @@ export default function CardChecklist({ checklist, disableSetting, ids }: Props)
                     padding: '0 30px',
                     width: 300,
                   }}
-                  key={item._id}
+                  key={index}
                 >
                   <Box
                     style={{
@@ -74,8 +78,8 @@ export default function CardChecklist({ checklist, disableSetting, ids }: Props)
                     {' '}
                     <Typography>{item.item}</Typography>
                   </Box>
-                  <Checkbox checked={item.isChecked} onChange={() => handleCheck(item._id)} />
-                  <IconButton aria-label="close" onClick={() => handleDeleteList(item._id)}>
+                  <Checkbox checked={item.isChecked} onChange={() => handleCheck(item.id)} />
+                  <IconButton aria-label="close" onClick={() => handleDeleteList(item.id)}>
                     <CloseIcon />
                   </IconButton>
                 </Box>

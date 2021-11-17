@@ -18,9 +18,8 @@ import CardComment from './CardDetailsComponents/CardComment';
 import CardChecklist from './CardDetailsComponents/CardChecklist';
 import CardAttachment from './CardDetailsComponents/CardAttachment';
 import CardOperationBtns from './CardDetailsComponents/CardOperationBtns';
-import { ICard, IIds, IBoard } from '../../../interface/Boards';
-import Stack from '@mui/material/Stack';
-import { useBoard } from '../../../context/useBoardContext';
+import { IIds, IBoard } from '../../../../interface/Board';
+import { ICard } from '../../../../interface/Card';
 
 interface Props {
   displayedCard: ICard | null;
@@ -33,8 +32,6 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
   const classes = useStyles();
 
   const [card, setCard] = useState<ICard | null>(displayedCard);
-  const { boards } = useBoard();
-
   const closeCardDetails = () => {
     setOpenDialog(false);
   };
@@ -43,13 +40,9 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
   const [displayChecklist, setDisplayChecklist] = useState(false);
 
   useEffect(() => {
-    if (boards) {
+    if (displayedCard) {
       setCard(displayedCard);
-      setTimeout(() => {
-        // SetDisplayedBoard(boards[0]);
-      }, 1000);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [displayedCard]);
 
   return (
@@ -64,8 +57,8 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
         </IconButton>
         <Box display="flex" alignItems="center" style={{ whiteSpace: 'nowrap', maxWidth: '40%' }}>
           <DashboardOutlinedIcon style={{ marginRight: '10px' }} />
-          <CardTitle ids={ids} disableSetting={disableSetting} cardTitle={card?.cardTitle} />{' '}
-          <CardColor ids={ids} disableSetting={disableSetting} tagColor={card?.tagColor} />
+          <CardTitle ids={ids} disableSetting={disableSetting} name={card?.name} />{' '}
+          <CardColor ids={ids} disableSetting={disableSetting} tag={card?.tag} />
           <IconButton
             aria-label="close"
             color={disableSetting ? 'default' : 'primary'}
@@ -89,7 +82,7 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
           {!displayChecklist && !displayAttachment ? (
             <>
               <CardDescription ids={ids} description={card?.description} disableSetting={disableSetting} />
-              <CardDeadline ids={ids} deadline={card?.deadline} disableSetting={disableSetting} />
+              <CardDeadline ids={ids} dueDate={card?.dueDate} disableSetting={disableSetting} />
               <CardComment ids={ids} comment={card?.comment} disableSetting={disableSetting} />
             </>
           ) : displayChecklist ? (

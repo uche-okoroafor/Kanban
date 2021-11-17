@@ -4,25 +4,25 @@ import { Box } from '@material-ui/core';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { saveCardItem } from '../../../../helpers/APICalls/cardApiCalls';
-import { IIds } from '../../../../interface/Boards';
-import { useSnackBar } from '../../../../context/useSnackbarContext';
-import { useBoard } from '../../../../context/useBoardContext';
+import { saveCardItem } from '../../../../../helpers/APICalls/cardApiCalls';
+import { IIds } from '../../../../../interface/Board';
+import { useSnackBar } from '../../../../../context/useSnackbarContext';
+import { useBoard } from '../../../../../context/useBoardContext';
 
 interface Props {
-  tagColor: string | undefined;
+  tag: string | undefined;
   disableSetting: boolean;
   ids: IIds | undefined;
 }
 
-export default function CardColor({ tagColor, disableSetting, ids }: Props): JSX.Element {
+export default function CardColor({ tag, disableSetting, ids }: Props): JSX.Element {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [colorTag, setColorTag] = useState(tagColor);
+  const [colorTag, setColorTag] = useState(tag);
   const colors = ['#fcba03', '#5de3c4', '#de602f', '#de2fcf', '#494bd6'];
   const open = Boolean(anchorEl);
   const { updateSnackBarMessage } = useSnackBar();
-  const { updateBoards, boards } = useBoard();
+  const { updateBoard, boards } = useBoard();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -32,9 +32,10 @@ export default function CardColor({ tagColor, disableSetting, ids }: Props): JSX
   };
 
   useEffect(() => {
-    setColorTag(tagColor);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [boards]);
+    if (tag) {
+      setColorTag(tag);
+    }
+  }, [tag]);
 
   const handleSaveCardColor = async (colorParams: string): Promise<void> => {
     setColorTag(colorParams);
@@ -42,7 +43,7 @@ export default function CardColor({ tagColor, disableSetting, ids }: Props): JSX
       if (data.error) {
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {
-        updateBoards();
+        updateBoard();
       } else {
         // should not get here from backend but this catch is for an unknown issue
         console.error({ data });

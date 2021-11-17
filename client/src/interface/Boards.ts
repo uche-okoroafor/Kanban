@@ -1,10 +1,10 @@
 export interface ICard {
   _id: string;
-  cardTitle: string;
-  tagColor: string;
+  name: string;
+  tag: string;
   description: string;
   comment: string;
-  deadline: string;
+  dueDate: string;
   checklist: {
     item: string;
     isChecked: boolean;

@@ -2,16 +2,15 @@ import { IconButton } from '@mui/material';
 import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
 import useStyles from '../../useStyles';
 import CloseIcon from '@mui/icons-material/Close';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Typography, TextField } from '@material-ui/core';
 import Button from '@mui/material/Button';
 import DialogContentText from '@mui/material/DialogContentText';
 import Stack from '@mui/material/Stack';
-// import { saveAttachment, deleteAttachment } from '../../../helpers/APICalls/cardApiCalls';
-import { IIds } from '../../../../interface/Boards';
+import { IIds } from '../../../../../interface/Board';
 
 interface Props {
-  attachment: { imageName: string; imageSource: string; _id: number | string } | undefined;
+  attachment: { imageName: string; imageSource: string; id: number | string } | undefined;
   disableSetting: boolean;
   ids: IIds | undefined;
 }
@@ -23,17 +22,18 @@ export default function CardAttachment({ attachment, disableSetting, ids }: Prop
   const [imageSource, setImageSource] = useState(attachment?.imageSource);
   const [displayInput, setDisplayInput] = useState(false);
 
+  useEffect(() => {
+    if (attachment) {
+      setImageName(attachment?.imageName);
+      setImageSource(attachment?.imageSource);
+    }
+  }, [attachment]);
+
   const handleDeleteAttachment = async (): Promise<void> => {
-    // try {
-    //   const response = await deleteAttachment();
-    //   setImageSource('');
-    //   setImageName('');
-    // } catch (err) {}
+    // a request to delete attachment
   };
   const handleSaveAttachment = async (): Promise<void> => {
-    // try {
-    //   const response = await saveAttachment();
-    // } catch (err) {}
+    //a requset to save attachment
     setDisplayInput(false);
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {

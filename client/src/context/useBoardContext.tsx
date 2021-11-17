@@ -4,18 +4,18 @@ import { getUserBoards } from '../helpers/APICalls/boardApiCalls';
 import { useState, useContext, createContext, FunctionComponent, useEffect, useCallback } from 'react';
 
 interface IBoardsContext {
-  updateBoards: () => void;
+  updateBoard: () => void;
   boards: IBoard[] | undefined;
 }
 
 export const BoardContext = createContext<IBoardsContext>({
-  updateBoards: () => null,
+  updateBoard: () => null,
   boards: undefined,
 });
 
 export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [boards, setBoards] = useState<IBoardsContext['boards']>(undefined);
-  const updateBoards = useCallback(async () => {
+  const updateBoard = useCallback(async () => {
     await getUserBoards()
       .then((data) => {
         setBoards(data.boards);
@@ -24,14 +24,14 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    updateBoards();
+    updateBoard();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <BoardContext.Provider
       value={{
-        updateBoards,
+        updateBoard,
         boards,
       }}
     >

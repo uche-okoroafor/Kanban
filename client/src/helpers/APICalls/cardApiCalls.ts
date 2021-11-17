@@ -3,7 +3,7 @@ import { IIds, ICardResponse } from '../../interface/Boards';
 
 export async function saveCardItem(
   cardItem: string,
-  value: string | undefined,
+  value: string | undefined | Date,
   ids: IIds | undefined,
 ): Promise<ICardResponse> {
   const fetchOptions: FetchOptions = {
@@ -21,7 +21,7 @@ export async function saveCardItem(
 
 export async function deleteCardItem(
   cardItem: string,
-  value: string | undefined,
+  value: string | undefined | Date,
   ids: IIds | undefined,
 ): Promise<ICardResponse> {
   const fetchOptions: FetchOptions = {

@@ -15,7 +15,6 @@ import AppLayout from './components/AppLayout/AppLayout';
 import { BoardProvider } from './context/useBoardContext';
 import { KanbanProvider } from './context/useKanbanContext';
 
-
 function App(): JSX.Element {
   const [state] = useImmerReducer(authReducer, authState);
 
@@ -25,24 +24,24 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <SocketProvider>
             <BoardProvider>
-            <KanbanProvider>
-              <Switch>
-                <Route path="/login" component={Login} />
-                <Route path="/signup" component={Signup} />
-                <Route
-                  render={(props: RouteComponentProps) => (
-                    <AppLayout {...props}>
-                      <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
-                      <ProtectedRoute path="/calender" token={state.token} component={Calender} />
-                    </AppLayout>
-                  )}
-                />
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route>
-              </Switch>
+              <KanbanProvider>
+                <Switch>
+                  <Route path="/login" component={Login} />
+                  <Route path="/signup" component={Signup} />
+                  <Route
+                    render={(props: RouteComponentProps) => (
+                      <AppLayout {...props}>
+                        <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
+                        <ProtectedRoute path="/calender" token={state.token} component={Calender} />
+                      </AppLayout>
+                    )}
+                  />
+                  <Route path="*">
+                    <Redirect to="/login" />
+                  </Route>
+                </Switch>{' '}
+              </KanbanProvider>
             </BoardProvider>
-            </KanbanProvider>
           </SocketProvider>
         </SnackBarProvider>
       </BrowserRouter>
