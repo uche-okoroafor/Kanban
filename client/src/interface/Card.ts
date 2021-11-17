@@ -7,3 +7,23 @@ export interface Card {
   description?: string;
   createdAt?: Date;
 }
+
+export interface CreateCardParam {
+  cardTitle: string;
+  tagColor: string;
+  columnId: string;
+  boardId: string;
+}
+
+export interface UpdateCardItemsParam {
+  cardItem: string;
+  value: string;
+  cardId: string;
+  columnId: string;
+  boardId: string;
+}
+
+export interface RemoveCardItemsParam {
+  cardItem: string;
+  cardId: string;
+}
