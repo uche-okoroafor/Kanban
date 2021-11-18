@@ -7,6 +7,9 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+
+import Calendar from './pages/Calendar/Calendar';
+
 import { useImmerReducer } from 'use-immer';
 import { authReducer, authState } from './state/auth/authContext';
 import './App.css';
