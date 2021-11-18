@@ -38,19 +38,19 @@ exports.uploadImage = asyncHandler(async (req, res, next) => {
     throw new Error("No users found!");
   }
 
-  if (user.imagePublicId !== "") {
-    await cloudinary.uploader.destroy(user.imagePublicId);
+  if (user.imageUrl !== "") {
+    await cloudinary.uploader.destroy(req.user.id);
   }
 
   const uploadedImage = await cloudinary.uploader.upload(req.file.path, {
     folder: "kanban",
     resource_type: "auto",
+    public_id: req.user.id
   });
 
-  const { secure_url, public_id } = uploadedImage;
+  const { secure_url } = uploadedImage;
 
   user.imageUrl = secure_url;
-  user.imagePublicId = public_id;
 
   const savedUser = await user.save();
 

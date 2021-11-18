@@ -20,7 +20,6 @@ async function seed() {
       email: "demo@kanban.com",
       password: "123456",
       imageUrl: "",
-      imagePublicId: "",
     });
   } catch (error) {
     console.error(error);
