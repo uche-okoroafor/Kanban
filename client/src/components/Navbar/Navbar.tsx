@@ -7,14 +7,17 @@ import NavButton from '../Button/NavButton';
 import CreateBoardButton from '../Button/CreateBoardButton';
 import AvatarButton from '../AvatarButton/AvatarButton';
 import AvatarMenu from '../AvatarMenu/AvatarMenu';
+import { useAuth } from '../../context/useAuthContext';
 
 interface Props {
   onHandleOpen?: React.MouseEventHandler<HTMLLIElement>;
 }
 
-export default function Navbar({onHandleOpen}: Props): JSX.Element {
+export default function Navbar({ onHandleOpen }: Props): JSX.Element {
   const classses = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { loggedInUser } = useAuth();
+  console.log(loggedInUser);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -38,7 +41,7 @@ export default function Navbar({onHandleOpen}: Props): JSX.Element {
               // handles the create board functionality
             }}
           />
-          <AvatarButton onClick={handleClick} />
+          <AvatarButton onClick={handleClick} image={loggedInUser?.imageUrl} />
           <AvatarMenu
             id="menu"
             anchorEl={anchorEl}

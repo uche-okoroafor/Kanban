@@ -1,4 +1,3 @@
-
 import login from '../helpers/APICalls/login';
 import { useAuth } from '../context/useAuthContext';
 import { useSnackBar } from '../context/useSnackbarContext';
@@ -8,7 +7,7 @@ const useDemoLogin = (): { demoLogin: () => void } => {
   const { updateSnackBarMessage } = useSnackBar();
 
   const demoLogin = () => {
-    login('DEMO_LOGIN', 'null', 'null').then((data) => {
+    login('DEMO_LOGIN').then((data) => {
       if (data.error) {
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {
@@ -23,4 +22,3 @@ const useDemoLogin = (): { demoLogin: () => void } => {
 };
 
 export default useDemoLogin;
-

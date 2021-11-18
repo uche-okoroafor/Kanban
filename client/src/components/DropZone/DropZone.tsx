@@ -14,6 +14,7 @@ const DropZone = ({ open, onHandleClose, onSetFile }: Props): JSX.Element => {
   const onDrop = useCallback(
     (acceptedFile) => {
       onSetFile(acceptedFile[0]);
+      console.log(acceptedFile[0]);
     },
     [onSetFile],
   );
@@ -39,7 +40,7 @@ const DropZone = ({ open, onHandleClose, onSetFile }: Props): JSX.Element => {
         <Input inputProps={{ ...getInputProps() }} />
           <img loading="lazy" className={classes.uploadImage} src={Image} alt="" />
           {isDragReject ? (
-            <Typography>Sorry, This app only supports images and mp3</Typography>
+            <Typography>Sorry, This app only supports images</Typography>
           ) : (
             <Box className={classes.typographyBox}>
               <Typography className={classes.typography}>

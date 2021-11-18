@@ -8,10 +8,11 @@ import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { useImmerReducer } from 'use-immer';
-import { authReducer, authState } from "./state/auth/authContext"
+import { authReducer, authState } from './state/auth/authContext';
 import './App.css';
 import Calender from './pages/Calender/Calender';
 import AppLayout from './components/AppLayout/AppLayout';
+import { BoardProvider } from './context/useBoardContext';
 import { KanbanProvider } from './context/useKanbanContext';
 
 function App(): JSX.Element {
@@ -21,23 +22,25 @@ function App(): JSX.Element {
       <BrowserRouter>
         <SnackBarProvider>
           <SocketProvider>
-            <KanbanProvider>
-              <Switch>
-                <Route path="/login" component={Login} />
-                <Route path="/signup" component={Signup} />
-                <Route
-                  render={(props: RouteComponentProps) => (
-                    <AppLayout {...props}>
-                      <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
-                      <ProtectedRoute path="/calender" token={state.token} component={Calender} />
-                    </AppLayout>
-                  )}
-                />
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route>
-              </Switch>
-            </KanbanProvider>
+            <BoardProvider>
+              <KanbanProvider>
+                <Switch>
+                  <Route path="/login" component={Login} />
+                  <Route path="/signup" component={Signup} />
+                  <Route
+                    render={(props: RouteComponentProps) => (
+                      <AppLayout {...props}>
+                        <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
+                        <ProtectedRoute path="/calender" token={state.token} component={Calender} />
+                      </AppLayout>
+                    )}
+                  />
+                  <Route path="*">
+                    <Redirect to="/login" />
+                  </Route>
+                </Switch>{' '}
+              </KanbanProvider>
+            </BoardProvider>
           </SocketProvider>
         </SnackBarProvider>
       </BrowserRouter>

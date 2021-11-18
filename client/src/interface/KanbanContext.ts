@@ -3,6 +3,7 @@ import { Card } from './Card';
 import { Column } from './Column';
 
 export interface KanbanContext {
+  focusedBoardId: string;
   columns: Column[];
   focusedCard: Card | null;
   handleDragEnd: (result: DropResult) => void;
