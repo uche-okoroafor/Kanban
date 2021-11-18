@@ -26,3 +26,6 @@ __snapshots__
 # debug & other vs code settings
 .vscode
 *.code-workspace
+*.js
+client/src/interface/dist/Calender.js
+client/src/pages/Calendar/dist/Calendar.js
