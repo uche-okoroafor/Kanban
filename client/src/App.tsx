@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Redirect, Switch, RouteComponentProps } from 'rea
 import Login from './pages/Login/Login';
 import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
-import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import './App.css';
@@ -20,25 +19,23 @@ function App(): JSX.Element {
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
         <SnackBarProvider>
-          <SocketProvider>
-            <KanbanProvider>
-              <Switch>
-                <Route path="/login" component={Login} />
-                <Route path="/signup" component={Signup} />
-                <Route
-                  render={(props: RouteComponentProps) => (
-                    <AppLayout {...props}>
-                      <ProtectedRoute exact path="/" token={loggedInUser} component={Dashboard} />
-                      <ProtectedRoute path="/calender" token={loggedInUser} component={Calender} />
-                    </AppLayout>
-                  )}
-                />
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route>
-              </Switch>
-            </KanbanProvider>
-          </SocketProvider>
+          <KanbanProvider>
+            <Switch>
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <Route
+                render={(props: RouteComponentProps) => (
+                  <AppLayout {...props}>
+                    <ProtectedRoute exact path="/" token={loggedInUser} component={Dashboard} />
+                    <ProtectedRoute path="/calender" token={loggedInUser} component={Calender} />
+                  </AppLayout>
+                )}
+              />
+              <Route path="*">
+                <Redirect to="/login" />
+              </Route>
+            </Switch>
+          </KanbanProvider>
         </SnackBarProvider>
       </BrowserRouter>
     </MuiThemeProvider>

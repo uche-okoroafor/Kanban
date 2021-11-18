@@ -57,7 +57,6 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
 // @access Public
 exports.loginUser = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
-
   const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
