@@ -22,6 +22,9 @@ const useStyles = makeStyles({
     backgroundColor: '#d3d3d3',
     marginTop: '8px',
     marginBottom: '16px',
+    '&:hover': {
+      cursor: 'pointer',
+    },
   },
   imageDropBoxUploaded: {
     height: '4rem',
@@ -34,6 +37,9 @@ const useStyles = makeStyles({
     marginTop: '8px',
     marginBottom: '16px',
     border: '2px solid green',
+    '&:hover': {
+      cursor: 'pointer',
+    },
   },
   uploadImage: {
     height: '2rem',

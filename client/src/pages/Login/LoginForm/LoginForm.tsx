@@ -49,14 +49,15 @@ export default function Login({ handleSubmit, handleDemoLogin }: Props): JSX.Ele
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
             id="email"
+            label={<Typography className={classes.label}>E-mail address</Typography>}
             fullWidth
-            defaultValue="Enter email"
             margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
             InputProps={{
               classes: { input: classes.inputs },
-              disableUnderline: true,
             }}
-            placeholder="Enter email"
             name="email"
             autoComplete="email"
             autoFocus
@@ -67,14 +68,16 @@ export default function Login({ handleSubmit, handleDemoLogin }: Props): JSX.Ele
           />
           <TextField
             id="password"
+            label={<Typography className={classes.label}>Password</Typography>}
             fullWidth
             margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
             InputProps={{
               classes: { input: classes.inputs },
-              disableUnderline: true,
-              defaultValue: 'password',
+              endAdornment: <Typography className={classes.forgot}>Forgot?</Typography>,
             }}
-            placeholder="Password"
             type="password"
             autoComplete="current-password"
             helperText={touched.password ? errors.password : ''}
@@ -82,7 +85,7 @@ export default function Login({ handleSubmit, handleDemoLogin }: Props): JSX.Ele
             value={values.password}
             onChange={handleChange}
           />
-          <Box className={classes.btnBox}>
+          <Box textAlign="center">
             <Button type="submit" size="large" variant="contained" color="primary" className={classes.submit}>
               {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Login'}
             </Button>

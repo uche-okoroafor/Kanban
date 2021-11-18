@@ -24,13 +24,16 @@ interface Props {
   ) => void;
   onSetFile: (acceptableFile: { [prop: string]: string | number }) => void;
   file: { [prop: string]: string | number } | null;
+  open: boolean;
+  setDisplayCover: React.Dispatch<boolean>;
 }
 
-export default function CardCoverPlugin({ handleSubmitCover, onSetFile, file }: Props): JSX.Element {
-  const [open, setOpen] = useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+export default function CardCoverPlugin({ handleSubmitCover, onSetFile, file, open, setDisplayCover }: Props): JSX.Element {
+  
   const classes = useStyles();
+  const handleClose = (): void => {
+    setDisplayCover(false)
+  }
 
   return (
     <Modal

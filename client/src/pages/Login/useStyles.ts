@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-import Image from '../../Images/image1.png';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -14,7 +13,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
     flexDirection: 'column',
     minHeight: '100vh',
-    paddingTop: 180,
+    paddingTop: 23,
   },
   welcome: {
     fontSize: 26,
@@ -22,11 +21,6 @@ const useStyles = makeStyles(() => ({
     color: '#000000',
     fontWeight: 700,
     fontFamily: "'Open Sans'",
-    textAlign: 'center',
-  },
-  background: {
-    backgroundImage: `url(${Image})`,
-    height: '100%',
   },
 }));
 

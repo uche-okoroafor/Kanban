@@ -1,0 +1,19 @@
+{
+  "board": {
+    "boardTitle": "New Board",
+    "columns": []
+  },
+
+  "columnProgress": {
+    "columnTitle": "In Progress",
+    "cards": []
+  },
+  "columnCompleted": {
+    "columnTitle": "Completed",
+    "cards": []
+  },
+  "card": {
+    "cardTitle": "New Card",
+    "description": ""
+  }
+}
