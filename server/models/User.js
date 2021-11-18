@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
-const Schema = mongoose.Schema
+
+const Schema = mongoose.Schema;
 
 
 const userSchema = new mongoose.Schema({
@@ -21,6 +22,7 @@ const userSchema = new mongoose.Schema({
   },
   register_date: {
     type: Date,
+
     default: Date.now
   },
   userImage: { type: Schema.Types.Object, ref: "Image" },
