@@ -108,6 +108,7 @@ export default function CardChecklist({ checklist, displayChecklist, ids }: Prop
           </Box>
         </Box>
         <ChecklistPlugin displayChecklist={displayChecklist} />
+
       </Box>
     </>
   );
