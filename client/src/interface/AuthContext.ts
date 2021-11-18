@@ -11,7 +11,7 @@ export interface AuthState {
 
 /**
  * Login user action creator
- * type defintion.
+ * type definition.
  * @interface
  */
 export interface LoginUserAction {
@@ -37,7 +37,7 @@ export interface LogOutUserAction {
 export type AuthActionTypes = LoginUserAction | LogOutUserAction;
 
 /**
- * Auth reducer type defintion.
+ * Auth reducer type definition.
  * @type
  */
 export type AuthReducer = (draft: AuthState, action: AuthActionTypes) => void;

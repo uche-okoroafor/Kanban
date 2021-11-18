@@ -1,5 +1,6 @@
 import { ComponentType } from 'react';
 import { RouteComponentProps, RouteProps } from 'react-router';
+import { User } from './User';
 
 /**
  * ProtectedRoute component prop
@@ -7,6 +8,6 @@ import { RouteComponentProps, RouteProps } from 'react-router';
  * @interface
  */
 export interface ProtectedRouteProps extends RouteProps {
-  token: string;
+  token: User | null | undefined;
   component: ComponentType<RouteComponentProps>;
 }

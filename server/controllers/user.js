@@ -10,7 +10,7 @@ exports.searchUsers = asyncHandler(async (req, res, next) => {
   let users;
   if (searchString) {
     users = await User.find({
-      username: { $regex: searchString, $options: "i" }
+      username: { $regex: searchString, $options: "i" },
     });
   }
 
@@ -20,4 +20,15 @@ exports.searchUsers = asyncHandler(async (req, res, next) => {
   }
 
   res.status(200).json({ users: users });
+});
+
+exports.getUser = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+
+  if (!user) {
+    res.status(404).json({ message: "User not found." });
+  }
+
+  res.status(200).json(user);
 });
