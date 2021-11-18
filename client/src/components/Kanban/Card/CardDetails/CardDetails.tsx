@@ -16,11 +16,11 @@ import CardDescription from './CardDetailsComponents/CardDescription';
 import CardDeadline from './CardDetailsComponents/CardDeadline';
 import CardComment from './CardDetailsComponents/CardComment';
 import CardChecklist from './CardDetailsComponents/CardChecklist';
-import CardAttachment from './CardDetailsComponents/CardAttachment';
+import CardAttachment from "../../../CardAttachmentPlugin/CardAttachment"
 import CardOperationBtns from './CardDetailsComponents/CardOperationBtns';
 import { IIds, IBoard } from '../../../../interface/Board';
 import { ICard } from '../../../../interface/Card';
-import CardCover from "../../../CardCoverPlugin/CardCover"
+import CardCover from '../../../CardCoverPlugin/CardCover';
 
 interface Props {
   displayedCard: ICard | null;
@@ -81,16 +81,14 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
       >
         <Box flexGrow="1">
           {' '}
-          {!displayChecklist && !displayAttachment ? (
+          {!displayChecklist ? (
             <>
               <CardDescription ids={ids} description={card?.description} disableSetting={disableSetting} />
               <CardDeadline ids={ids} dueDate={card?.dueDate} disableSetting={disableSetting} />
               <CardComment ids={ids} comment={card?.comment} disableSetting={disableSetting} />
             </>
-          ) : displayChecklist ? (
-            <CardChecklist ids={ids} checklist={card?.checklist} disableSetting={disableSetting} />
           ) : (
-            <CardAttachment ids={ids} attachment={card?.attachment} disableSetting={disableSetting} />
+            <CardChecklist ids={ids} checklist={card?.checklist} disableSetting={disableSetting} />
           )}
         </Box>
         <Box>
@@ -106,6 +104,7 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
         </Box>
       </DialogContent>
       <CardCover open={displayCover} setDisplayCover={setDisplayCover} />
+      <CardAttachment open={displayAttachment} setDisplayAttachment={setDisplayAttachment} />
       <DialogActions></DialogActions>
     </Dialog>
   );

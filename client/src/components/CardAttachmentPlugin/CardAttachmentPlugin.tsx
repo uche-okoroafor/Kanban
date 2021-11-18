@@ -24,12 +24,20 @@ interface Props {
   ) => void;
   onSetFile: (acceptableFile: { [props: string]: string | number }[]) => void;
   file: { [props: string]: string | number }[] | null;
+  open: boolean;
+  setDisplayAttachment: React.Dispatch<boolean>;
 }
 
-export default function CardAttachmentPlugin({ handleSubmitCover, onSetFile, file }: Props): JSX.Element {
-  const [open, setOpen] = useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+export default function CardAttachmentPlugin({
+  handleSubmitCover,
+  onSetFile,
+  file,
+  open,
+  setDisplayAttachment,
+}: Props): JSX.Element {
+  const handleClose = () => {
+    setDisplayAttachment(false);
+  };
   const classes = useStyles();
 
   return (
