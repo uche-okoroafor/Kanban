@@ -10,33 +10,33 @@ import './App.css';
 import Calender from './pages/Calender/Calender';
 import AppLayout from './components/AppLayout/AppLayout';
 import { KanbanProvider } from './context/useKanbanContext';
-import { useAuth } from './context/useAuthContext';
+import { AuthProvider } from './context/useAuthContext';
 
 function App(): JSX.Element {
-  const { loggedInUser } = useAuth();
-
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
-        <SnackBarProvider>
-          <KanbanProvider>
-            <Switch>
-              <Route path="/login" component={Login} />
-              <Route path="/signup" component={Signup} />
-              <Route
-                render={(props: RouteComponentProps) => (
-                  <AppLayout {...props}>
-                    <ProtectedRoute exact path="/" token={loggedInUser} component={Dashboard} />
-                    <ProtectedRoute path="/calender" token={loggedInUser} component={Calender} />
-                  </AppLayout>
-                )}
-              />
-              <Route path="*">
-                <Redirect to="/login" />
-              </Route>
-            </Switch>
-          </KanbanProvider>
-        </SnackBarProvider>
+        <AuthProvider>
+          <SnackBarProvider>
+            <KanbanProvider>
+              <Switch>
+                <Route path="/login" component={Login} />
+                <Route path="/signup" component={Signup} />
+                <Route
+                  render={(props: RouteComponentProps) => (
+                    <AppLayout {...props}>
+                      <ProtectedRoute exact path="/" component={Dashboard} />
+                      <ProtectedRoute path="/calender" component={Calender} />
+                    </AppLayout>
+                  )}
+                />
+                <Route path="*">
+                  <Redirect to="/login" />
+                </Route>
+              </Switch>
+            </KanbanProvider>
+          </SnackBarProvider>
+        </AuthProvider>
       </BrowserRouter>
     </MuiThemeProvider>
   );

@@ -7,9 +7,11 @@ import NavButton from '../Button/NavButton';
 import CreateBoardButton from '../Button/CreateBoardButton';
 import AvatarButton from '../AvatarButton/AvatarButton';
 import AvatarMenu from '../AvatarMenu/AvatarMenu';
+import { useAuth } from '../../context/useAuthContext';
 
 export default function Navbar(): JSX.Element {
-  const classses = useStyles();
+  const classes = useStyles();
+  const { logout } = useAuth();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -21,12 +23,12 @@ export default function Navbar(): JSX.Element {
   };
 
   return (
-    <Box className={classses.root}>
+    <Box className={classes.root}>
       <Grid container spacing={2}>
-        <Grid item md={3} className={classses.container}>
+        <Grid item md={3} className={classes.container}>
           <img src={KanbanLogo} alt="kanban-logo" />
         </Grid>
-        <Grid item md={9} className={classses.avatarContainer}>
+        <Grid item md={9} className={classes.avatarContainer}>
           <NavButton title="Dashboard" to="/" icon={<DashboardOutlined />} />
           <NavButton title="Calender" to="/calender" icon={<CalendarTodayOutlined />} />
           <CreateBoardButton
@@ -43,9 +45,7 @@ export default function Navbar(): JSX.Element {
             onClickProfile={() => {
               // handles profile option in the menu
             }}
-            onClickLogOut={() => {
-              // handles logout option in the menu
-            }}
+            onClickLogOut={logout}
           />
         </Grid>
       </Grid>

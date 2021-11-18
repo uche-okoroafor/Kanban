@@ -1,3 +1,5 @@
+import { User } from './User';
+
 export const LOG_IN_USER = 'LOG_IN_USER';
 export const LOG_OUT_USER = 'LOG_OUT_USER';
 
@@ -6,7 +8,7 @@ export const LOG_OUT_USER = 'LOG_OUT_USER';
  * @interface
  */
 export interface AuthState {
-  token: string;
+  token: User | null | undefined;
 }
 
 /**
@@ -16,7 +18,7 @@ export interface AuthState {
  */
 export interface LoginUserAction {
   type: typeof LOG_IN_USER;
-  payload: string;
+  payload: User;
 }
 
 /**
@@ -26,7 +28,7 @@ export interface LoginUserAction {
  */
 export interface LogOutUserAction {
   type: typeof LOG_OUT_USER;
-  payload: string;
+  payload: null;
 }
 
 /**

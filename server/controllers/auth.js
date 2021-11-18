@@ -87,7 +87,7 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
 // @desc Login demo user
 // @access Public
 exports.demoLogin = asyncHandler(async (req, res, next) => {
-  const user = await User.findOne({ email: "demo@kanban.com" });
+  const user = await User.findOne({ email: "peterlogo77@gmail.com" });
 
   if (!user) {
     res.sendStatus(404);
@@ -101,7 +101,7 @@ exports.demoLogin = asyncHandler(async (req, res, next) => {
     maxAge: secondsInWeek * 1000,
   });
 
-  res.status(201).json({
+  res.status(200).json({
     success: {
       user: {
         id: user._id,
