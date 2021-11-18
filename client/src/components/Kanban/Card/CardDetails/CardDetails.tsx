@@ -20,6 +20,7 @@ import CardAttachment from './CardDetailsComponents/CardAttachment';
 import CardOperationBtns from './CardDetailsComponents/CardOperationBtns';
 import { IIds, IBoard } from '../../../../interface/Board';
 import { ICard } from '../../../../interface/Card';
+import CardCover from "../../../CardCoverPlugin/CardCover"
 
 interface Props {
   displayedCard: ICard | null;
@@ -38,6 +39,7 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
   const [disableSetting, setDisableSetting] = useState(true);
   const [displayAttachment, setDisplayAttachment] = useState(false);
   const [displayChecklist, setDisplayChecklist] = useState(false);
+  const [displayCover, setDisplayCover] = useState(false);
 
   useEffect(() => {
     if (displayedCard) {
@@ -98,9 +100,12 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
             displayChecklist={displayChecklist}
             setDisplayChecklist={setDisplayChecklist}
             setDisplayAttachment={setDisplayAttachment}
+            displayCover={displayCover}
+            setDisplayCover={setDisplayCover}
           />
         </Box>
       </DialogContent>
+      <CardCover open={displayCover} setDisplayCover={setDisplayCover} />
       <DialogActions></DialogActions>
     </Dialog>
   );

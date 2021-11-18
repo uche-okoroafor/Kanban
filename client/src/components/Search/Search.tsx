@@ -64,8 +64,10 @@ const Search = ({ search, handleChange }: Props): JSX.Element => {
         onClose={() => {
           setOpen(false);
         }}
-        getOptionSelected={(option, value) => option.username === value.username}
-        getOptionLabel={(option) => option.username}
+        getOptionSelected={(option: any, value: any) =>
+          option.username === value.username
+        }
+        getOptionLabel={(option: any) => option.username}
         options={options}
         loading={loading}
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -74,7 +76,7 @@ const Search = ({ search, handleChange }: Props): JSX.Element => {
         inputValue={search}
         noOptionsText="No Users Found"
         freeSolo
-        renderInput={(params) => (
+        renderInput={(params: any) => (
           <div className={classes.search}>
             <InputBase
               {...params.inputProps}

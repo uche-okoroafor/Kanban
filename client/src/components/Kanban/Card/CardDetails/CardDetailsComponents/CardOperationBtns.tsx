@@ -7,6 +7,8 @@ interface Props {
   setDisableSetting: React.Dispatch<boolean>;
   displayAttachment: boolean;
   displayChecklist: boolean;
+  displayCover: boolean;
+  setDisplayCover: React.Dispatch<boolean>;
   setDisplayChecklist: React.Dispatch<boolean>;
   setDisplayAttachment: React.Dispatch<boolean>;
 }
@@ -15,6 +17,8 @@ export default function CardOperationBtnTexts({
   setDisableSetting,
   displayAttachment,
   displayChecklist,
+  displayCover,
+  setDisplayCover,
   setDisplayChecklist,
   setDisplayAttachment,
 }: Props): JSX.Element {
@@ -23,15 +27,24 @@ export default function CardOperationBtnTexts({
   const handleDisplayAttachment = (): void => {
     setDisplayAttachment(!displayAttachment);
     setDisplayChecklist(false);
+    setDisplayCover(false)
   };
+
+  const handleDisplayCover = (): void => {
+    setDisplayCover(!displayCover)
+    setDisplayChecklist(false)
+    setDisplayAttachment(false)
+  }
 
   const handleDisplayChecklist = (): void => {
     setDisplayChecklist(!displayChecklist);
     setDisplayAttachment(false);
+    setDisplayCover(false)
   };
   const handleDisplayOtherItems = (): void => {
     setDisplayAttachment(false);
     setDisplayChecklist(false);
+    setDisplayCover(false)
   };
 
   return (
@@ -54,12 +67,8 @@ export default function CardOperationBtnTexts({
           >
             Deadline
           </Button>
-          <Button
-            onClick={handleDisplayOtherItems}
-            variant={!displayAttachment && !displayChecklist ? 'contained' : 'outlined'}
-            size="small"
-          >
-            Comment
+          <Button onClick={handleDisplayCover} variant={displayCover ? 'contained' : 'outlined'} size="small">
+            Cover
           </Button>
           <Button onClick={handleDisplayChecklist} variant={displayChecklist ? 'contained' : 'outlined'} size="small">
             Checklist

@@ -90,6 +90,9 @@ const useStyles = makeStyles<Theme>((theme) => {
       borderRadius: '20px',
       marginRight: '10px',
     },
+    datePicker: {
+      width: ""
+    }
   };
 });
 

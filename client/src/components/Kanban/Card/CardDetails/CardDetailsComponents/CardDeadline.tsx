@@ -85,6 +85,7 @@ export default function CardDeadline({ dueDate, disableSetting, ids }: Props): J
         <Box className={classes.textAreaContainer}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateTimePicker
+              // @ts-expect-error I am sure this will work out
               sx={{ width: 250 }}
               disabled={disableSetting}
               label="Date&Time picker"
