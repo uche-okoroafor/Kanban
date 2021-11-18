@@ -26,7 +26,7 @@ const BasePluginSchema = new Schema(
  * @returns
  */
 BasePluginSchema.methods.attach = async (Model, pluginName) => {
-  const cardId = this.resourceId;
+  const resource = this.resourceId;
   const plugin = this.model.find({ name: pluginName });
   if (!plugin) {
     return {
@@ -36,7 +36,7 @@ BasePluginSchema.methods.attach = async (Model, pluginName) => {
       },
     };
   }
-  return await Model.findByIdAndUpdate(cardId, {
+  return await Model.findByIdAndUpdate(resource, {
     $push: { plugins: plugin._id },
   });
 };
