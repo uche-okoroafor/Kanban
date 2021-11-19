@@ -14,7 +14,6 @@ const DropZone = ({ open, onHandleClose, onSetFile }: Props): JSX.Element => {
   const onDrop = useCallback(
     (acceptedFile) => {
       onSetFile(acceptedFile[0]);
-      console.log(acceptedFile[0]);
     },
     [onSetFile],
   );
