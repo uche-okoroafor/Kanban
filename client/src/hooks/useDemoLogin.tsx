@@ -6,7 +6,7 @@ const useDemoLogin = (): { demoLogin: () => void } => {
   const { updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
 
-  const demoLogin = (): void => {
+  const demoLogin = () => {
     login('DEMO_LOGIN').then((data) => {
       if (data.error) {
         updateSnackBarMessage(data.error.message);

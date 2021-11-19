@@ -11,6 +11,17 @@ const {
   card,
 } = require("./defaultBoardContents/defaultBoardContents.json");
 
+exports.userBoard = asyncHandler(async (req, res, next) => {
+  const userId = req.user.id;
+
+  const userBoards = await User.findById(userId);
+  if (userBoards) {
+    return res.status(200).json({ boards: userBoards.boards });
+  }
+  res.status(500);
+  throw new Error("Something went wrong");
+});
+
 exports.createDefaultBoard = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
 

@@ -64,7 +64,9 @@ const Search = ({ search, handleChange }: Props): JSX.Element => {
         onClose={() => {
           setOpen(false);
         }}
-        getOptionSelected={(option: any, value: any) => option.username === value.username}
+        getOptionSelected={(option: any, value: any) =>
+          option.username === value.username
+        }
         getOptionLabel={(option: any) => option.username}
         options={options}
         loading={loading}

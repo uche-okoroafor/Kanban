@@ -10,6 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import './App.css';
 import Calender from './pages/Calender/Calender';
 import AppLayout from './components/AppLayout/AppLayout';
+import { BoardProvider } from './context/useBoardContext';
 import { KanbanProvider } from './context/useKanbanContext';
 import { AuthProvider } from './context/useAuthContext';
 

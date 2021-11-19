@@ -11,7 +11,6 @@ const logger = require("morgan");
 const cors = require("cors");
 const pkg = require("cloudinary");
 const { v2: cloudinary } = pkg;
-const connectDB = require("./db")
 
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
@@ -20,7 +19,6 @@ const columnRouter = require("./routes/column");
 const cardRouter = require("./routes/card");
 const imageRouter = require("./routes/image");
 const { json, urlencoded } = express;
-
 
 const app = express();
 const server = http.createServer(app);
@@ -38,6 +36,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD,
