@@ -21,7 +21,7 @@ const cardRouter = require("./routes/card");
 const imageRouter = require("./routes/image");
 const { json, urlencoded } = express;
 
-connectDB();
+
 const app = express();
 const server = http.createServer(app);
 
