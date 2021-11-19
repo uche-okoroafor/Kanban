@@ -7,45 +7,42 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-
 import Calendar from './pages/Calendar/Calendar';
-
-import { useImmerReducer } from 'use-immer';
-import { authReducer, authState } from './state/auth/authContext';
 import './App.css';
 import AppLayout from './components/AppLayout/AppLayout';
 import { BoardProvider } from './context/useBoardContext';
 import { KanbanProvider } from './context/useKanbanContext';
+import { AuthProvider } from './context/useAuthContext';
 
 function App(): JSX.Element {
-  const [state] = useImmerReducer(authReducer, authState);
-
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
-        <SnackBarProvider>
-          <SocketProvider>
-            <BoardProvider>
-              <KanbanProvider>
-                <Switch>
-                  <Route path="/login" component={Login} />
-                  <Route path="/signup" component={Signup} />
-                  <Route
-                    render={(props: RouteComponentProps) => (
-                      <AppLayout {...props}>
-                        <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
-                        <ProtectedRoute path="/calendar" token={state.token} component={Calendar} />
-                      </AppLayout>
-                    )}
-                  />
-                  <Route path="*">
-                    <Redirect to="/login" />
-                  </Route>
-                </Switch>{' '}
-              </KanbanProvider>
-            </BoardProvider>
-          </SocketProvider>
-        </SnackBarProvider>
+        <AuthProvider>
+          <SnackBarProvider>
+            <SocketProvider>
+              <BoardProvider>
+                <KanbanProvider>
+                  <Switch>
+                    <Route path="/login" component={Login} />
+                    <Route path="/signup" component={Signup} />
+                    <Route
+                      render={(props: RouteComponentProps) => (
+                        <AppLayout {...props}>
+                          <ProtectedRoute exact path="/" component={Dashboard} />
+                          <ProtectedRoute path="/calendar" component={Calendar} />
+                        </AppLayout>
+                      )}
+                    />
+                    <Route path="*">
+                      <Redirect to="/login" />
+                    </Route>
+                  </Switch>{' '}
+                </KanbanProvider>
+              </BoardProvider>
+            </SocketProvider>
+          </SnackBarProvider>
+        </AuthProvider>
       </BrowserRouter>
     </MuiThemeProvider>
   );

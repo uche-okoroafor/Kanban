@@ -7,8 +7,10 @@ import NavButton from '../Button/NavButton';
 import CreateBoardButton from '../Button/CreateBoardButton';
 import AvatarButton from '../AvatarButton/AvatarButton';
 import AvatarMenu from '../AvatarMenu/AvatarMenu';
+import { useAuth } from '../../context/useAuthContext';
 
 export default function Navbar(): JSX.Element {
+  const { logout } = useAuth();
   const classses = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -43,9 +45,7 @@ export default function Navbar(): JSX.Element {
             onClickProfile={() => {
               // handles profile option in the menu
             }}
-            onClickLogOut={() => {
-              // handles logout option in the menu
-            }}
+            onClickLogOut={logout}
           />
         </Grid>
       </Grid>
