@@ -9,14 +9,15 @@ import DialogContentText from '@mui/material/DialogContentText';
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
 import { IIds } from '../../../../../interface/Boards';
+import ChecklistPlugin from '../../../../ChecklistPlugin/ChecklistPlugin';
 
 interface Props {
   checklist: { item: string; isChecked: boolean; id: string }[] | undefined;
-  disableSetting: boolean;
+  displayChecklist: boolean;
   ids: IIds | undefined;
 }
 
-export default function CardChecklist({ checklist, disableSetting, ids }: Props): JSX.Element {
+export default function CardChecklist({ checklist, displayChecklist, ids }: Props): JSX.Element {
   const classes = useStyles();
   const [list, setList] = useState([
     {
@@ -106,6 +107,8 @@ export default function CardChecklist({ checklist, disableSetting, ids }: Props)
             </Stack>
           </Box>
         </Box>
+        <ChecklistPlugin displayChecklist={displayChecklist} />
+
       </Box>
     </>
   );

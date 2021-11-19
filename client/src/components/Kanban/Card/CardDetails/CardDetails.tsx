@@ -86,7 +86,9 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
               <CardComment ids={ids} comment={card?.comment} disableSetting={disableSetting} />
             </>
           ) : displayChecklist ? (
-            <CardChecklist ids={ids} checklist={card?.checklist} disableSetting={disableSetting} />
+
+            <CardChecklist ids={ids} checklist={card?.checklist} displayChecklist={displayChecklist} />
+
           ) : (
             <CardAttachment ids={ids} attachment={card?.attachment} disableSetting={disableSetting} />
           )}
