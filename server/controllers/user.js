@@ -2,7 +2,6 @@ const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const pkg = require("cloudinary");
 const { v2: cloudinary } = pkg;
-const mongoose = require("mongoose");
 
 // @route POST /users
 // @desc Search for users

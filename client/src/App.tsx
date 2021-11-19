@@ -17,7 +17,6 @@ import { KanbanProvider } from './context/useKanbanContext';
 
 function App(): JSX.Element {
   const [state] = useImmerReducer(authReducer, authState);
-
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>

@@ -8,9 +8,9 @@ import useStyles from './useStyles';
 import register from '../../helpers/APICalls/register';
 import SignUpForm from './SignUpForm/SignUpForm';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
-import useDemoLogin from '../../hooks/useDemoLogin';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
+import useDemoLogin from '../../hooks/useDemoLogin';
 
 export default function Register(): JSX.Element {
   const classes = useStyles();
