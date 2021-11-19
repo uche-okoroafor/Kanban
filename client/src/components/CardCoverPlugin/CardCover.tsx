@@ -13,6 +13,8 @@ function CardCover({open, setDisplayCover}: Props) {
     { name, description }: { name: string; description: string },
     { setSubmitting }: FormikHelpers<{ name: string; description: string }>,
   ) => {
+    setDisplayCover(false)
+    setFile(null)
     // We can send a request to the backend here
   };
   return <CardCoverPlugin handleSubmitCover={handleSubmit} onSetFile={setFile} file={file} open={open} setDisplayCover={setDisplayCover} />;
