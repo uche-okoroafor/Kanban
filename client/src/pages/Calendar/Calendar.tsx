@@ -8,7 +8,7 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import enUS from 'date-fns/locale/en-US';
-import { ICard } from '../../interface/Calender';
+import { ICard } from '../../interface/Calendar';
 import { CardContainer, DayHeader, MonthHeader } from './CalendarComponents/CalendarComponents';
 import './styles.css';
 

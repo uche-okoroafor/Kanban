@@ -34,7 +34,7 @@ function App(): JSX.Element {
                     render={(props: RouteComponentProps) => (
                       <AppLayout {...props}>
                         <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
-                        <ProtectedRoute path="/Calendar" token={state.token} component={Calendar} />
+                        <ProtectedRoute path="/calendar" token={state.token} component={Calendar} />
                       </AppLayout>
                     )}
                   />

@@ -28,7 +28,7 @@ export default function Navbar(): JSX.Element {
         </Grid>
         <Grid item md={9} className={classses.avatarContainer}>
           <NavButton title="Dashboard" to="/" icon={<DashboardOutlined />} />
-          <NavButton title="Calender" to="/calender" icon={<CalendarTodayOutlined />} />
+          <NavButton title="calendar" to="/calendar" icon={<CalendarTodayOutlined />} />
           <CreateBoardButton
             onClick={() => {
               // handles the create board functionality

@@ -1,6 +1,6 @@
 import { Box, Typography } from '@material-ui/core';
 import { EventProps, HeaderProps, DateHeaderProps } from 'react-big-calendar';
-import { ICard } from '../../../interface/Calender';
+import { ICard } from '../../../interface/Calendar';
 
 export const CardContainer = ({ event }: EventProps<ICard>): JSX.Element => {
   return (
