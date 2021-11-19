@@ -7,6 +7,9 @@ import NavButton from '../Button/NavButton';
 import CreateBoardButton from '../Button/CreateBoardButton';
 import AvatarButton from '../AvatarButton/AvatarButton';
 import AvatarMenu from '../AvatarMenu/AvatarMenu';
+import logout from '../../helpers/APICalls/logout';
+import { useSnackBar } from '../../context/useSnackbarContext';
+import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../context/useAuthContext';
 
 interface Props {
@@ -16,7 +19,19 @@ interface Props {
 export default function Navbar({ onHandleOpen }: Props): JSX.Element {
   const classses = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { updateSnackBarMessage } = useSnackBar();
   const { loggedInUser } = useAuth();
+  const history = useHistory();
+
+  const handleLogout = () => {
+    logout().then((data) => {
+      if (data.error) {
+        updateSnackBarMessage(data.error.message);
+      } else {
+        history.replace('/login');
+      }
+    });
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -47,9 +62,7 @@ export default function Navbar({ onHandleOpen }: Props): JSX.Element {
             open={Boolean(anchorEl)}
             onClose={handleClose}
             onClickProfile={onHandleOpen}
-            onClickLogOut={() => {
-              // handles logout option in the menu
-            }}
+            onClickLogOut={handleLogout}
           />
         </Grid>
       </Grid>

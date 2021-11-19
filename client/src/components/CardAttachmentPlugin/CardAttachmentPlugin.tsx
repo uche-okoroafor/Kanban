@@ -22,7 +22,7 @@ interface Props {
       description: string;
     }>,
   ) => void;
-  onSetFile: (acceptableFile: { [props: string]: string | number }[]) => void;
+  onSetFile: (acceptableFile: { [props: string]: string | number }[] | null) => void;
   file: { [props: string]: string | number }[] | null;
   open: boolean;
   setDisplayAttachment: React.Dispatch<boolean>;
@@ -37,6 +37,7 @@ export default function CardAttachmentPlugin({
 }: Props): JSX.Element {
   const handleClose = () => {
     setDisplayAttachment(false);
+    onSetFile(null)
   };
   const classes = useStyles();
 

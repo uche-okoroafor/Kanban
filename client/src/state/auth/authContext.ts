@@ -1,4 +1,5 @@
 import { AuthReducer, AuthState, LOG_IN_USER, LOG_OUT_USER } from '../../interface/AuthContext';
+import produce from "immer"
 
 export const authState: AuthState = {
   token: '',
@@ -12,13 +13,15 @@ export const authState: AuthState = {
  * @param action
  * @returns
  */
-export const authReducer: AuthReducer = (draft, action) => {
+export const authReducer: AuthReducer = produce((draft, action) => {
   switch (action.type) {
     case LOG_IN_USER:
-      return (draft['token'] = action.payload);
+      draft['token'] = action.payload;
+      return draft
     case LOG_OUT_USER:
-      return (draft['token'] = action.payload);
+      draft['token'] = action.payload;
+      return draft;
     default:
       return draft;
   }
-};
+});
