@@ -1,41 +1,99 @@
 const asyncHandler = require("express-async-handler");
+const Card = require("./../models/Card");
+const BasePlugin = require("../models/BasePlugin");
 
-/**
- * Activates a plugin in a resource.
- * @function
- */
 exports.activate = asyncHandler(async (req, res) => {
-  const { pluginName, cardId } = req.params;
+  const { pluginName } = req.params;
+  const response = await BasePlugin.attach(Card, pluginName);
+
+  if (response.status === 400) {
+    res.status(response.status).json(response.data);
+  }
+
+  res.status(200).json({ response });
 });
 
 /**
- * Removes a plugin from a resource.
+ * Removes a plugin from a card and destroys it.
  * @function
  */
-exports.destroy = asyncHandler(async (req, res) => {});
+exports.destroy = asyncHandler(async (req, res) => {
+  const { pluginId } = req.params;
+  const plugin = await BasePlugin.detach(Card, pluginId);
+
+  if (!plugin) {
+    res.status(400).json({ message: "Plugin does not exist." });
+  }
+
+  const deletedPlugin = await BasePlugin.findByIdAndDelete(pluginId);
+  res.status(200).json({ plugin: deletedPlugin });
+});
 
 /**
- * Middleware to verify plugin.
+ * Retrieves all the plugins in a particular card.
  * @function
  */
-// ADD MIDDLEWARE VALIDATION TO ENSURE PLUGINID PARAM EXISTS!
-exports.verifyPlugin = asyncHandler(async (req, res) => {});
+exports.getAllPlugins = asyncHandler(async (req, res) => {
+  const { cardId } = req.params;
+  const card = await BasePlugin.find({ resourceId: cardId });
 
-// TODO: Figure out a generalized response structure for all plugins to follow.
-// Passing status codes on responses, plugin handler will deal with the status codes
-// accordingly. 400 Bad Request, the plugin handler will respond with a generic response.
+  if (!card) {
+    res.status(400).json({ message: "Card does not exist." });
+  }
 
+  res.status(200).json({ plugins: card });
+});
+
+/**
+ * Retrieves a plugin.
+ * @function
+ */
 exports.getPlugin = asyncHandler(async (req, res) => {
-  // We have access to the req.plugin
   const response = await req.plugin.get();
   if (response.status === 200) {
-    return res.json(response.data);
+    res.status(response.status).json(response.data);
   } else {
-    response.status === 400;
-    return res.json({ message: "Plugin not available" });
+    res.status(response.status).json(response.data);
   }
 });
 
-exports.postPlugin = asyncHandler(async (req, res) => {
-  const response = awa;
+/**
+ * Creates a new plugin.
+ * @function
+ */
+exports.createPlugin = asyncHandler(async (req, res) => {
+  const data = req.body;
+  const response = await req.plugin.create(data);
+  if (response.status === 200) {
+    res.status(response.status).json(response.data);
+  } else {
+    res.status(response.status).json(response.data);
+  }
+});
+
+/**
+ * Updates a plugin.
+ * @function
+ */
+exports.updatePlugin = asyncHandler(async (req, res) => {
+  const data = req.body;
+  const response = await req.plugin.update(data);
+  if (response.status === 200) {
+    res.status(response.status).json(response.data);
+  } else {
+    res.status(response.status).json(response.data);
+  }
+});
+
+/**
+ * Deletes a plugin.
+ * @function
+ */
+exports.deletePlugin = asyncHandler(async (req, res) => {
+  const response = await req.plugin.delete();
+  if (response.status === 200) {
+    res.status(response.status).json(response.data);
+  } else {
+    res.status(response.status).json(response.data);
+  }
 });
