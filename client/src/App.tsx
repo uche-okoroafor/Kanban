@@ -13,7 +13,6 @@ import Calendar from './pages/Calendar/Calendar';
 import { useImmerReducer } from 'use-immer';
 import { authReducer, authState } from './state/auth/authContext';
 import './App.css';
-import Calender from './pages/Calender/Calender';
 import AppLayout from './components/AppLayout/AppLayout';
 import { BoardProvider } from './context/useBoardContext';
 import { KanbanProvider } from './context/useKanbanContext';
@@ -35,7 +34,7 @@ function App(): JSX.Element {
                     render={(props: RouteComponentProps) => (
                       <AppLayout {...props}>
                         <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
-                        <ProtectedRoute path="/calender" token={state.token} component={Calender} />
+                        <ProtectedRoute path="/Calendar" token={state.token} component={Calendar} />
                       </AppLayout>
                     )}
                   />

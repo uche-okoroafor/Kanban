@@ -55,7 +55,7 @@ const Search = ({ search, handleChange }: Props): JSX.Element => {
         e.preventDefault();
       }}
     >
-      <Autocomplete
+      {/* <Autocomplete
         id="asynchronous-search"
         open={open}
         onOpen={() => {
@@ -64,8 +64,8 @@ const Search = ({ search, handleChange }: Props): JSX.Element => {
         onClose={() => {
           setOpen(false);
         }}
-        getOptionSelected={(option, value) => option.username === value.username}
-        getOptionLabel={(option) => option.username}
+        getOptionSelected={(options, value) => option.username === value.username}
+        getOptionLabel={(options) => option.username}
         options={options}
         loading={loading}
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -74,7 +74,7 @@ const Search = ({ search, handleChange }: Props): JSX.Element => {
         inputValue={search}
         noOptionsText="No Users Found"
         freeSolo
-        renderInput={(params) => (
+        renderInput={(params: any) => (
           <div className={classes.search}>
             <InputBase
               {...params.inputProps}
@@ -95,7 +95,7 @@ const Search = ({ search, handleChange }: Props): JSX.Element => {
             />
           </div>
         )}
-      />
+      /> */}
     </form>
   );
 };
