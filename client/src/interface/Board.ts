@@ -1,11 +1,9 @@
 import { Column } from './Column';
-import { Card } from './Card';
+//import { Card } from './Card';
 
 export interface Board {
-  id: string;
-  name: string;
+  boardId: string;
+  boardTitle: string;
   columns: Array<Column>;
-  cards: Array<Card>;
-  user: string;
   createdAt: string;
 }

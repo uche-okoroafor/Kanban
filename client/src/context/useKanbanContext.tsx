@@ -105,6 +105,13 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
     return null;
   };
 
+  // useEffect(() => {
+  //   searchUsers({ search: 'peterlogo' }).then((res) => {
+  //     const values = res.users[0];
+  //     console.log(values.boards);
+  //   });
+  // }, []);
+
   return (
     <KanbanContextProvider.Provider
       value={{

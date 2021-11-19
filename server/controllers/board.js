@@ -13,6 +13,7 @@ const {
 
 exports.createDefaultBoard = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
+  console.log(req.user);
 
   const createBoard = await Board.create(board);
   const createColumnProgress = await Column.create(columnProgress);
