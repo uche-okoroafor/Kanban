@@ -6,6 +6,8 @@ import { Column } from '../interface/Column';
 import { Card } from '../interface/Card';
 import cloneDeep from 'lodash.clonedeep';
 import { useSnackBar } from './useSnackbarContext';
+//import { useAuth } from './useAuthContext';
+//import { useBoard } from '../hooks/useBoard';
 
 export const KanbanContextProvider = createContext<KanbanContext>({} as KanbanContext);
 
@@ -13,6 +15,8 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
   const [columns, setColumns] = useState<Array<Column>>(columnData);
   const [focusedCard, setFocusedCard] = useState<Card | null>(null);
   const { updateSnackBarMessage } = useSnackBar();
+  //const { loggedInUser } = useAuth();
+
   const handleDragEnd = (result: DropResult): void => {
     const { destination, source, draggableId, type } = result;
     if (!destination) return;
@@ -104,13 +108,6 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
     }
     return null;
   };
-
-  // useEffect(() => {
-  //   searchUsers({ search: 'peterlogo' }).then((res) => {
-  //     const values = res.users[0];
-  //     console.log(values.boards);
-  //   });
-  // }, []);
 
   return (
     <KanbanContextProvider.Provider
