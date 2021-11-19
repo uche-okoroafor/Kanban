@@ -13,9 +13,10 @@ function CardAttachment({open, setDisplayAttachment}: Props): JSX.Element {
     { name, description }: { name: string; description: string },
     { setSubmitting }: FormikHelpers<{ name: string; description: string }>,
   ) => {
-    console.log(name);
-    console.log(description);
-    console.log(file);
+    setDisplayAttachment(false)
+    setFile(null)
+    //Send a request to the backend here
+    //Validate file before sending
   };
   return <CardAttachmentPlugin handleSubmitCover={handleSubmit} onSetFile={setFile} file={file} open={open} setDisplayAttachment={setDisplayAttachment} />;
 }

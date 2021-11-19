@@ -96,7 +96,7 @@ exports.demoLogin = asyncHandler(async (req, res, next) => {
   if (!user) {
     res.sendStatus(404);
   }
-  
+
   const token = generateToken(user._id);
   const secondsInWeek = 604800;
   res.cookie("token", token, {
@@ -112,6 +112,7 @@ exports.demoLogin = asyncHandler(async (req, res, next) => {
         email: user.email,
         imageUrl: user.imageUrl,
       },
+      token: token,
     },
   });
 });
@@ -144,5 +145,9 @@ exports.loadUser = asyncHandler(async (req, res, next) => {
 exports.logoutUser = asyncHandler(async (req, res, next) => {
   res.clearCookie("token");
 
-  res.send("You have successfully logged out");
+  res.status(200).json({
+    success: {
+      message: "You have successfully logged out",
+    },
+  });
 });

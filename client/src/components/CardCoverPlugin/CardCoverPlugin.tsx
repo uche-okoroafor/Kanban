@@ -22,7 +22,7 @@ interface Props {
       description: string;
     }>,
   ) => void;
-  onSetFile: (acceptableFile: { [prop: string]: string | number }) => void;
+  onSetFile: (acceptableFile: { [prop: string]: string | number } | null) => void;
   file: { [prop: string]: string | number } | null;
   open: boolean;
   setDisplayCover: React.Dispatch<boolean>;
@@ -33,6 +33,7 @@ export default function CardCoverPlugin({ handleSubmitCover, onSetFile, file, op
   const classes = useStyles();
   const handleClose = (): void => {
     setDisplayCover(false)
+    onSetFile(null)
   }
 
   return (
