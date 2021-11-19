@@ -12,12 +12,9 @@ export interface AuthApiData {
   success?: AuthApiDataSuccess;
 }
 
-export interface DemoAuthData {
-  error?: { message: string };
-  success?: AuthApiDataSuccess;
-}
-
 export interface UploadProfilePic {
   error?: { message: string };
   success?: AuthApiDataSuccess;
 }
+
+

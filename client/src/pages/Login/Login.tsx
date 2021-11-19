@@ -6,11 +6,11 @@ import { FormikHelpers } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import login from '../../helpers/APICalls/login';
-import useDemoLogin from '../../hooks/useDemoLogin';
 import LoginForm from './LoginForm/LoginForm';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
+import useDemoLogin from '../../hooks/useDemoLogin';
 
 export default function Login(): JSX.Element {
   const classes = useStyles();
@@ -26,7 +26,7 @@ export default function Login(): JSX.Element {
     { email, password }: { email: string; password: string },
     { setSubmitting }: FormikHelpers<{ email: string; password: string }>,
   ) => {
-    login(email, password).then((data) => {
+    login('USER_LOGIN', email, password).then((data) => {
       if (data.error) {
         setSubmitting(false);
         updateSnackBarMessage(data.error.message);
