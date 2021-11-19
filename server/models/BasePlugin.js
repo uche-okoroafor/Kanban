@@ -26,17 +26,21 @@ const BasePluginSchema = new Schema(
  * @returns
  */
 BasePluginSchema.methods.attach = async (Model, pluginName) => {
+
   const resource = this.resourceId;
+
   const plugin = this.model.find({ name: pluginName });
   if (!plugin) {
     return {
       status: 400,
+
       data: {
         message: "Plugin does not exist.",
       },
     };
   }
   return await Model.findByIdAndUpdate(resource, {
+
     $push: { plugins: plugin._id },
   });
 };

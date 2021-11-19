@@ -21,7 +21,9 @@ const cardSchema = new mongoose.Schema({
 
     type: String,
   },
+
   plugins: [],
+
 });
 
 const Card = mongoose.model("card", cardSchema);
