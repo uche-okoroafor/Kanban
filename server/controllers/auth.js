@@ -90,6 +90,10 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
 // @desc Login demo user
 // @access Public
 exports.demoLogin = asyncHandler(async (req, res, next) => {
+<<<<<<< HEAD
+=======
+
+>>>>>>> signup-login-pages
   const user = await User.findOne({ email: "demo@kanban.com" });
 
   if (!user) {

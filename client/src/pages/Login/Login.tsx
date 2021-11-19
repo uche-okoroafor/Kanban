@@ -17,7 +17,6 @@ export default function Login(): JSX.Element {
   const { updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
   const { demoLogin } = useDemoLogin();
-
   const handleDemoLogin = () => {
     demoLogin();
   };
