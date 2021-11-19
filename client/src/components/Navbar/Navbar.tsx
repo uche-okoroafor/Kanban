@@ -17,7 +17,6 @@ export default function Navbar({ onHandleOpen }: Props): JSX.Element {
   const classses = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { loggedInUser } = useAuth();
-  console.log(loggedInUser);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
