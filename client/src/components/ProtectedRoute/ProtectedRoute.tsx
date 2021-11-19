@@ -9,7 +9,7 @@ import { useAuth } from '../../context/useAuthContext';
  * @param ProtectedRouteProps
  * @returns {JSX.Element}
  */
-const ProtectedRoute = ({ token, ...rest }: ProtectedRouteProps): JSX.Element => {
+const ProtectedRoute = ({ ...rest }: ProtectedRouteProps): JSX.Element => {
   const { loggedInUser } = useAuth();
   return loggedInUser ? <Route {...rest} /> : <Redirect to="/login" />;
 };

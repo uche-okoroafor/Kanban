@@ -7,8 +7,6 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import { useImmerReducer } from 'use-immer';
-import { authReducer, authState } from './state';
 import './App.css';
 import Calender from './pages/Calender/Calender';
 import AppLayout from './components/AppLayout/AppLayout';
@@ -16,7 +14,6 @@ import { KanbanProvider } from './context/useKanbanContext';
 import { AuthProvider } from './context/useAuthContext';
 
 function App(): JSX.Element {
-  const [state] = useImmerReducer(authReducer, authState);
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
@@ -30,8 +27,8 @@ function App(): JSX.Element {
                   <Route
                     render={(props: RouteComponentProps) => (
                       <AppLayout {...props}>
-                        <ProtectedRoute exact path="/" token={state.token} component={Dashboard} />
-                        <ProtectedRoute path="/calender" token={state.token} component={Calender} />
+                        <ProtectedRoute exact path="/" component={Dashboard} />
+                        <ProtectedRoute path="/calender" component={Calender} />
                       </AppLayout>
                     )}
                   />

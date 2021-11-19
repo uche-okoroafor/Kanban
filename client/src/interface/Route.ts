@@ -7,6 +7,5 @@ import { RouteComponentProps, RouteProps } from 'react-router';
  * @interface
  */
 export interface ProtectedRouteProps extends RouteProps {
-  token: string;
   component: ComponentType<RouteComponentProps>;
 }
