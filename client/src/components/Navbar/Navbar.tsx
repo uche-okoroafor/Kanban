@@ -10,6 +10,7 @@ import AvatarMenu from '../AvatarMenu/AvatarMenu';
 import logout from '../../helpers/APICalls/logout';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { useHistory } from 'react-router-dom';
+import { useAuth } from '../../context/useAuthContext';
 
 interface Props {
   onHandleOpen?: React.MouseEventHandler<HTMLLIElement>;
@@ -19,17 +20,17 @@ export default function Navbar({ onHandleOpen }: Props): JSX.Element {
   const classses = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { updateSnackBarMessage } = useSnackBar();
+  const { loggedInUser } = useAuth();
   const history = useHistory();
 
   const handleLogout = () => {
-    logout().then( data => {
+    logout().then((data) => {
       if (data.error) {
         updateSnackBarMessage(data.error.message);
       } else {
         history.replace('/login');
       }
-    }
-    )
+    });
   };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -54,7 +55,7 @@ export default function Navbar({ onHandleOpen }: Props): JSX.Element {
               // handles the create board functionality
             }}
           />
-          <AvatarButton onClick={handleClick} />
+          <AvatarButton onClick={handleClick} image={loggedInUser?.imageUrl} />
           <AvatarMenu
             id="menu"
             anchorEl={anchorEl}
