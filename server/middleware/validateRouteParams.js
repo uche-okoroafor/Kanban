@@ -11,9 +11,6 @@ const handleError = (req, res, next) => {
   next();
 };
 
-
-
-
 exports.validateAddBoardParams = [
   handleParams("boardTitle"),
   (req, res, next) => {
@@ -85,7 +82,6 @@ exports.validateCreateCardParams = [
     handleError(req, res, next);
   },
 ];
-
 
 exports.validateUpdateCardItemsParams = [
   handleParams("boardId"),

@@ -26,15 +26,21 @@ const BasePluginSchema = new Schema(
  * @returns
  */
 BasePluginSchema.methods.attach = async (Model, pluginName) => {
-  const cardId = this.resourceId;
+
+  const resource = this.resourceId;
+
   const plugin = this.model.find({ name: pluginName });
   if (!plugin) {
     return {
       status: 400,
-      message: "Plugin does not exist.",
+
+      data: {
+        message: "Plugin does not exist.",
+      },
     };
   }
-  return await Model.findByIdAndUpdate(cardId, {
+  return await Model.findByIdAndUpdate(resource, {
+
     $push: { plugins: plugin._id },
   });
 };

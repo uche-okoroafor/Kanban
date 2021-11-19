@@ -1,4 +1,3 @@
-
 const router = require("express").Router();
 const {
   validateCreateCardParams,
@@ -13,22 +12,16 @@ const {
   removeCardItems,
 } = require("../controllers/card");
 
-
 router
   .route("/create-card/:boardId/:columnId/:cardTitle/:tagColor")
   .post(protect, validateCreateCardParams, createCard);
 
 router
   .route("/update-card/item")
-  .post(
-    protect,
-    validateUpdateCardItemsParams,
-    updateCardItems
-  );
+  .post(protect, validateUpdateCardItemsParams, updateCardItems);
 
 router
   .route("/remove-card/item")
   .post(protect, validateRemoveCardItemsParams, removeCardItems);
-
 
 module.exports = router;
