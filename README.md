@@ -4,7 +4,7 @@ This is a little description about your project.
 
 **Tech Stack:** MongoDB, Express.js, React.js, Node.js, Typescript
 
-**Contributors**: Ankit Babber, Peter Logo, Uche
+**Contributors**: Ankit Babber, Peter Logo, Uche, Antwi
 
 ---
 
