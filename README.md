@@ -1,4 +1,4 @@
-## Project Name
+## Kanban
 
 This is a little description about your project.
 
