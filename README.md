@@ -17,7 +17,7 @@ This is a website that makes it easier for dog owners to find a dog sitter.
 ### Backend 
 * [Node JS](https://reactjs.org/)/[Express JS](https://expressjs.com/) - Backend used for our API routes.
 * [Mongo DB/Atlas](https://www.mongodb.com/) - Database used to store our user and application data.
-* [Socket.IO](https://socket.io/) - JavaScript library for creating real-time lobby and interview rooms.
+
 
 
 ## Features:
