@@ -37,7 +37,6 @@ export default function CardAttachment({ attachment, disableSetting, ids }: Prop
     setDisplayInput(false);
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    console.log(e.target.files);
     setDisplayInput(true);
     if (e.target.files) {
       setImageSource(URL.createObjectURL(e.target.files[0]));
