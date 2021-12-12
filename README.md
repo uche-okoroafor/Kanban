@@ -4,7 +4,7 @@ This is a website that makes it easier for dog owners to find a dog sitter.
 
 **Tech Stack:** MongoDB, Express.js, React.js, Node.js, Typescript
 
-**Contributors**: Ankit Babber, Peter Logo, Uche, Antwi
+**Contributors**: [Uche](https://github.com/uche-okoroafor) , [Ankit Babber](https://github.com/ababber) , [Peter Logo](https://github.com/peterlogo) , [Antwi](https://github.com/refugedesigns)
 
 ---
 
