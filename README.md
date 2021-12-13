@@ -1,6 +1,6 @@
 ## Kanban
 
-This is a website that makes it easier for dog owners to find a dog sitter.
+This is an App where a user can manage his/her activities, schedules, or task.
 
 **Tech Stack:** MongoDB, Express.js, React.js, Node.js, Typescript
 
