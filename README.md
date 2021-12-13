@@ -4,7 +4,7 @@ This is an App where a user can manage his/her activities, schedules, or task.
 
 **Tech Stack:** MongoDB, Express.js, React.js, Node.js, Typescript
 
-## Contributors**: [Uche](https://github.com/uche-okoroafor) , [Ankit Babber](https://github.com/ababber) , [Peter Logo](https://github.com/peterlogo) , [Antwi](https://github.com/refugedesigns)
+## Contributors: [Uche](https://github.com/uche-okoroafor) , [Ankit Babber](https://github.com/ababber) , [Peter Logo](https://github.com/peterlogo) , [Antwi](https://github.com/refugedesigns)
 
 ---
 
