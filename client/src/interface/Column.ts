@@ -1,7 +1,13 @@
 import { Card } from './Card';
 
+export interface IColumn {
+  _id: string;
+  name: string;
+  cards: Array<Card>;
+  createdAt: Date;
+}
 export interface Column {
-  id: string;
+  _id: string;
   name: string;
   cards: Array<Card>;
   createdAt: Date;

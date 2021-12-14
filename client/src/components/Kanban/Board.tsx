@@ -14,9 +14,9 @@ const Board = (): JSX.Element => {
               {columns.map((column, index) => (
                 <>
                   <ColumnComponent
-                    key={column.id}
+                    key={column._id}
                     index={index}
-                    id={column.id}
+                    _id={column._id}
                     name={column.name}
                     cards={column.cards}
                     createdAt={column.createdAt}

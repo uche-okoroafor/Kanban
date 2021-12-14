@@ -2,7 +2,7 @@ import { AuthApiData, DemoAuthData } from '../../interface/AuthApiData';
 import { FetchOptions } from '../../interface/FetchOptions';
 
 export const demoLogin = async (): Promise<DemoAuthData> => {
-  return await fetch(`${process.env.PUBLIC_URL}/auth/demo-login`)
+  return await fetch(`/auth/demo-login`)
     .then((res) => {
       return res.json();
     })

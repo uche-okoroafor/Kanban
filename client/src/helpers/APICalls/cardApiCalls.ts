@@ -1,5 +1,5 @@
 import { FetchOptions } from '../../interface/FetchOptions';
-import { IIds, ICardResponse } from '../../interface/Boards';
+import { IIds, ICardResponse } from '../../interface/Board';
 
 export async function saveCardItem(
   cardItem: string,

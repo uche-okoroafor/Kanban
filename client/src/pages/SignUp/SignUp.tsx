@@ -11,11 +11,14 @@ import AuthHeader from '../../components/AuthHeader/AuthHeader';
 import { demoLogin } from '../../helpers/APICalls/login';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
+import { createDefaultBoard } from '../../helpers/APICalls/boardApiCalls';
+import { useBoard } from '../../context/useBoardContext';
 
 export default function Register(): JSX.Element {
   const classes = useStyles();
   const { updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
+  const { updateBoard } = useBoard();
 
   const handleDemoLogin = () => {
     demoLogin().then((data) => {
@@ -33,18 +36,34 @@ export default function Register(): JSX.Element {
     { username, email, password }: { email: string; password: string; username: string },
     { setSubmitting }: FormikHelpers<{ email: string; password: string; username: string }>,
   ) => {
-    register(username, email, password).then((data) => {
+    register(username, email, password).then(async (data): Promise<void> => {
       if (data.error) {
         console.error({ error: data.error.message });
         setSubmitting(false);
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {
+        await handleCreateDefaultBoard();
         updateLoginContext(data.success);
       } else {
         // should not get here from backend but this catch is for an unknown issue
         console.error({ data });
 
         setSubmitting(false);
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
+  };
+
+  const handleCreateDefaultBoard = async (): Promise<void> => {
+    createDefaultBoard().then((data) => {
+      if (data.error) {
+        console.error({ error: data.error.message });
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        updateBoard();
+      } else {
+        // should not get here from backend but this catch is for an unknown issue
+        console.error({ data });
         updateSnackBarMessage('An unexpected error occurred. Please try again');
       }
     });

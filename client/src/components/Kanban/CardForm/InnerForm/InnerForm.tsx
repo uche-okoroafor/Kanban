@@ -56,7 +56,7 @@ export const InnerForm = ({ columnId, formAction }: InnerFormProps): JSX.Element
           const isSuccess = addCard({
             name,
             columnId: columnId,
-            id: `card-${Math.floor(Math.random() * 999999)}`,
+            _id: `card-${Math.floor(Math.random() * 999999)}`,
             tag: selectedTagColor,
           });
           if (isSuccess) {

@@ -1,5 +1,5 @@
 export interface Card {
-  id: string;
+  _id: string;
   columnId: string;
   name: string;
   tag?: string;
@@ -10,7 +10,7 @@ export interface Card {
 }
 
 export interface ICard {
-  id: string;
+  _id: string;
   name?: string;
   tag?: string;
   description?: string;
@@ -19,11 +19,11 @@ export interface ICard {
   checklist?: {
     item: string;
     isChecked: boolean;
-    id: string;
+    _id: string;
   }[];
   attachment?: {
     imageName: string;
     imageSource: string;
-    id: string;
+    _id: string;
   };
 }

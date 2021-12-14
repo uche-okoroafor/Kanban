@@ -6,30 +6,31 @@ import useColorTagStyles from '../shared/colorStyles';
 import useStyles from './useStyles';
 import CardDetails from './CardDetails/CardDetails';
 import { useState } from 'react';
+import { IIds } from '../../../interface/Board';
 
 type CardProps = {
-  id: string;
+  cardId: string;
   name: string;
   columnId: string;
   index: number;
   tag: string;
 };
-const Card = ({ id, name, tag = 'white', columnId, index }: CardProps): JSX.Element => {
+const Card = ({ cardId, name, tag = 'white', columnId, index }: CardProps): JSX.Element => {
   const { setOpenCard, focusedCard, focusedBoardId } = useKanban();
   const [openDialog, setOpenDialog] = useState(false);
-  const [ids, setIds] = useState({ cardId: '', columnId: '', boardId: '' });
+  const [ids, setIds] = useState<IIds>({ cardId: '', columnId: '', boardId: '' });
   const classes = useStyles();
   const colorClasses = useColorTagStyles({ tag });
 
-  const openCardDetails = (id: string, name: string, tag: string, columnId: string): void => {
+  const openCardDetails = (_id: string, name: string, tag: string, columnId: string): void => {
     setOpenCard({
-      id,
+      _id,
       name,
       tag,
       columnId,
     });
     setIds({
-      cardId: id,
+      cardId,
       columnId,
       boardId: focusedBoardId,
     });
@@ -39,12 +40,12 @@ const Card = ({ id, name, tag = 'white', columnId, index }: CardProps): JSX.Elem
 
   return (
     <>
-      <Draggable draggableId={id} index={index}>
+      <Draggable draggableId={cardId} index={index}>
         {(provided, snapshot) => {
           return (
             <div ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps}>
               <Box
-                onClick={() => openCardDetails(id, name, tag, columnId)}
+                onClick={() => openCardDetails(cardId, name, tag, columnId)}
                 className={clsx(classes.card, snapshot.isDragging && classes.cardDragging)}
               >
                 <Box className={`${classes.cardTag} ${colorClasses.cardTagColor}`}></Box>

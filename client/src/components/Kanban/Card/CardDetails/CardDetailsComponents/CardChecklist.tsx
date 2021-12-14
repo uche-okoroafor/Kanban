@@ -8,11 +8,11 @@ import Button from '@mui/material/Button';
 import DialogContentText from '@mui/material/DialogContentText';
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
-import { IIds } from '../../../../../interface/Boards';
+import { IIds } from '../../../../../interface/Board';
 import ChecklistPlugin from '../../../../ChecklistPlugin/ChecklistPlugin';
 
 interface Props {
-  checklist: { item: string; isChecked: boolean; id: string }[] | undefined;
+  checklist: { item: string; isChecked: boolean; _id: string }[] | undefined;
   displayChecklist: boolean;
   ids: IIds | undefined;
 }
@@ -23,7 +23,7 @@ export default function CardChecklist({ checklist, displayChecklist, ids }: Prop
     {
       item: 'Demo',
       isChecked: false,
-      id: '1',
+      _id: '1',
     },
   ]);
   const [newItem, setNewItem] = useState('');
@@ -39,15 +39,15 @@ export default function CardChecklist({ checklist, displayChecklist, ids }: Prop
   const handleSaveCheckList = async (): Promise<void> => {
     // api call to save it to the database
 
-    setList([...list, { item: newItem, isChecked: false, id: '12' }]);
+    setList([...list, { item: newItem, isChecked: false, _id: '12' }]);
     setNewItem('');
   };
 
-  const handleCheck = async (id: string): Promise<void> => {
+  const handleCheck = async (_id: string): Promise<void> => {
     // api call to checkitems it to the database
   };
 
-  const handleDeleteList = async (id: string): Promise<void> => {
+  const handleDeleteList = async (_id: string): Promise<void> => {
     // api call to delete it to the database
   };
   return (
@@ -68,7 +68,7 @@ export default function CardChecklist({ checklist, displayChecklist, ids }: Prop
                     padding: '0 30px',
                     width: 300,
                   }}
-                  key={index}
+                  key={item._id}
                 >
                   <Box
                     style={{
@@ -79,8 +79,8 @@ export default function CardChecklist({ checklist, displayChecklist, ids }: Prop
                     {' '}
                     <Typography>{item.item}</Typography>
                   </Box>
-                  <Checkbox checked={item.isChecked} onChange={() => handleCheck(item.id)} />
-                  <IconButton aria-label="close" onClick={() => handleDeleteList(item.id)}>
+                  <Checkbox checked={item.isChecked} onChange={() => handleCheck(item._id)} />
+                  <IconButton aria-label="close" onClick={() => handleDeleteList(item._id)}>
                     <CloseIcon />
                   </IconButton>
                 </Box>
@@ -108,7 +108,6 @@ export default function CardChecklist({ checklist, displayChecklist, ids }: Prop
           </Box>
         </Box>
         <ChecklistPlugin displayChecklist={displayChecklist} />
-
       </Box>
     </>
   );

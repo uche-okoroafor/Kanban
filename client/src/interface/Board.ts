@@ -1,28 +1,35 @@
-import { Column } from './Column';
+import { IColumn } from './Column';
 import { Card } from './Card';
 import { ICard } from './Card';
 
 export interface Board {
-  id: string;
+  _id: string;
   name: string;
-  columns: Array<Column>;
+  columns: Array<IColumn>;
   cards: Array<Card>;
   user: string;
   createdAt: string;
 }
 
 export interface IBoard {
-  id: string;
+  _id: string;
   boardTitle: string;
-  columns: {
-    id: string;
-    columnTitle: string;
-    cards: ICard[];
-  }[];
+  columns: Array<IColumn>;
 }
 
 export interface IIds {
   cardId: string;
   columnId: string;
-  boardId: string;
+  boardId: string | undefined;
+}
+
+export interface ICardResponse {
+  success: boolean;
+  data?: { success: boolean };
+  error?: { message: string };
+}
+
+export interface IBoardResponse {
+  boards: IBoard[];
+  error?: { message: string };
 }
