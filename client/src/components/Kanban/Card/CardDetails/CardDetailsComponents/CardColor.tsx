@@ -83,8 +83,8 @@ export default function CardColor({ tag, disableSetting, ids }: Props): JSX.Elem
           'aria-labelledby': 'basic-button',
         }}
       >
-        {colors.map((color: string) => (
-          <MenuItem key={color} onClick={() => handleSaveCardColor(color)}>
+        {colors.map((color: string, index) => (
+          <MenuItem key={color + index} onClick={() => handleSaveCardColor(color)}>
             {' '}
             <Box className={classes.cardTagColor} style={{ width: 100, background: color, right: '10%' }}></Box>
           </MenuItem>

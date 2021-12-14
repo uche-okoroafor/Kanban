@@ -10,7 +10,7 @@ import Stack from '@mui/material/Stack';
 import { IIds } from '../../../../../interface/Board';
 
 interface Props {
-  attachment: { imageName: string; imageSource: string; id: number | string } | undefined;
+  attachment: { imageName: string; imageSource: string; _id: number | string } | undefined;
   disableSetting: boolean;
   ids: IIds | undefined;
 }

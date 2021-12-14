@@ -23,7 +23,7 @@ const BigCalendar: FC = () => {
     const draggedEvent: ICard = event;
     draggedEvent.start = new Date(start);
     draggedEvent.end = new Date(end);
-    const filteredEvents = events.filter((event: ICard) => event.id !== draggedEvent.id);
+    const filteredEvents = events.filter((event: ICard) => event._id !== draggedEvent._id);
     setEvents([...filteredEvents, draggedEvent]);
   };
 

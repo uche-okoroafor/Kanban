@@ -21,13 +21,12 @@ interface AppLayoutProps {
  */
 export default function AppLayout({ children }: AppLayoutProps): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
   return (
     <Box>
       <Navbar />
-      <NavAppBar onClickMenu={() => setOpen(true)} />
-      <AppDrawer open={open} onClick={() => setOpen(false)}>
-        <Typography variant="h6">Drawer</Typography>
-      </AppDrawer>
+      <NavAppBar onClickMenu={() => setOpenDrawer(true)} />
+      <AppDrawer setOpenDrawer={setOpenDrawer} openDrawer={openDrawer} onClick={() => setOpen(false)} />
       <Box>{children}</Box>
     </Box>
   );

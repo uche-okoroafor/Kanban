@@ -7,10 +7,10 @@ import CardForm from '../CardForm/CardForm';
 import useStyles from './useStyles';
 
 type ColumnProps = Column & { index: number };
-const ColumnComponent = ({ id, name, cards, index }: ColumnProps): JSX.Element => {
+const ColumnComponent = ({ _id, name, cards, index }: ColumnProps): JSX.Element => {
   const classes = useStyles();
   return (
-    <Draggable draggableId={id} index={index}>
+    <Draggable draggableId={_id} index={index}>
       {(provided) => {
         return (
           <Grid
@@ -28,15 +28,15 @@ const ColumnComponent = ({ id, name, cards, index }: ColumnProps): JSX.Element =
                   {name}
                 </Typography>
               </Box>
-              <Droppable droppableId={id} type="card">
+              <Droppable droppableId={_id} type="card">
                 {(provided) => {
                   return (
                     <Grid container {...provided.droppableProps} ref={provided.innerRef} direction="column">
                       {cards.map((card: Card, index: number) => {
                         return (
                           <CardComponent
-                            key={card.id}
-                            id={card.id}
+                            key={card._id}
+                            cardId={card._id}
                             columnId={card.columnId}
                             name={card.name}
                             tag={card.tag || 'white'}
@@ -45,7 +45,7 @@ const ColumnComponent = ({ id, name, cards, index }: ColumnProps): JSX.Element =
                         );
                       })}
                       {provided.placeholder}
-                      <CardForm columnId={id} />
+                      <CardForm columnId={_id} />
                     </Grid>
                   );
                 }}
