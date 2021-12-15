@@ -5,6 +5,7 @@ const useStlyes = makeStyles({
     backgroundColor: '#759cfc',
     padding: '1%',
     fontSize: '16px',
+    margin: '0 1rem',
     '&:hover': {
       backgroundColor: '#99b5fc',
     },

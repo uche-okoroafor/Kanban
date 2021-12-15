@@ -20,6 +20,7 @@ const useStyles = makeStyles({
   },
   menuButton: {
     color: 'white',
+    border: '2px solid white',
   },
 });
 
