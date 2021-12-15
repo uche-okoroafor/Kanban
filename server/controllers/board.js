@@ -56,7 +56,7 @@ exports.addBoard = asyncHandler(async (req, res, next) => {
 
   const { boardTitle } = req.params
 
-  const board = await Board.create({
+  const board = new Board({
     boardTitle
   })
   const createStatus = await User.updateOne(

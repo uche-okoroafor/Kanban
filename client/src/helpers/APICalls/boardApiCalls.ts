@@ -24,3 +24,16 @@ export async function createDefaultBoard(): Promise<IResponse> {
       error: { message: 'Unable to connect to server. Please try again' },
     }));
 }
+
+export async function createNewBoard(boardTitle: string): Promise<IResponse> {
+  const fetchOptions: FetchOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+  };
+  return await fetch(`/board/create/${boardTitle}`, fetchOptions)
+    .then((res) => res.json())
+    .catch(() => ({
+      error: { message: 'Unable to connect to server. Please try again' },
+    }));
+}

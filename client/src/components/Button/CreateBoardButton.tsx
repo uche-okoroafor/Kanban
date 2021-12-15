@@ -2,11 +2,7 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 import { AddOutlined } from '@material-ui/icons';
 import useStlyes from './useStyles';
-
-interface ButtonProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
-}
-
+import CreateBoardDialog from './CreateBoardDialog/CreateBoardDialog';
 /**
  * Button component for handling creating
  * new boards.
@@ -14,19 +10,23 @@ interface ButtonProps {
  * @param ButtonProps
  * @returns {JSX.Element}
  */
-export default function CreateBoardButton({ onClick }: ButtonProps): JSX.Element {
+export default function CreateBoardButton(): JSX.Element {
   const classes = useStlyes();
+  const [openDialog, setOpenDialog] = React.useState(false);
   return (
-    <Button
-      className={classes.createButton}
-      disableElevation
-      variant="contained"
-      color="primary"
-      size="large"
-      startIcon={<AddOutlined />}
-      onClick={onClick}
-    >
-      Create board
-    </Button>
+    <>
+      <Button
+        className={classes.createButton}
+        disableElevation
+        variant="contained"
+        color="primary"
+        size="large"
+        startIcon={<AddOutlined />}
+        onClick={() => setOpenDialog(true)}
+      >
+        Create board
+      </Button>
+      <CreateBoardDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
+    </>
   );
 }

@@ -1,8 +1,8 @@
-import { AppBar, Box, IconButton, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Box, IconButton, Toolbar, Typography, Button } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 import React from 'react';
 import useStyles from './useStyles';
-
+import { useBoard } from '../../context/useBoardContext';
 /**
  * Navigation app bar props
  * type defintion.
@@ -20,18 +20,20 @@ interface NavAppBarProps {
  */
 export default function NavAppBar({ onClickMenu }: NavAppBarProps): JSX.Element {
   const classes = useStyles();
+  const { board } = useBoard();
   return (
     <>
       <Box className={classes.root}>
         <AppBar className={classes.appBarContainer} position="static" elevation={0}>
           <Toolbar className={classes.appBarItems}>
             <Box>
-              <Typography className={classes.appBarTitle}>My school Board</Typography>
+              <Typography className={classes.appBarTitle}>{board.boardTitle}</Typography>
             </Box>
             <Box>
-              <IconButton onClick={onClickMenu}>
-                <Menu className={classes.menuButton} />
-              </IconButton>
+              <Button className={classes.menuButton} onClick={onClickMenu} startIcon={<Menu />}>
+                {' '}
+                View Boards
+              </Button>
             </Box>
           </Toolbar>
         </AppBar>
