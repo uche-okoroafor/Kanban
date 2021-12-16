@@ -17,7 +17,7 @@ const Board = (): JSX.Element => {
                     key={column._id}
                     index={index}
                     _id={column._id}
-                    name={column.name}
+                    columnTitle={column.columnTitle}
                     cards={column.cards}
                     createdAt={column.createdAt}
                   />

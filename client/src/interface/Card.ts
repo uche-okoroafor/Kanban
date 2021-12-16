@@ -1,7 +1,7 @@
 export interface Card {
   _id: string;
   columnId: string;
-  name: string;
+  cardTitle: string;
   tag?: string;
   dueDate?: Date;
   description?: string;
@@ -11,7 +11,7 @@ export interface Card {
 
 export interface ICard {
   _id: string;
-  name?: string;
+  cardTitle?: string;
   tag?: string;
   description?: string;
   comment?: string;

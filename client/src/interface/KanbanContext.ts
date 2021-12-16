@@ -3,7 +3,6 @@ import { Card } from './Card';
 import { IColumn } from './Column';
 
 export interface KanbanContext {
-  updateColumns: (selectedColumns: Array<IColumn>) => void;
   focusedBoardId: string | undefined;
   columns: IColumn[];
   focusedCard: Card | null;

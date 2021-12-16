@@ -10,12 +10,12 @@ import { IIds } from '../../../interface/Board';
 
 type CardProps = {
   cardId: string;
-  name: string;
+  cardTitle: string;
   columnId: string;
   index: number;
   tag: string;
 };
-const Card = ({ cardId, name, tag = 'white', columnId, index }: CardProps): JSX.Element => {
+const Card = ({ cardId, cardTitle, tag = 'white', columnId, index }: CardProps): JSX.Element => {
   const { setOpenCard, focusedCard, focusedBoardId } = useKanban();
   const [openDialog, setOpenDialog] = useState(false);
   const [ids, setIds] = useState<IIds>({ cardId: '', columnId: '', boardId: '' });
@@ -25,7 +25,7 @@ const Card = ({ cardId, name, tag = 'white', columnId, index }: CardProps): JSX.
   const openCardDetails = (_id: string, name: string, tag: string, columnId: string): void => {
     setOpenCard({
       _id,
-      name,
+      cardTitle: name,
       tag,
       columnId,
     });
@@ -45,12 +45,12 @@ const Card = ({ cardId, name, tag = 'white', columnId, index }: CardProps): JSX.
           return (
             <div ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps}>
               <Box
-                onClick={() => openCardDetails(cardId, name, tag, columnId)}
+                onClick={() => openCardDetails(cardId, cardTitle, tag, columnId)}
                 className={clsx(classes.card, snapshot.isDragging && classes.cardDragging)}
               >
                 <Box className={`${classes.cardTag} ${colorClasses.cardTagColor}`}></Box>
                 <Typography className={classes.typography} variant="h6">
-                  {name}
+                  {cardTitle}
                 </Typography>
               </Box>
             </div>

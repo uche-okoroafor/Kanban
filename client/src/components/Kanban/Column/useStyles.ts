@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 16,
     backgroundColor: theme.palette.secondary.light,
     borderRadius: 8,
+    maxWidth: '50%',
   },
   columnGridItem: {
     [theme.breakpoints.up('lg')]: {

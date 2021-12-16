@@ -7,7 +7,7 @@ import CardForm from '../CardForm/CardForm';
 import useStyles from './useStyles';
 
 type ColumnProps = Column & { index: number };
-const ColumnComponent = ({ _id, name, cards, index }: ColumnProps): JSX.Element => {
+const ColumnComponent = ({ _id, columnTitle, cards, index }: ColumnProps): JSX.Element => {
   const classes = useStyles();
   return (
     <Draggable draggableId={_id} index={index}>
@@ -25,7 +25,7 @@ const ColumnComponent = ({ _id, name, cards, index }: ColumnProps): JSX.Element 
             <Box className={classes.columnWrapper} {...provided.dragHandleProps}>
               <Box className={classes.typographyWrapper}>
                 <Typography className={classes.typography} variant="h5">
-                  {name}
+                  {columnTitle}
                 </Typography>
               </Box>
               <Droppable droppableId={_id} type="card">
@@ -38,7 +38,7 @@ const ColumnComponent = ({ _id, name, cards, index }: ColumnProps): JSX.Element 
                             key={card._id}
                             cardId={card._id}
                             columnId={card.columnId}
-                            name={card.name}
+                            cardTitle={card.cardTitle}
                             tag={card.tag || 'white'}
                             index={index}
                           />

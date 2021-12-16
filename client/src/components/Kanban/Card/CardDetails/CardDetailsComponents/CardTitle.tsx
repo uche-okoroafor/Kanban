@@ -8,23 +8,23 @@ import { useSnackBar } from '../../../../../context/useSnackbarContext';
 import { useBoard } from '../../../../../context/useBoardContext';
 
 interface Props {
-  name: string | undefined;
+  cardTitle: string | undefined;
   disableSetting: boolean;
   ids: IIds | undefined;
 }
 
-export default function CardTitle({ name, disableSetting, ids }: Props): JSX.Element {
+export default function CardTitle({ cardTitle, disableSetting, ids }: Props): JSX.Element {
   const classes = useStyles();
   const { updateSnackBarMessage } = useSnackBar();
-  const [title, setTitle] = useState(name);
+  const [title, setTitle] = useState(cardTitle);
   const [enableTitleEdit, setEnableTitleEdit] = useState(false);
   const { updateBoard } = useBoard();
 
   useEffect(() => {
-    if (name) {
-      setTitle(name);
+    if (cardTitle) {
+      setTitle(cardTitle);
     }
-  }, [name]);
+  }, [cardTitle]);
   const handleSaveTitle = async (): Promise<void> => {
     setEnableTitleEdit(false);
     saveCardItem('title', title, ids).then((data) => {
