@@ -3,26 +3,26 @@ import { Column } from '../../interface/Column';
 export const columnData: Column[] = [
   {
     _id: 'col-1',
-    name: 'Philosophy',
+    columnTitle: 'Philosophy',
     createdAt: new Date(),
     cards: [
       {
         _id: 'car-1',
         columnId: 'col-1',
-        name: 'Essay on the environment',
+        cardTitle: 'Essay on the environment',
         tag: 'green',
       },
     ],
   },
   {
     _id: 'col-2',
-    name: 'Math',
+    columnTitle: 'Math',
     createdAt: new Date(),
     cards: [
       {
         _id: 'car-2',
         columnId: 'col-2',
-        name: 'Midterm exam',
+        cardTitle: 'Midterm exam',
         dueDate: new Date(),
         tag: 'red',
       },
@@ -30,13 +30,13 @@ export const columnData: Column[] = [
   },
   {
     _id: 'col-3',
-    name: 'In Progress',
+    columnTitle: 'In Progress',
     createdAt: new Date(),
     cards: [
       {
         _id: 'car-3',
         columnId: 'col-3',
-        name: 'Homework',
+        cardTitle: 'Homework',
         tag: 'red',
         // other data (assignees, due dates, etc.)
       },
@@ -44,26 +44,26 @@ export const columnData: Column[] = [
   },
   {
     _id: 'col-4',
-    name: 'Done',
+    columnTitle: 'Done',
     createdAt: new Date(),
     cards: [
       {
         _id: 'car-4',
         columnId: 'col-4',
-        name: 'Workshop',
+        cardTitle: 'Workshop',
         tag: 'yellow',
         // other data (assignees, due dates, etc.)
       },
       {
         _id: 'car-5',
         columnId: 'col-4',
-        name: 'Practice exam',
+        cardTitle: 'Practice exam',
         tag: 'red',
       },
       {
         _id: 'car-6',
         columnId: 'col-4',
-        name: 'Research',
+        cardTitle: 'Research',
         tag: 'green',
       },
     ],

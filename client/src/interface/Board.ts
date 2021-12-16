@@ -4,7 +4,7 @@ import { ICard } from './Card';
 
 export interface Board {
   _id: string;
-  name: string;
+  boardTitle: string;
   columns: Array<IColumn>;
   cards: Array<Card>;
   user: string;

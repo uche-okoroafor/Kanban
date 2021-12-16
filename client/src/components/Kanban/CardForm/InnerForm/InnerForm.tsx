@@ -10,7 +10,7 @@ type InnerFormProps = {
 };
 
 export const InnerForm = ({ columnId, formAction }: InnerFormProps): JSX.Element => {
-  const [name, setName] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
   const [selectedTagColor, setTagColor] = useState<string>('white');
   const { addCard } = useKanban();
   const theme = useTheme();
@@ -21,8 +21,8 @@ export const InnerForm = ({ columnId, formAction }: InnerFormProps): JSX.Element
         <Box className={classes.cardForm}>
           <InputBase
             className={classes.input}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             placeholder="Add title..."
           />
         </Box>
@@ -54,7 +54,7 @@ export const InnerForm = ({ columnId, formAction }: InnerFormProps): JSX.Element
       <Button
         onClick={() => {
           const isSuccess = addCard({
-            name,
+            cardTitle: title,
             columnId: columnId,
             _id: `card-${Math.floor(Math.random() * 999999)}`,
             tag: selectedTagColor,

@@ -57,7 +57,7 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
         </IconButton>
         <Box display="flex" alignItems="center" style={{ whiteSpace: 'nowrap', maxWidth: '40%' }}>
           <DashboardOutlinedIcon style={{ marginRight: '10px' }} />
-          <CardTitle ids={ids} disableSetting={disableSetting} name={card?.name} />{' '}
+          <CardTitle ids={ids} disableSetting={disableSetting} cardTitle={card?.cardTitle} />{' '}
           <CardColor ids={ids} disableSetting={disableSetting} tag={card?.tag} />
           <IconButton
             aria-label="close"
@@ -86,9 +86,7 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
               <CardComment ids={ids} comment={card?.comment} disableSetting={disableSetting} />
             </>
           ) : displayChecklist ? (
-
             <CardChecklist ids={ids} checklist={card?.checklist} displayChecklist={displayChecklist} />
-
           ) : (
             <CardAttachment ids={ids} attachment={card?.attachment} disableSetting={disableSetting} />
           )}

@@ -1,4 +1,4 @@
-import { useState, useContext, createContext, FunctionComponent } from 'react';
+import { useState, useContext, createContext, FunctionComponent, useEffect } from 'react';
 import { DraggableLocation, DropResult } from 'react-beautiful-dnd';
 import { columnData } from '../components/Kanban/data';
 import { KanbanContext } from '../interface/KanbanContext';
@@ -13,15 +13,14 @@ export const KanbanContextProvider = createContext<KanbanContext>({} as KanbanCo
 
 export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => {
   // we need to get the Id of the board, so that we can use it to manipulate the data at the backend
-  const { focusedBoardId, board } = useBoard();
-  const [columns, setColumns] = useState<Array<Column>>(board.columns);
+  const { focusedBoardId, focusedColumns } = useBoard();
+  const [columns, setColumns] = useState<Array<Column>>(focusedColumns);
   const [focusedCard, setFocusedCard] = useState<Card | null>(null);
   const { updateSnackBarMessage } = useSnackBar();
 
-  const updateColumns = (selectedColumns: Array<IColumn>): void => {
-    setColumns(selectedColumns);
-    console.log(selectedColumns, columns, 'selectedColumns');
-  };
+  useEffect(() => {
+    setColumns(focusedColumns);
+  }, [focusedColumns]);
 
   const handleDragEnd = (result: DropResult): void => {
     const { destination, source, draggableId, type } = result;
@@ -84,7 +83,7 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
   };
 
   const addCard = (card: Card): boolean => {
-    if (card.name === '') {
+    if (card.cardTitle === '') {
       updateSnackBarMessage('Please enter a card name');
       return false;
     }
@@ -126,7 +125,6 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
         setOpenCard,
         resetOpenCard,
         getColumnById,
-        updateColumns,
       }}
     >
       {children}
