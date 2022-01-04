@@ -1,7 +1,7 @@
 import { FetchOptions } from '../../interface/FetchOptions';
 import { IIds, ICardResponse } from '../../interface/Board';
 
-export async function saveCardItem(
+export async function updateCardItem(
   cardItem: string,
   value: string | undefined | Date,
   ids: IIds | undefined,

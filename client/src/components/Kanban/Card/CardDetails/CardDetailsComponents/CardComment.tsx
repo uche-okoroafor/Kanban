@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography, TextareaAutosize, CircularProgress } from '@material-ui/core';
 import Button from '@mui/material/Button';
 import DialogContentText from '@mui/material/DialogContentText';
-import { saveCardItem, deleteCardItem } from '../../../../../helpers/APICalls/cardApiCalls';
+import { updateCardItem, deleteCardItem } from '../../../../../helpers/APICalls/cardApiCalls';
 import { IIds } from '../../../../../interface/Board';
 import { useSnackBar } from '../../../../../context/useSnackbarContext';
 import { useBoard } from '../../../../../context/useBoardContext';
@@ -32,7 +32,7 @@ export default function CardComment({ comment, disableSetting, ids }: Props): JS
 
   const handleSaveComment = async (): Promise<void> => {
     setIsSubmitting(true);
-    saveCardItem('comment', newComment, ids).then((data) => {
+    updateCardItem('comment', newComment, ids).then((data) => {
       if (data.error) {
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {

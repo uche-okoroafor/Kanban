@@ -30,6 +30,7 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [focusedBoardId, setFocusedBoardId] = useState<IBoardsContext['focusedBoardId']>(undefined);
   const [focusedColumns, setFocusedColumns] = useState<Array<IColumn>>(tempBoard.columns);
   const { loggedInUser } = useAuth();
+
   const updateBoard = useCallback(async () => {
     await getUserBoards()
       .then((data) => {
@@ -41,6 +42,7 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
       .catch((error) => console.error(error));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const handleSelectedBoard = (selectedBoard: IBoard): void => {
     setBoard(selectedBoard);
     setFocusedBoardId(selectedBoard._id);

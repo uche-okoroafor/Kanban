@@ -4,21 +4,21 @@ import { Box } from '@material-ui/core';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { saveCardItem } from '../../../../../helpers/APICalls/cardApiCalls';
+import { updateCardItem } from '../../../../../helpers/APICalls/cardApiCalls';
 import { IIds } from '../../../../../interface/Board';
 import { useSnackBar } from '../../../../../context/useSnackbarContext';
 import { useBoard } from '../../../../../context/useBoardContext';
 
 interface Props {
-  tag: string | undefined;
+  tagColor: string | undefined;
   disableSetting: boolean;
   ids: IIds | undefined;
 }
 
-export default function CardColor({ tag, disableSetting, ids }: Props): JSX.Element {
+export default function CardColor({ tagColor, disableSetting, ids }: Props): JSX.Element {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [colorTag, setColorTag] = useState(tag);
+  const [colorTag, setColorTag] = useState(tagColor);
   const colors = ['#fcba03', '#5de3c4', '#de602f', '#de2fcf', '#494bd6'];
   const open = Boolean(anchorEl);
   const { updateSnackBarMessage } = useSnackBar();
@@ -32,14 +32,14 @@ export default function CardColor({ tag, disableSetting, ids }: Props): JSX.Elem
   };
 
   useEffect(() => {
-    if (tag) {
-      setColorTag(tag);
+    if (tagColor) {
+      setColorTag(tagColor);
     }
-  }, [tag]);
+  }, [tagColor]);
 
   const handleSaveCardColor = async (colorParams: string): Promise<void> => {
     setColorTag(colorParams);
-    saveCardItem('tagColor', colorTag, ids).then((data) => {
+    updateCardItem('tagColor', colorParams, ids).then((data) => {
       if (data.error) {
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {

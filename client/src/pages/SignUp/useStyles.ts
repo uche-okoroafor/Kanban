@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import image from '../../Images/background.jpg';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -21,6 +22,14 @@ const useStyles = makeStyles(() => ({
     color: '#000000',
     fontWeight: 700,
     fontFamily: "'Open Sans'",
+  },
+
+  backgroundImg: {
+    backgroundImage: `url(${image})`,
+    backgroundRepeat: ' no-repeat',
+    backgroundSize: 'cover',
+    backgroundAttachment: 'fixed',
+    backgroundPosition: 'center',
   },
 }));
 
