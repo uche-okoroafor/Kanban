@@ -14,7 +14,10 @@ export const KanbanContextProvider = createContext<KanbanContext>({} as KanbanCo
 export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => {
   // we need to get the Id of the board, so that we can use it to manipulate the data at the backend
   const { focusedBoardId, focusedColumns } = useBoard();
-  const [columns, setColumns] = useState<Array<Column>>(focusedColumns);
+  const [columns, setColumns] = useState<Array<Column>>(
+    focusedColumns,
+    // columnData,
+  );
   const [focusedCard, setFocusedCard] = useState<Card | null>(null);
   const { updateSnackBarMessage } = useSnackBar();
 
@@ -102,6 +105,7 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
 
   const setOpenCard = (card: Card): void => {
     setFocusedCard(card);
+    console.log(card);
   };
   const resetOpenCard = (): void => setFocusedCard(null);
 

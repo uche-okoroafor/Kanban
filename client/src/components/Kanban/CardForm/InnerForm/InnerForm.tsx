@@ -57,7 +57,7 @@ export const InnerForm = ({ columnId, formAction }: InnerFormProps): JSX.Element
             cardTitle: title,
             columnId: columnId,
             _id: `card-${Math.floor(Math.random() * 999999)}`,
-            tag: selectedTagColor,
+            tagColor: selectedTagColor,
           });
           if (isSuccess) {
             formAction(false);

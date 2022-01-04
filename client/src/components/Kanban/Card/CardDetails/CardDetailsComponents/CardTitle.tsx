@@ -2,7 +2,7 @@ import useStyles from '../../useStyles';
 import { useEffect, useState } from 'react';
 import { Typography } from '@material-ui/core';
 import { TextField } from '@mui/material';
-import { saveCardItem } from '../../../../../helpers/APICalls/cardApiCalls';
+import { updateCardItem } from '../../../../../helpers/APICalls/cardApiCalls';
 import { IIds } from '../../../../../interface/Board';
 import { useSnackBar } from '../../../../../context/useSnackbarContext';
 import { useBoard } from '../../../../../context/useBoardContext';
@@ -27,7 +27,7 @@ export default function CardTitle({ cardTitle, disableSetting, ids }: Props): JS
   }, [cardTitle]);
   const handleSaveTitle = async (): Promise<void> => {
     setEnableTitleEdit(false);
-    saveCardItem('title', title, ids).then((data) => {
+    updateCardItem('cardTitle', title, ids).then((data) => {
       if (data.error) {
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {
@@ -35,7 +35,6 @@ export default function CardTitle({ cardTitle, disableSetting, ids }: Props): JS
       } else {
         // should not get here from backend but this catch is for an unknown issue
         console.error({ data });
-
         updateSnackBarMessage('An unexpected error occurred. Please try again');
       }
     });

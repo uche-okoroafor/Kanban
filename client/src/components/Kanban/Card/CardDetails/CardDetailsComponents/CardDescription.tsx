@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography, CircularProgress, TextareaAutosize } from '@material-ui/core';
 import Button from '@mui/material/Button';
 import DialogContentText from '@mui/material/DialogContentText';
-import { saveCardItem, deleteCardItem } from '../../../../../helpers/APICalls/cardApiCalls';
+import { updateCardItem, deleteCardItem } from '../../../../../helpers/APICalls/cardApiCalls';
 import { IIds } from '../../../../../interface/Board';
 import { useSnackBar } from '../../../../../context/useSnackbarContext';
 import { useBoard } from '../../../../../context/useBoardContext';
@@ -31,20 +31,25 @@ export default function CardDescription({ description, disableSetting, ids }: Pr
   }, [description]);
 
   const handleSaveDescription = async (): Promise<void> => {
-    saveCardItem('description', newDescription, ids).then((data) => {
+    updateCardItem('description', newDescription, ids).then((data) => {
+      console.log(data);
       setIsSubmitting(true);
       if (data.error) {
         updateSnackBarMessage(data.error.message);
+        setIsSubmitting(false);
       } else if (data.success) {
+        setIsSubmitting(false);
+        updateSnackBarMessage('Description has been updated');
+
         updateBoard();
       } else {
+        setIsSubmitting(false);
         // should not get here from backend but this catch is for an unknown issue
         console.error({ data });
 
         updateSnackBarMessage('An unexpected error occurred. Please try again');
       }
     });
-    setIsSubmitting(false);
   };
 
   const handleDeleteDescription = async (): Promise<void> => {
@@ -52,10 +57,15 @@ export default function CardDescription({ description, disableSetting, ids }: Pr
       setIsSubmitting(true);
       if (data.error) {
         updateSnackBarMessage(data.error.message);
+        setIsSubmitting(false);
       } else if (data.success) {
-        // updateCardContext(data.success);
+        updateBoard();
+        setIsSubmitting(false);
+
+        updateSnackBarMessage('Description has been deleted');
       } else {
         // should not get here from backend but this catch is for an unknown issue
+        setIsSubmitting(false);
         console.error({ data });
 
         updateSnackBarMessage('An unexpected error occurred. Please try again');
@@ -80,7 +90,7 @@ export default function CardDescription({ description, disableSetting, ids }: Pr
             onChange={(e) => setNewDescription(e.target.value)}
             placeholder="This Card has no Description "
             className={classes.textArea}
-            style={{ minHeight: '5rem' }}
+            style={{ minHeight: '5rem', padding: '10px' }}
             disabled={disableSetting}
           />
 

@@ -12,7 +12,7 @@ type ColorProps = {
 
 export const Color = ({ name = 'white', activeSelected, setSelected }: ColorProps): JSX.Element => {
   const classes = useStyles();
-  const colorClasses = useColorTagStyles({ tag: name });
+  const colorClasses = useColorTagStyles({ tagColor: name });
   return (
     <Grid
       onClick={() => setSelected(name)}

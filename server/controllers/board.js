@@ -13,7 +13,6 @@ const {
 
 exports.getUserBoard = asyncHandler(async (req, res, next) => {
   const userId = req.user.id
-  console.log(req.user.id)
 
   const userBoards = await User.findById(userId)
   if (userBoards) {
@@ -29,10 +28,11 @@ exports.createDefaultBoard = asyncHandler(async (req, res, next) => {
   const createBoard = new Board(board)
   const createColumnProgress = new Column(columnProgress)
   const createColumnCompleted = new Column(columnCompleted)
-  const createCard = new Card(card)
+  const createCard1 = new Card(card)
+  const createCard2 = new Card(card)
 
-  createColumnProgress.cards.push(createCard)
-  createColumnCompleted.cards.push(createCard)
+  createColumnProgress.cards.push(createCard1)
+  createColumnCompleted.cards.push(createCard2)
   createBoard.columns = [createColumnProgress, createColumnCompleted]
 
   const createStatus = await User.updateOne(

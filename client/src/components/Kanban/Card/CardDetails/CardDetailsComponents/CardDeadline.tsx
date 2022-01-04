@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 import * as React from 'react';
 import { IIds } from '../../../../../interface/Board';
 import DialogContentText from '@mui/material/DialogContentText';
-import { saveCardItem, deleteCardItem } from '../../../../../helpers/APICalls/cardApiCalls';
+import { updateCardItem, deleteCardItem } from '../../../../../helpers/APICalls/cardApiCalls';
 import { useSnackBar } from '../../../../../context/useSnackbarContext';
 import { useState, useEffect } from 'react';
 import { useBoard } from '../../../../../context/useBoardContext';
@@ -41,7 +41,7 @@ export default function CardDeadline({ dueDate, disableSetting, ids }: Props): J
 
   const handleSaveDeadline = async (): Promise<void> => {
     setIsSubmitting(true);
-    saveCardItem('deadline', date, ids).then((data) => {
+    updateCardItem('deadline', date, ids).then((data) => {
       if (data.error) {
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {
@@ -89,8 +89,7 @@ export default function CardDeadline({ dueDate, disableSetting, ids }: Props): J
               value={date}
               onChange={handleChange}
               renderInput={(params) => <TextField variant="standard" sx={{ width: 250 }} {...params} />}
-
-            />           
+            />
           </LocalizationProvider>
           <Box className={classes.saveButtonContainer}>
             {' '}

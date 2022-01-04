@@ -9,6 +9,7 @@ import useStyles from './useStyles';
 type ColumnProps = Column & { index: number };
 const ColumnComponent = ({ _id, columnTitle, cards, index }: ColumnProps): JSX.Element => {
   const classes = useStyles();
+
   return (
     <Draggable draggableId={_id} index={index}>
       {(provided) => {
@@ -37,9 +38,9 @@ const ColumnComponent = ({ _id, columnTitle, cards, index }: ColumnProps): JSX.E
                           <CardComponent
                             key={card._id}
                             cardId={card._id}
-                            columnId={card.columnId}
+                            columnId={_id}
                             cardTitle={card.cardTitle}
-                            tag={card.tag || 'white'}
+                            tagColor={card.tagColor || 'white'}
                             index={index}
                           />
                         );
