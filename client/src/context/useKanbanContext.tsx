@@ -105,7 +105,6 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
 
   const setOpenCard = (card: Card): void => {
     setFocusedCard(card);
-    console.log(card);
   };
   const resetOpenCard = (): void => setFocusedCard(null);
 

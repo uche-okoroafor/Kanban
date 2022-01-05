@@ -37,10 +37,11 @@ const ColumnComponent = ({ _id, columnTitle, cards, index }: ColumnProps): JSX.E
                         return (
                           <CardComponent
                             key={card._id}
-                            cardId={card._id}
+                            // cardId={card._id}
                             columnId={_id}
-                            cardTitle={card.cardTitle}
-                            tagColor={card.tagColor || 'white'}
+                            card={card}
+                            // cardTitle={card.cardTitle}
+                            // tagColor={card.tagColor || 'white'}
                             index={index}
                           />
                         );

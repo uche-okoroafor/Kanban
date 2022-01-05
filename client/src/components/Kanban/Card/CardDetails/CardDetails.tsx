@@ -39,8 +39,6 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
   const [displayAttachment, setDisplayAttachment] = useState(false);
   const [displayChecklist, setDisplayChecklist] = useState(false);
 
-  console.log(displayedCard, 'displayedCard');
-
   useEffect(() => {
     if (displayedCard) {
       setCard(displayedCard);
@@ -84,7 +82,7 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
           {!displayChecklist && !displayAttachment ? (
             <>
               <CardDescription ids={ids} description={card?.description} disableSetting={disableSetting} />
-              <CardDeadline ids={ids} dueDate={card?.dueDate} disableSetting={disableSetting} />
+              <CardDeadline ids={ids} deadline={card?.deadline} disableSetting={disableSetting} />
               <CardComment ids={ids} comment={card?.comment} disableSetting={disableSetting} />
             </>
           ) : displayChecklist ? (

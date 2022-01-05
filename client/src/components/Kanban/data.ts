@@ -23,7 +23,7 @@ export const columnData: Column[] = [
         _id: 'car-2',
         columnId: 'col-2',
         cardTitle: 'Midterm exam',
-        dueDate: new Date(),
+        deadline: new Date(),
         tagColor: 'red',
       },
     ],
