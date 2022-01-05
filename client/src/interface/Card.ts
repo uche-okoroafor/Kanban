@@ -3,7 +3,7 @@ export interface Card {
   columnId: string;
   cardTitle: string;
   tagColor?: string;
-  dueDate?: Date;
+  deadline?: Date;
   description?: string;
   createdAt?: Date;
   comment?: string;
@@ -11,11 +11,11 @@ export interface Card {
 
 export interface ICard {
   _id: string;
-  cardTitle?: string;
+  cardTitle: string;
   tagColor?: string;
   description?: string;
   comment?: string;
-  dueDate?: Date;
+  deadline?: Date;
   checklist?: {
     item: string;
     isChecked: boolean;

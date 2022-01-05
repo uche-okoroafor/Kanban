@@ -1,30 +1,28 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const cardSchema = new mongoose.Schema({
   cardTitle: {
     type: String,
-    required: true,
+    required: true
   },
 
   tagColor: {
-    type: String,
+    type: String
   },
   cardDescription: {
-    type: String,
+    type: String
   },
-  cardDeadline: {
+  deadline: {
     type: Date,
-    default: null,
+    default: null
   },
 
   comment: {
-
-    type: String,
+    type: String
   },
 
-  plugins: [],
+  plugins: []
+})
 
-});
-
-const Card = mongoose.model("card", cardSchema);
-module.exports = Card;
+const Card = mongoose.model('card', cardSchema)
+module.exports = Card
