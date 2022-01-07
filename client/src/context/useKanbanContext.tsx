@@ -27,6 +27,7 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
 
   const handleDragEnd = (result: DropResult): void => {
     const { destination, source, draggableId, type } = result;
+    console.log(draggableId, 'draggableId222222222222222');
     if (!destination) return;
     const columnsCopy: Column[] = cloneDeep(columns);
     const colIndex = columns.findIndex((col) => col._id === source.droppableId);
@@ -40,6 +41,8 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
 
     if (source.droppableId === destination.droppableId) {
       if (colIndex > -1) {
+        console.log(draggableId, 'source2');
+
         const cards = Array.from(columnsCopy[colIndex].cards);
         const newCards = swapCards(cards, source, destination, draggableId);
         columnsCopy[colIndex].cards = newCards;
@@ -64,6 +67,8 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
   };
 
   const swapColumns = (columns: Column[], source: DraggableLocation, destination: DraggableLocation): Column[] => {
+    // console.log(destination, source, 'source1');
+
     const [sourceCol] = columns.splice(source.index, 1);
     columns.splice(destination.index, 0, sourceCol);
     return columns;
