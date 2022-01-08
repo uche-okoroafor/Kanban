@@ -1,6 +1,25 @@
 import { FetchOptions } from '../../interface/FetchOptions';
 import { IIds, ICardResponse } from '../../interface/Board';
 
+export async function createCard(
+  boardId: string,
+  columnId: string,
+  cardTitle: string,
+  tagColor: string,
+): Promise<ICardResponse> {
+  const fetchOptions: FetchOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ boardId, columnId, cardTitle, tagColor }),
+    credentials: 'include',
+  };
+  return await fetch(`/card/create-card`, fetchOptions)
+    .then((res) => res.json())
+    .catch(() => ({
+      error: { message: 'Unable to connect to server. Please try again' },
+    }));
+}
+
 export async function updateCardItem(
   cardItem: string,
   value: string | undefined | Date,

@@ -8,12 +8,15 @@ import cloneDeep from 'lodash.clonedeep';
 import { useSnackBar } from './useSnackbarContext';
 import { useBoard } from './useBoardContext';
 import Board from '../components/Kanban/Board';
+import { moveCardWithinColumn, moveCardOutsideColumn, moveColumns } from '../helpers/APICalls/columnApiCalls';
+import { createCard } from '../helpers/APICalls/cardApiCalls';
+import { stringOrDate } from 'react-big-calendar';
 
 export const KanbanContextProvider = createContext<KanbanContext>({} as KanbanContext);
 
 export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => {
   // we need to get the Id of the board, so that we can use it to manipulate the data at the backend
-  const { focusedBoardId, focusedColumns } = useBoard();
+  const { focusedBoardId, focusedColumns, updateBoard } = useBoard();
   const [columns, setColumns] = useState<Array<Column>>(
     focusedColumns,
     // columnData,
@@ -41,7 +44,8 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
     if (source.droppableId === destination.droppableId) {
       if (colIndex > -1) {
         const cards = Array.from(columnsCopy[colIndex].cards);
-        const newCards = swapCards(cards, source, destination, draggableId);
+        const columnId = columnsCopy[colIndex]._id;
+        const newCards = swapCards(cards, source, destination, draggableId, columnId);
         columnsCopy[colIndex].cards = newCards;
         setColumns(columnsCopy);
         return;
@@ -50,12 +54,22 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
 
     if (source.droppableId !== destination.droppableId) {
       const targetColumnIndex = columnsCopy.findIndex((col) => col._id === destination.droppableId);
+
       if (targetColumnIndex > -1) {
         const targetColumn = columnsCopy[targetColumnIndex];
         const originalColumn = columnsCopy[colIndex];
         const [card] = originalColumn.cards.splice(source.index, 1);
         card.columnId = targetColumn._id;
         targetColumn.cards.splice(destination.index, 0, card);
+
+        handleSwapCardToColumnDataBase({
+          cardId: draggableId,
+          initialColumnId: source.droppableId,
+          targetColumnId: destination.droppableId,
+          boardId: focusedBoardId,
+          targetPosition: destination.index,
+          card,
+        });
       }
     }
 
@@ -65,6 +79,13 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
 
   const swapColumns = (columns: Column[], source: DraggableLocation, destination: DraggableLocation): Column[] => {
     const [sourceCol] = columns.splice(source.index, 1);
+    handleSwapColumnsDataBase({
+      columnId: sourceCol._id,
+      boardId: focusedBoardId,
+      targetPosition: destination.index,
+      column: sourceCol,
+    });
+
     columns.splice(destination.index, 0, sourceCol);
     return columns;
   };
@@ -74,9 +95,20 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
     source: DraggableLocation,
     destination: DraggableLocation,
     draggableId: string,
+    columnId: string,
   ): Card[] => {
+    console.log(draggableId, source.index, destination.index, 'source2');
+
     const cardsCopy = [...cards];
     const cardIndex = cardsCopy.findIndex((card: Card) => card._id === draggableId);
+    const card = cardsCopy.find((card: Card) => card._id === draggableId);
+    handleSwapCardInDataBase({
+      cardId: draggableId,
+      targetPosition: destination.index,
+      card,
+      columnId,
+    });
+
     if (cardIndex > -1) {
       const [card] = cardsCopy.splice(source.index, 1);
       cardsCopy.splice(destination.index, 0, card);
@@ -90,9 +122,17 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
       updateSnackBarMessage('Please enter a card name');
       return false;
     }
-
     const columnsCopy = cloneDeep(columns);
+
+    console.log(columnsCopy, 'columnsCopy');
     const columnIndex = columnsCopy.findIndex((col) => col._id === card.columnId);
+    handleCreateCard({
+      boardId: String(focusedBoardId),
+      columnId: card.columnId,
+      cardTitle: card.cardTitle,
+      tagColor: String(card.tagColor),
+    });
+
     if (columnIndex > -1) {
       const columnCopy = cloneDeep(columns[columnIndex]);
       columnCopy.cards.push(card);
@@ -117,6 +157,109 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
     return null;
   };
 
+  const handleCreateCard = ({
+    boardId,
+    columnId,
+    cardTitle,
+    tagColor,
+  }: {
+    boardId: string;
+    columnId: string;
+    cardTitle: string;
+    tagColor: string;
+  }) => {
+    createCard(boardId, columnId, cardTitle, tagColor).then((data) => {
+      if (data.error) {
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        updateSnackBarMessage('Card has been added');
+        console.log(data, 'success');
+      } else {
+        // should not get here from backend but this catch is for an unknown issue
+        console.error({ data });
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
+  };
+
+  const handleSwapCardInDataBase = ({
+    cardId,
+    card,
+    targetPosition,
+    columnId,
+  }: {
+    cardId: string;
+    card: Card | undefined;
+    targetPosition: number;
+    columnId: string;
+  }) => {
+    moveCardWithinColumn({ cardId, card, columnId, boardId: focusedBoardId, targetPosition }).then((data) => {
+      if (data.error) {
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        updateBoard();
+      } else {
+        // should not get here from backend but this catch is for an unknown issue
+        console.error({ data });
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
+  };
+  const handleSwapCardToColumnDataBase = ({
+    cardId,
+    initialColumnId,
+    targetColumnId,
+    boardId,
+    targetPosition,
+    card,
+  }: {
+    card: Card | undefined;
+    cardId: string;
+    initialColumnId: string;
+    targetColumnId: string;
+    boardId: string | undefined;
+    targetPosition: number;
+  }) => {
+    moveCardOutsideColumn({ cardId, initialColumnId, targetColumnId, boardId, targetPosition, card }).then((data) => {
+      console.log(data);
+
+      if (data.error) {
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        updateBoard();
+        console.log(data, 'success');
+      } else {
+        // should not get here from backend but this catch is for an unknown issue
+        console.error({ data });
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
+  };
+  const handleSwapColumnsDataBase = ({
+    columnId,
+    boardId,
+    targetPosition,
+    column,
+  }: {
+    column: Column | undefined;
+    columnId: string;
+    boardId: string | undefined;
+    targetPosition: number;
+  }) => {
+    moveColumns({ columnId, boardId, targetPosition, column }).then((data) => {
+      console.log(data, 1010);
+      if (data.error) {
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        updateBoard();
+        console.log(data, 'success');
+      } else {
+        // should not get here from backend but this catch is for an unknown issue
+        console.error({ data });
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
+  };
   return (
     <KanbanContextProvider.Provider
       value={{

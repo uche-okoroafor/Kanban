@@ -1,27 +1,25 @@
-const router = require("express").Router();
+const router = require('express').Router()
 const {
   validateCreateCardParams,
   validateUpdateCardItemsParams,
-  validateRemoveCardItemsParams,
-} = require("../middleware/validateRouteParams");
+  validateRemoveCardItemsParams
+} = require('../middleware/validateRouteParams')
 
-const protect = require("../middleware/auth");
+const protect = require('../middleware/auth')
 const {
   createCard,
   updateCardItems,
-  removeCardItems,
-} = require("../controllers/card");
+  removeCardItems
+} = require('../controllers/card')
+
+router.route('/create-card').post(protect, validateCreateCardParams, createCard)
 
 router
-  .route("/create-card/:boardId/:columnId/:cardTitle/:tagColor")
-  .post(protect, validateCreateCardParams, createCard);
+  .route('/update-card/item')
+  .post(protect, validateUpdateCardItemsParams, updateCardItems)
 
 router
-  .route("/update-card/item")
-  .post(protect, validateUpdateCardItemsParams, updateCardItems);
+  .route('/remove-card/item')
+  .post(protect, validateRemoveCardItemsParams, removeCardItems)
 
-router
-  .route("/remove-card/item")
-  .post(protect, validateRemoveCardItemsParams, removeCardItems);
-
-module.exports = router;
+module.exports = router

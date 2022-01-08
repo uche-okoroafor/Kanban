@@ -98,3 +98,26 @@ exports.removeBoard = asyncHandler(async (req, res, next) => {
   res.status(500)
   throw new Error('Something went wrong')
 })
+
+exports.updateActiveBoard = asyncHandler(async (req, res, next) => {
+  const userId = req.user.id
+
+  const { boardId } = req.body
+  const updateActiveBoard = await User.updateOne(
+    { _id: userId },
+    {
+      $set: {
+        activeBoard: boardId
+      }
+    }
+  )
+
+  if (updateActiveBoard.nModified === 1) {
+    return res.status(200).json({ sucess: true })
+  } else {
+    return res.status(200).json({ sucess: false })
+  }
+
+  res.status(500)
+  throw new Error('Something went wrong')
+})
