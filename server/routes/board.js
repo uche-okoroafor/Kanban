@@ -9,11 +9,13 @@ const {
   createDefaultBoard,
   addBoard,
   removeBoard,
-  getUserBoard
+  getUserBoard,
+  updateActiveBoard
 } = require('../controllers/board')
 
 router.route('/user').get(protect, getUserBoard)
 router.route('/create/default-board').get(protect, createDefaultBoard)
+router.route('/update-active-board').post(protect, updateActiveBoard)
 router
   .route('/create/:boardTitle')
   .post(protect, validateAddBoardParams, addBoard)

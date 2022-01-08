@@ -67,7 +67,9 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
             <SettingsIcon />
           </IconButton>
         </Box>
-        <Typography style={{ paddingLeft: '2rem', fontSize: '0.8rem' }}>In List {'column Title'} </Typography>
+        <Typography style={{ paddingLeft: '2rem', fontSize: '0.8rem' }} variant="h6">
+          In List {'column Title'}{' '}
+        </Typography>
       </DialogTitle>
 
       <DialogContent
