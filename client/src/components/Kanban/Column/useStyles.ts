@@ -6,6 +6,7 @@ const useStyles = makeStyles((theme) => ({
   },
   typographyWrapper: {
     marginBottom: 20,
+    position: 'relative',
   },
   columnWrapper: {
     padding: 16,
