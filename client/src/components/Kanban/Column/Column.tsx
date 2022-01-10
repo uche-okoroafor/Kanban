@@ -8,12 +8,18 @@ import useStyles from './useStyles';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Dialog from '../../../components/Dialog/Dialog';
 import { useState, useCallback } from 'react';
+import { useBoard } from '../../../context/useBoardContext';
 
 type ColumnProps = Column & { index: number };
 const ColumnComponent = ({ _id, columnTitle, cards, index }: ColumnProps): JSX.Element => {
   const classes = useStyles();
+  const { focusedBoardId } = useBoard();
   const [openDialog, setOpenDialog] = useState(false);
-
+  const ItemsIds = {
+    boardId: focusedBoardId,
+    columnId: _id,
+    cardId: undefined,
+  };
   const handleOpenDialog = useCallback(() => {
     setOpenDialog(true);
   }, [setOpenDialog]);
@@ -53,17 +59,7 @@ const ColumnComponent = ({ _id, columnTitle, cards, index }: ColumnProps): JSX.E
                   return (
                     <Grid container {...provided.droppableProps} ref={provided.innerRef} direction="column">
                       {cards.map((card: Card, index: number) => {
-                        return (
-                          <CardComponent
-                            key={card._id}
-                            // cardId={card._id}
-                            columnId={_id}
-                            card={card}
-                            // cardTitle={card.cardTitle}
-                            // tagColor={card.tagColor || 'white'}
-                            index={index}
-                          />
-                        );
+                        return <CardComponent key={card._id} columnId={_id} card={card} index={index} />;
                       })}
                       {provided.placeholder}
                       <CardForm columnId={_id} />
@@ -71,8 +67,8 @@ const ColumnComponent = ({ _id, columnTitle, cards, index }: ColumnProps): JSX.E
                         openDialog={openDialog}
                         setOpenDialog={setOpenDialog}
                         item={'column'}
-                        handleDelete={handleDelete}
                         title={columnTitle}
+                        ItemsIds={ItemsIds}
                       />
                     </Grid>
                   );

@@ -74,7 +74,7 @@ exports.updateColumn = asyncHandler(async (req, res, next) => {
 exports.removeColumn = asyncHandler(async (req, res, next) => {
   const userId = req.user.id
 
-  const { columnId, boardId } = req.params
+  const { columnId, boardId } = req.body
   const boardObjectId = ObjectID(boardId)
   const columnObjectId = ObjectID(columnId)
 

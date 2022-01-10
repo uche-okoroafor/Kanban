@@ -91,8 +91,11 @@ exports.removeBoard = asyncHandler(async (req, res, next) => {
       }
     }
   )
+
   if (removeStatus.nModified === 1) {
-    return res.status(200).json({ sucess: true, removeBoard })
+    return res.status(200).json({ success: true })
+  } else {
+    return res.status(402).json({ success: false })
   }
 
   res.status(500)

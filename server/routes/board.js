@@ -20,6 +20,6 @@ router
   .route('/create/:boardTitle')
   .post(protect, validateAddBoardParams, addBoard)
 router
-  .route('/remove/:boardId')
+  .route('/delete/:boardId')
   .delete(protect, validateRemoveBoardParams, removeBoard)
 module.exports = router

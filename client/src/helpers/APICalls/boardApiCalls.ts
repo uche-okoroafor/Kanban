@@ -51,3 +51,15 @@ export async function updateActiveBoard(boardId: string): Promise<IResponse> {
       error: { message: 'Unable to connect to server. Please try again' },
     }));
 }
+
+export async function deleteBoard({ boardId }: { boardId: string | undefined }): Promise<IResponse> {
+  const fetchOptions: FetchOptions = {
+    method: 'DELETE',
+    credentials: 'include',
+  };
+  return await fetch(`/board/delete/${boardId}`, fetchOptions)
+    .then((res) => res.json())
+    .catch(() => ({
+      error: { message: 'Unable to connect to server. Please try again' },
+    }));
+}

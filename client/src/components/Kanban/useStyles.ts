@@ -6,6 +6,7 @@ const useStyles = makeStyles((theme) => ({
     width: '2px',
     color: 'white',
     background: '#759CFC',
+    ZIndex: 2,
     overflow: 'hidden',
     cursor: 'pointer',
     '&:hover': {

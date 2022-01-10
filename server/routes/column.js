@@ -24,9 +24,7 @@ router
 router
   .route('/update-column')
   .patch(protect, validateUpdateColumnParams, updateColumn)
-router
-  .route('/remove-column/columns/:columnId/boards/:boardId')
-  .delete(protect, validateColumnParams, removeColumn)
+router.route('/remove-column').post(protect, validateColumnParams, removeColumn)
 router.route('/move-column').post(protect, validateColumnParams, moveColumn)
 router
   .route('/move-card-within-column')
