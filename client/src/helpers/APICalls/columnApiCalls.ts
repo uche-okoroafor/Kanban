@@ -25,6 +25,26 @@ export async function createColumn({
     }));
 }
 
+export async function deleteColumn({
+  columnId,
+  boardId,
+}: {
+  columnId: string | undefined;
+  boardId: string | undefined;
+}): Promise<ICardResponse> {
+  const fetchOptions: FetchOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ columnId, boardId }),
+    credentials: 'include',
+  };
+  return await fetch(`/column/remove-column`, fetchOptions)
+    .then((res) => res.json())
+    .catch(() => ({
+      error: { message: 'Unable to connect to server. Please try again' },
+    }));
+}
+
 export async function moveCardWithinColumn({
   card,
   cardId,

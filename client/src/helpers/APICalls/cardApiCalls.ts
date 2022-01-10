@@ -55,3 +55,25 @@ export async function deleteCardItem(
       error: { message: 'Unable to connect to server. Please try again' },
     }));
 }
+
+export async function deleteCard({
+  columnId,
+  boardId,
+  cardId,
+}: {
+  columnId: string | undefined;
+  boardId: string | undefined;
+  cardId: string | undefined;
+}): Promise<ICardResponse> {
+  const fetchOptions: FetchOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ columnId, boardId, cardId }),
+    credentials: 'include',
+  };
+  return await fetch(`/card/remove-card`, fetchOptions)
+    .then((res) => res.json())
+    .catch(() => ({
+      error: { message: 'Unable to connect to server. Please try again' },
+    }));
+}

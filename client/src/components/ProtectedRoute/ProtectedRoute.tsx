@@ -11,7 +11,8 @@ import { ProtectedRouteProps } from '../../interface/Route';
  */
 const ProtectedRoute = ({ ...rest }: ProtectedRouteProps): JSX.Element => {
   const { loggedInUser } = useAuth();
-  return loggedInUser ? <Route {...rest} /> : <Redirect to="/login" />;
+
+  return localStorage.getItem('user-token') ? <Route {...rest} /> : <Redirect to="/login" />;
 };
 
 export default ProtectedRoute;
