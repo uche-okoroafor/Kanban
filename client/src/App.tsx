@@ -13,7 +13,6 @@ import AppLayout from './components/AppLayout/AppLayout';
 import { BoardProvider } from './context/useBoardContext';
 import { KanbanProvider } from './context/useKanbanContext';
 import { AuthProvider } from './context/useAuthContext';
-
 function App(): JSX.Element {
   return (
     <MuiThemeProvider theme={theme}>
@@ -34,6 +33,7 @@ function App(): JSX.Element {
                         </AppLayout>
                       )}
                     />
+
                     <Route path="*">
                       <Redirect to="/login" />
                     </Route>
