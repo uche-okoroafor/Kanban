@@ -112,3 +112,33 @@ exports.removeCardItems = asyncHandler(async (req, res, next) => {
   res.status(500)
   throw new Error('Something went wrong')
 })
+
+exports.deleteCard = asyncHandler(async (req, res, next) => {
+  const userId = req.user.id
+
+  const { boardId, columnId, cardId } = req.body
+
+  const cardObjectId = ObjectID(cardId)
+  const columnObjectId = ObjectID(columnId)
+  const boardObjectId = ObjectID(boardId)
+
+  const removeStatus = await User.updateOne(
+    { _id: userId, 'boards.columns.cards._id': cardObjectId },
+    {
+      $pull: {
+        'boards.$[board].columns.$[column].cards': { _id: cardObjectId }
+      }
+    },
+    {
+      arrayFilters: [
+        { 'board._id': boardObjectId },
+        { 'column._id': columnObjectId }
+      ]
+    }
+  )
+  if (removeStatus.nModified === 1) {
+    return res.status(200).json({ success: true })
+  }
+  res.status(500)
+  throw new Error('Something went wrong')
+})

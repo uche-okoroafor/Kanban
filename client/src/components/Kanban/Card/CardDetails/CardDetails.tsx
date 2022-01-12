@@ -4,8 +4,9 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import useStyles from '../useStyles';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import CloseIcon from '@mui/icons-material/Close';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Box } from '@material-ui/core';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -39,6 +40,10 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
   const [displayAttachment, setDisplayAttachment] = useState(false);
   const [displayChecklist, setDisplayChecklist] = useState(false);
 
+  const handleOpenDialog = useCallback(() => {
+    setOpenDialog(true);
+  }, [setOpenDialog]);
+
   useEffect(() => {
     if (displayedCard) {
       setCard(displayedCard);
@@ -55,7 +60,7 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
         >
           <CloseIcon />
         </IconButton>
-        <Box display="flex" alignItems="center" style={{ whiteSpace: 'nowrap', maxWidth: '40%' }}>
+        <Box display="flex" alignItems="center" style={{ whiteSpace: 'nowrap', position: 'relative', maxWidth: '40%' }}>
           <DashboardOutlinedIcon style={{ marginRight: '10px' }} />
           <CardTitle ids={ids} disableSetting={disableSetting} cardTitle={card?.cardTitle} />{' '}
           <CardColor ids={ids} disableSetting={disableSetting} tagColor={card?.tagColor} />
@@ -65,6 +70,13 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
             onClick={() => setDisableSetting(!disableSetting)}
           >
             <SettingsIcon />
+          </IconButton>
+          <IconButton
+            onClick={handleOpenDialog}
+            style={{ position: 'absolute', width: '0.5rem', height: '0.5rem', right: '4%', top: '10%' }}
+          >
+            {' '}
+            <DeleteIcon />
           </IconButton>
         </Box>
         <Typography style={{ paddingLeft: '2rem', fontSize: '0.8rem' }} variant="h6">
