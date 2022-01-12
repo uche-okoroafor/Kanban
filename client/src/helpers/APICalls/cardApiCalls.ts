@@ -71,7 +71,7 @@ export async function deleteCard({
     body: JSON.stringify({ columnId, boardId, cardId }),
     credentials: 'include',
   };
-  return await fetch(`/card/remove-card`, fetchOptions)
+  return await fetch(`/card/delete-card`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },

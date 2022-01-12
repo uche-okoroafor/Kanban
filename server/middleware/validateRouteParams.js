@@ -95,6 +95,15 @@ exports.validateUpdateCardItemsParams = [
   }
 ]
 
+exports.validateDeleteCard = [
+  handleParams('boardId'),
+  handleParams('cardId'),
+  handleParams('columnId'),
+  (req, res, next) => {
+    handleError(req, res, next)
+  }
+]
+
 exports.validateRemoveCardItemsParams = [
   handleParams('cardId'),
   handleParams('cardItem'),
