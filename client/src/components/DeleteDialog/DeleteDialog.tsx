@@ -14,7 +14,7 @@ import { CircularProgress } from '@mui/material';
 import { deleteColumn } from '../../helpers/APICalls/columnApiCalls';
 import { deleteCard } from '../../helpers/APICalls/cardApiCalls';
 import { deleteBoard } from '../../helpers/APICalls/boardApiCalls';
-import { ICardResponse } from '../../interface/Board';
+import { ICardResponse, IIds } from '../../interface/Board';
 import { useBoard } from '../../context/useBoardContext';
 
 interface Props {
@@ -22,11 +22,7 @@ interface Props {
   setOpenDialog: React.Dispatch<boolean>;
   item: string;
   title: string;
-  ItemsIds: {
-    boardId?: string;
-    columnId?: string;
-    cardId?: string;
-  };
+  ItemsIds: IIds;
 }
 
 export default function ResponsiveDialog({ openDialog, setOpenDialog, item, title, ItemsIds }: Props): JSX.Element {
@@ -53,7 +49,6 @@ export default function ResponsiveDialog({ openDialog, setOpenDialog, item, titl
   };
 
   const handleResponse = (data: ICardResponse) => {
-    console.log(data, 1010);
     setDeleting(true);
     if (data.error) {
       setDeleting(false);

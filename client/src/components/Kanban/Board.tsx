@@ -4,14 +4,14 @@ import { useKanban } from '../../context/useKanbanContext';
 import ColumnComponent from './Column/Column';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import useStyles from './useStyles';
-import CreateColumnDialog from './Column/CreateColumnDialog/CreateColumnDialog';
+import CreateColumnDialog from '../CreateItemDialog/CreateItemDialog';
 import { useState } from 'react';
 import { useBoard } from '../../context/useBoardContext';
 
 const Board = (): JSX.Element => {
   const { columns, handleDragEnd } = useKanban();
   const [targetPosition, setTargetPosition] = useState(0);
-  const { updateBoard, focusedBoardId } = useBoard();
+  const { focusedBoardId } = useBoard();
   const [openDialog, setOpenDialog] = useState(false);
   const classes = useStyles();
   const height = document.getElementById('columnContainer')?.scrollHeight;
@@ -85,6 +85,7 @@ const Board = (): JSX.Element => {
                 setOpenDialog={setOpenDialog}
                 targetPosition={targetPosition}
                 boardId={String(focusedBoardId)}
+                item={'column'}
               />
             </Grid>
           );

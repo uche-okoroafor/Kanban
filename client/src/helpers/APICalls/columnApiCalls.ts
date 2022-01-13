@@ -3,14 +3,14 @@ import { IIds, ICardResponse } from '../../interface/Board';
 import { Card, ICard } from '../../interface/Card';
 import { Column } from '../../interface/Column';
 
-export async function createColumn({
+export async function addColumn({
   columnTitle,
   boardId,
   targetPosition,
 }: {
   columnTitle: string;
   boardId: string | undefined;
-  targetPosition: number;
+  targetPosition: number | undefined;
 }): Promise<ICardResponse> {
   const fetchOptions: FetchOptions = {
     method: 'POST',

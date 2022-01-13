@@ -25,7 +25,7 @@ export async function createDefaultBoard(): Promise<IResponse> {
     }));
 }
 
-export async function createNewBoard(boardTitle: string): Promise<IResponse> {
+export async function addBoard(boardTitle: string): Promise<IResponse> {
   const fetchOptions: FetchOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

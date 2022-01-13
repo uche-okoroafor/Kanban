@@ -6,7 +6,7 @@ import CardComponent from '../Card/Card';
 import CardForm from '../CardForm/CardForm';
 import useStyles from './useStyles';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Dialog from '../../../components/Dialog/Dialog';
+import DeleteDialog from '../../DeleteDialog/DeleteDialog';
 import { useState, useCallback } from 'react';
 import { useBoard } from '../../../context/useBoardContext';
 
@@ -22,10 +22,6 @@ const ColumnComponent = ({ _id, columnTitle, cards, index }: ColumnProps): JSX.E
   };
   const handleOpenDialog = useCallback(() => {
     setOpenDialog(true);
-  }, [setOpenDialog]);
-
-  const handleDelete = useCallback(() => {
-    setOpenDialog(false);
   }, [setOpenDialog]);
 
   return (
@@ -63,7 +59,7 @@ const ColumnComponent = ({ _id, columnTitle, cards, index }: ColumnProps): JSX.E
                       })}
                       {provided.placeholder}
                       <CardForm columnId={_id} />
-                      <Dialog
+                      <DeleteDialog
                         openDialog={openDialog}
                         setOpenDialog={setOpenDialog}
                         item={'column'}

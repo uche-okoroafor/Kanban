@@ -117,7 +117,6 @@ exports.deleteCard = asyncHandler(async (req, res, next) => {
   const userId = req.user.id
 
   const { boardId, columnId, cardId } = req.body
-
   const cardObjectId = ObjectID(cardId)
   const columnObjectId = ObjectID(columnId)
   const boardObjectId = ObjectID(boardId)

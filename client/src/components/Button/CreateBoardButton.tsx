@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 import { AddOutlined } from '@material-ui/icons';
 import useStlyes from './useStyles';
-import CreateBoardDialog from './CreateBoardDialog/CreateBoardDialog';
+import CreateItemDialog from '../CreateItemDialog/CreateItemDialog';
 /**
  * Button component for handling creating
  * new boards.
@@ -26,7 +26,13 @@ export default function CreateBoardButton(): JSX.Element {
       >
         Create board
       </Button>
-      <CreateBoardDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
+      <CreateItemDialog
+        openDialog={openDialog}
+        setOpenDialog={setOpenDialog}
+        targetPosition={undefined}
+        boardId={undefined}
+        item={'board'}
+      />
     </>
   );
 }
