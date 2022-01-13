@@ -12,7 +12,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import Dialog from '../Dialog/Dialog';
+import DeleteDialog from '../DeleteDialog/DeleteDialog';
 import { IBoard } from '../../interface/Board';
 /**
  * AppDrawer props type defintion.
@@ -66,7 +66,7 @@ export default function AppDrawer({ setOpenDrawer, openDrawer }: AppDrawerProps)
             <ListItemIcon onClick={() => handleSelectedBoard(board)}>
               <DashboardIcon />
             </ListItemIcon>
-            <ListItemText primary={board.boardTitle} />
+            <ListItemText onClick={() => handleSelectedBoard(board)} primary={board.boardTitle} />
 
             <IconButton
               onClick={() => handleDeleteBoard(board)}
@@ -85,7 +85,7 @@ export default function AppDrawer({ setOpenDrawer, openDrawer }: AppDrawerProps)
       <Drawer anchor="right" open={openDrawer} onClose={toggleDrawer(false)}>
         {list()}{' '}
       </Drawer>{' '}
-      <Dialog
+      <DeleteDialog
         openDialog={openDialog}
         setOpenDialog={setOpenDialog}
         item={'board'}

@@ -66,7 +66,7 @@ export async function deleteCard({
   cardId: string | undefined;
 }): Promise<ICardResponse> {
   const fetchOptions: FetchOptions = {
-    method: 'POST',
+    method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ columnId, boardId, cardId }),
     credentials: 'include',

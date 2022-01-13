@@ -18,9 +18,9 @@ export interface IBoard {
 }
 
 export interface IIds {
-  cardId: string;
-  columnId: string;
-  boardId: string | undefined;
+  cardId?: string;
+  columnId?: string;
+  boardId?: string;
 }
 
 export interface ICardResponse {

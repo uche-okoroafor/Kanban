@@ -5,11 +5,14 @@ import { getUserBoards, updateActiveBoard } from '../helpers/APICalls/boardApiCa
 import { useState, useContext, createContext, FunctionComponent, useEffect, useCallback } from 'react';
 import { useAuth } from './useAuthContext';
 import { useKanban } from './useKanbanContext';
+import { useHistory } from 'react-router-dom';
 import { tempBoard } from '../components/Kanban/data';
 import { useSnackBar } from './useSnackbarContext';
+import { ICard } from '../interface/Calendar';
 interface IBoardsContext {
   updateBoard: () => void;
   handleSelectedBoard: (selectedBoard: IBoard) => void;
+  cards: Array<ICard> | undefined;
   boards: IBoard[] | undefined;
   board: IBoard;
   focusedBoardId: string | undefined;
@@ -20,6 +23,7 @@ export const BoardContext = createContext<IBoardsContext>({
   updateBoard: () => null,
   handleSelectedBoard: () => null,
   boards: undefined,
+  cards: undefined,
   board: tempBoard,
   focusedBoardId: undefined,
   focusedColumns: tempBoard.columns,
@@ -28,8 +32,10 @@ export const BoardContext = createContext<IBoardsContext>({
 export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [boards, setBoards] = useState<IBoardsContext['boards']>(undefined);
   const [board, setBoard] = useState<IBoardsContext['board']>(tempBoard);
+  const [cards, setCards] = useState<IBoardsContext['cards']>(undefined);
   const [focusedBoardId, setFocusedBoardId] = useState<IBoardsContext['focusedBoardId']>(undefined);
   const [focusedColumns, setFocusedColumns] = useState<Array<IColumn>>(tempBoard.columns);
+  const history = useHistory();
   const { loggedInUser } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
 
@@ -40,11 +46,11 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
           const activeBoard = data.boards.find((board) => board._id === loggedInUser?.activeBoard);
 
           if (activeBoard) {
-            console.log('gere');
             setBoards(data.boards);
             setBoard(activeBoard);
             setFocusedBoardId(activeBoard._id);
             setFocusedColumns(activeBoard.columns);
+            handleUpdateCards(activeBoard);
           }
         } else {
           setBoards(data.boards);
@@ -52,6 +58,7 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
           setFocusedBoardId(data.boards[0]._id);
           setFocusedColumns(data.boards[0].columns);
           handleSetActiveBoard(data.boards[0]._id);
+          handleUpdateCards(data.boards[0]);
         }
       })
       .catch((error) => console.error(error));
@@ -68,8 +75,7 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
         updateSnackBarMessage('updated');
       } else {
         // should not get here from backend but this catch is for an unknown issue
-        // console.error({ data });
-        // updateSnackBarMessage('An unexpected error occurred. Please try again');
+        console.error({ data });
       }
     });
   };
@@ -79,6 +85,27 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
     setFocusedBoardId(selectedBoard._id);
     setFocusedColumns(selectedBoard.columns);
     handleSetActiveBoard(selectedBoard._id);
+    history.push('/');
+  };
+  const handleUpdateCards = (selectedBoard: IBoard): void => {
+    let allCards: Array<ICard> = [];
+    for (const column of selectedBoard.columns) {
+      for (const card of column.cards) {
+        const calenderCard: ICard = {
+          _id: card._id,
+          start: new Date(String(card.deadline)),
+          end: new Date(String(card.deadline)),
+          title: card.cardTitle,
+          tagColor: card.tagColor,
+          boardId: selectedBoard._id,
+          columnId: column._id,
+        };
+        allCards = [...allCards, calenderCard];
+      }
+    }
+    setCards(allCards);
+
+    console.log(cards, 'cards');
   };
 
   useEffect(() => {
@@ -90,6 +117,7 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
     <BoardContext.Provider
       value={{
         updateBoard,
+        cards,
         boards,
         board,
         handleSelectedBoard,

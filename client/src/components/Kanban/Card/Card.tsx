@@ -8,7 +8,6 @@ import CardDetails from './CardDetails/CardDetails';
 import { useState } from 'react';
 import { IIds } from '../../../interface/Board';
 import { ICard } from '../../../interface/Card';
-
 type CardProps = {
   columnId: string;
   index: number;

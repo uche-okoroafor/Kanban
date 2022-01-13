@@ -1,5 +1,5 @@
 export interface ICard {
-  _id?: number;
+  _id?: string;
   start?: Date | undefined;
   end?: Date | undefined;
   title?: string;
@@ -8,4 +8,6 @@ export interface ICard {
   comment?: string;
   attachement?: string;
   cover?: string;
+  columnId?: string;
+  boardId?: string;
 }
