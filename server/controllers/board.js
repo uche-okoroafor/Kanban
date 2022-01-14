@@ -16,7 +16,9 @@ exports.getUserBoard = asyncHandler(async (req, res, next) => {
 
   const userBoards = await User.findById(userId)
   if (userBoards) {
-    return res.status(200).json({ boards: userBoards.boards })
+    return res
+      .status(200)
+      .json({ boards: userBoards.boards, activeBoard: userBoards.activeBoard })
   }
   res.status(500)
   throw new Error('Something went wrong')
