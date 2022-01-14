@@ -42,9 +42,8 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const updateBoard = useCallback(async () => {
     await getUserBoards()
       .then((data) => {
-        if (loggedInUser?.activeBoard) {
-          const activeBoard = data.boards.find((board) => board._id === loggedInUser?.activeBoard);
-
+        if (data.activeBoard) {
+          const activeBoard = data.boards.find((board) => board._id === data.activeBoard);
           if (activeBoard) {
             setBoards(data.boards);
             setBoard(activeBoard);

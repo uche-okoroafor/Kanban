@@ -32,4 +32,5 @@ export interface ICardResponse {
 export interface IBoardResponse {
   boards: IBoard[];
   error?: { message: string };
+  activeBoard: string;
 }

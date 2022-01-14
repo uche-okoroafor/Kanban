@@ -1,4 +1,4 @@
-import { Grid, Box } from '@material-ui/core';
+import { Grid, Box, IconButton, Typography } from '@material-ui/core';
 import { DragDropContext, Droppable, DroppableProvided } from 'react-beautiful-dnd';
 import { useKanban } from '../../context/useKanbanContext';
 import ColumnComponent from './Column/Column';
@@ -67,18 +67,31 @@ const Board = (): JSX.Element => {
                 <AddCircleOutlineIcon />
               </Box>
 
-              {columns.map((column, index) => (
-                <>
-                  <ColumnComponent
-                    key={column._id}
-                    index={index}
-                    _id={column._id}
-                    columnTitle={column.columnTitle}
-                    cards={column.cards}
-                    createdAt={column.createdAt}
-                  />
-                </>
-              ))}
+              {columns.length > 0 ? (
+                columns.map((column, index) => (
+                  <>
+                    <ColumnComponent
+                      key={column._id}
+                      index={index}
+                      _id={column._id}
+                      columnTitle={column.columnTitle}
+                      cards={column.cards}
+                      createdAt={column.createdAt}
+                    />
+                  </>
+                ))
+              ) : (
+                <Box style={{ marginTop: '15%', height: '100%', width: '100%' }}>
+                  <Typography align="center" variant="h5">
+                    Add a Column{' '}
+                    <IconButton onClick={() => handleOpenDialog('right')}>
+                      {' '}
+                      <AddCircleOutlineIcon />
+                    </IconButton>{' '}
+                  </Typography>
+                </Box>
+              )}
+
               {provided.placeholder}
               <CreateColumnDialog
                 openDialog={openDialog}
