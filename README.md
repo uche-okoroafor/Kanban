@@ -37,7 +37,7 @@ If you want to run the application locally, follow the instructions below:
 1. Clone repository
 2. Install Dependencies - Run ```npm install``` in the root directory and client directory
 3. Create a file with the name ```.env```
-4. Add the application secret key for authentication using ```SECRET_KEY``` to ```.env```
+4. Add the application secret key for authentication using ```SECRET_KEY``` to ```.env ```
 5. Add the application mongo uri ```MONGO_LOCAL_URI``` to ```.env```. Additional information to run mongoDB locally can be found [here](https://docs.mongodb.com/manual/installation/). Alternatively you can use Mongo Atlas [here](https://www.mongodb.com/cloud/atlas).
 6. To run code from the code editor, create an account on [Cloudinary](https://cloudinary.com/). You can find your api key after registering [here](https://cloudinary.com/). Add cloudinary keys ```CLOUDINARY_NAME```,
 ```CLOUDINARY_API_KEY``` and  ```CLOUDINARY_API_SECRET``` to ```.env```.
