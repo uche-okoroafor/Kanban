@@ -54,7 +54,7 @@ export default function CreateItemDialog({
     setCreatingItem(true);
     if (data.error) {
       setCreatingItem(false);
-      updateSnackBarMessage(data.error.message);
+      updateSnackBarMessage(data.error);
     } else if (data.success) {
       updateBoard();
       updateSnackBarMessage(`"${itemTitle}" ${item} has been created`);

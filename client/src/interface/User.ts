@@ -6,5 +6,5 @@ export interface User {
 
 export interface SearchUsersApiData {
   users?: User[];
-  error?: { message: string };
+  error?: string;
 }

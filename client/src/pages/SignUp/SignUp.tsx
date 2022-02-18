@@ -13,24 +13,15 @@ import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { createDefaultBoard } from '../../helpers/APICalls/boardApiCalls';
 import { useBoard } from '../../context/useBoardContext';
+import { Button } from '@mui/material';
+import { useHistory } from 'react-router-dom';
 
 export default function Register(): JSX.Element {
   const classes = useStyles();
   const { updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
   const { updateBoard } = useBoard();
-
-  const handleDemoLogin = () => {
-    demoLogin().then((data) => {
-      if (data.error) {
-        updateSnackBarMessage(data.error.message);
-      } else if (data.success) {
-        updateLoginContext(data.success);
-      } else {
-        updateSnackBarMessage('Unexpected error! Please try again');
-      }
-    });
-  };
+  const history = useHistory();
 
   const handleSubmit = (
     { username, email, password }: { email: string; password: string; username: string },
@@ -38,9 +29,9 @@ export default function Register(): JSX.Element {
   ) => {
     register(username, email, password).then(async (data): Promise<void> => {
       if (data.error) {
-        console.error({ error: data.error.message });
+        console.error({ error: data.error });
         setSubmitting(false);
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
         await handleCreateDefaultBoard();
         updateLoginContext(data.success);
@@ -57,8 +48,8 @@ export default function Register(): JSX.Element {
   const handleCreateDefaultBoard = async (): Promise<void> => {
     createDefaultBoard().then((data) => {
       if (data.error) {
-        console.error({ error: data.error.message });
-        updateSnackBarMessage(data.error.message);
+        console.error({ error: data.error });
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
         updateBoard();
       } else {
@@ -72,21 +63,32 @@ export default function Register(): JSX.Element {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item sm={5} md={6} className={classes.backgroundImg}></Grid>
+      <Grid item sm={5} md={6} className={classes.backgroundImg}>
+        {' '}
+        <Box p={4}>
+          <Typography variant="h4">Kanban</Typography>
+          {/* <img src={KanbanLogo} alt="logo" /> */}
+        </Box>
+      </Grid>
+
       <Grid item xs={12} sm={8} md={6} elevation={6} component={Paper} square>
         <Box className={classes.authWrapper}>
-          <AuthHeader linkTo="/login" asideText="Already have an account?" btnText="Login" />
-          <Box width="100%" maxWidth={450} p={3} alignSelf="center">
-            <Grid container>
-              <Grid item xs>
-                <Typography className={classes.welcome} component="h1" variant="h5">
-                  Create an account
-                </Typography>
-              </Grid>
-            </Grid>
-            <SignUpForm handleSubmit={handleSubmit} handleDemoLogin={handleDemoLogin} />
+          {' '}
+          <Paper style={{ alignSelf: 'center' }} elevation={5}>
+            <Box p={2} className={classes.loginHeader}>
+              <Typography style={{ color: '#FFBA32' }}> Don&apos;t have an account yet ?</Typography>
+            </Box>
+            <Box width="100%" style={{ position: 'relative' }} p={2} maxWidth={450} alignSelf="center">
+              <SignUpForm handleSubmit={handleSubmit} />
+            </Box>
+            <Box p={1} alignSelf="center" />
+          </Paper>
+          <Box display={'flex'} flexDirection="column" m={4} alignItems={'center'} justifyContent="center">
+            <Typography color="textSecondary">Already have an Account </Typography>
+            <Button style={{ color: '#1A545C', margin: '2px' }} onClick={() => history.push('/login')}>
+              Login
+            </Button>
           </Box>
-          <Box p={1} alignSelf="center" />
         </Box>
       </Grid>
     </Grid>

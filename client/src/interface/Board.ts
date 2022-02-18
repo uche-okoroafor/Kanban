@@ -25,12 +25,12 @@ export interface IIds {
 
 export interface ICardResponse {
   success: boolean;
-  data?: { success: boolean };
-  error?: { message: string };
+  data?: string;
+  error?: string;
 }
 
 export interface IBoardResponse {
   boards: IBoard[];
-  error?: { message: string };
+  error?: string;
   activeBoard: string;
 }

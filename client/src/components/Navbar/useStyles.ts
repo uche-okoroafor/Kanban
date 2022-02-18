@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core';
 
 const useStlyes = makeStyles({
   root: {
-    marginTop: '2%',
     padding: '0% 2%',
   },
   container: {

@@ -35,7 +35,7 @@ export default function CardDescription({ description, disableSetting, ids }: Pr
       console.log(data);
       setIsSubmitting(true);
       if (data.error) {
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
         setIsSubmitting(false);
       } else if (data.success) {
         setIsSubmitting(false);
@@ -56,7 +56,7 @@ export default function CardDescription({ description, disableSetting, ids }: Pr
     deleteCardItem('description', newDescription, ids).then((data) => {
       setIsSubmitting(true);
       if (data.error) {
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
         setIsSubmitting(false);
       } else if (data.success) {
         updateBoard();

@@ -38,7 +38,7 @@ export default function ChecklistPlugin({ displayChecklist }: Props): JSX.Elemen
 
     saveCheckListItem(checklistItem).then((data) => {
       if (data.error) {
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
         // update card
       } else {

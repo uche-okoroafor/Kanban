@@ -52,7 +52,7 @@ export default function ResponsiveDialog({ openDialog, setOpenDialog, item, titl
     setDeleting(true);
     if (data.error) {
       setDeleting(false);
-      updateSnackBarMessage(data.error.message);
+      updateSnackBarMessage(data.error);
     } else if (data.success) {
       updateBoard();
       updateSnackBarMessage(`"${title}" ${item} has been deleted`);

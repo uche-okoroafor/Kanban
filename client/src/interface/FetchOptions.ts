@@ -9,5 +9,5 @@ export interface FetchOptions {
 
 export interface IResponse {
   success: boolean;
-  error?: { message: string };
+  error?: string;
 }

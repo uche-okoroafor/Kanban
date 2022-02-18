@@ -41,7 +41,7 @@ export default function CardColor({ tagColor, disableSetting, ids }: Props): JSX
     setColorTag(colorParams);
     updateCardItem('tagColor', colorParams, ids).then((data) => {
       if (data.error) {
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
         updateBoard();
       } else {

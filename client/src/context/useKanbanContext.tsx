@@ -170,7 +170,7 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
   }) => {
     createCard(boardId, columnId, cardTitle, tagColor).then((data) => {
       if (data.error) {
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
         updateSnackBarMessage('Card has been added');
         console.log(data, 'success');
@@ -195,7 +195,7 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
   }) => {
     moveCardWithinColumn({ cardId, card, columnId, boardId: focusedBoardId, targetPosition }).then((data) => {
       if (data.error) {
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
         updateBoard();
       } else {
@@ -224,7 +224,7 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
       console.log(data);
 
       if (data.error) {
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
         updateBoard();
         console.log(data, 'success');
@@ -249,7 +249,7 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
     moveColumns({ columnId, boardId, targetPosition, column }).then((data) => {
       console.log(data, 1010);
       if (data.error) {
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
         updateBoard();
         console.log(data, 'success');

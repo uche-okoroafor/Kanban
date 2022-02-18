@@ -10,12 +10,15 @@ export const theme = createMuiTheme({
     },
   },
   palette: {
-    primary: { main: '#759CFC', contrastText: '#FFFFFF' },
+    primary: { main: '#1A545C', contrastText: '#FFFFFF' },
     secondary: { main: '#9BA9CC', contrastText: '#000000', light: '#F4F6FF' },
     info: { main: '#F4F6FF' },
+    warning: { main: '#FFBA32' },
     text: {
       primary: '#000000',
-      secondary: '#9BA9CC',
+      secondary: '#FFFFFF',
+      // secondary: '#9BA9CC',
+      // warning: '#FFBA32',
     },
     tags: {
       white: '#FFFFFF',

@@ -45,7 +45,7 @@ const BigCalendar: FC = () => {
     updateCardItem('deadline', date, ids).then((data) => {
       console.log(data, 'data');
       if (data.error) {
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
         updateBoard();
         updateSnackBarMessage('deadline has been updated');
