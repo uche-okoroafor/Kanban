@@ -42,6 +42,8 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const updateBoard = useCallback(async () => {
     await getUserBoards()
       .then((data) => {
+        console.log('🚀 ~ file: useBoardContext.tsx ~ line 45 ~ .then ~ data', data);
+
         if (data.activeBoard) {
           const activeBoard = data.boards.find((board) => board._id === data.activeBoard);
           if (activeBoard) {
@@ -68,7 +70,7 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
     updateActiveBoard(boardId).then((data) => {
       console.log(data, 'data');
       if (data.error) {
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
         // updateBoard();
         updateSnackBarMessage('updated');

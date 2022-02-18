@@ -1,4 +1,6 @@
 import { Box } from '@material-ui/core';
+import { useState } from 'react';
+import NavAppBar from '../../components/Appbar/NavAppBar';
 import Board from '../../components/Kanban/Board';
 
 export default function Dashboard(): JSX.Element {

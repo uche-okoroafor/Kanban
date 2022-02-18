@@ -27,10 +27,9 @@ interface Props {
       username: string;
     }>,
   ) => void;
-  handleDemoLogin: () => void;
 }
 
-const SignUpForm = ({ handleSubmit, handleDemoLogin }: Props): JSX.Element => {
+const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -70,6 +69,7 @@ const SignUpForm = ({ handleSubmit, handleDemoLogin }: Props): JSX.Element => {
             error={touched.username && Boolean(errors.username)}
             value={values.username}
             onChange={handleChange}
+            variant="outlined"
           />
           <TextField
             id="email"
@@ -88,6 +88,7 @@ const SignUpForm = ({ handleSubmit, handleDemoLogin }: Props): JSX.Element => {
             error={touched.email && Boolean(errors.email)}
             value={values.email}
             onChange={handleChange}
+            variant="outlined"
           />
           <TextField
             id="password"
@@ -106,20 +107,12 @@ const SignUpForm = ({ handleSubmit, handleDemoLogin }: Props): JSX.Element => {
             error={touched.password && Boolean(errors.password)}
             value={values.password}
             onChange={handleChange}
+            variant="outlined"
           />
 
           <Box textAlign="center">
             <Button type="submit" size="large" variant="contained" color="primary" className={classes.submit}>
-              {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Create'}
-            </Button>
-            <Button
-              onClick={handleDemoLogin}
-              size="large"
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Demo
+              {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'CREATE AN ACCOUNT'}
             </Button>
           </Box>
         </form>

@@ -2,6 +2,7 @@ import { ListItem, ListItemIcon, Menu, MenuItem, MenuProps, Typography } from '@
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 /**
  * AvatarMenu component props
@@ -20,11 +21,12 @@ interface AvatarMenuProps extends MenuProps {
  * @returns {JSX.Element}
  */
 export default function AvatarMenu({ onClickProfile, onClickLogOut, ...rest }: AvatarMenuProps): JSX.Element {
+  const history = useHistory();
   return (
     <>
       <Menu {...rest}>
         <MenuItem onClick={onClickProfile}>
-          <ListItem>
+          <ListItem onClick={() => history.push('/profile')}>
             <ListItemIcon>
               <PersonOutlineOutlinedIcon fontSize="small" />
             </ListItemIcon>

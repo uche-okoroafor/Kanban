@@ -10,12 +10,21 @@ const useStyles = makeStyles(() => ({
   },
   authWrapper: {
     display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     flexDirection: 'column',
     minHeight: '100vh',
     paddingTop: 23,
+    background: '#FFBA32',
   },
+
+  loginHeader: {
+    padding: '20px',
+    fontWeight: 'bolder',
+    boxShadow: '1px 7px 5px -3px rgba(0,0,0,0.18)',
+    webkitBoxShadow: '1px 7px 5px -3px rgba(0,0,0,0.18)',
+    mozBoxShadow: '1px 7px 5px -3px rgba(0,0,0,0.18)',
+  },
+
   welcome: {
     fontSize: 26,
     paddingBottom: 20,

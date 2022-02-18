@@ -43,7 +43,7 @@ export default function CardDeadline({ deadline, disableSetting, ids }: Props): 
     setIsSubmitting(true);
     updateCardItem('deadline', date, ids).then((data) => {
       if (data.error) {
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
         setIsSubmitting(false);
       } else if (data.success) {
         updateBoard();
@@ -62,7 +62,7 @@ export default function CardDeadline({ deadline, disableSetting, ids }: Props): 
 
     deleteCardItem('deadline', date, ids).then((data) => {
       if (data.error) {
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
       } else {
         // should not get here from backend but this catch is for an unknown issue

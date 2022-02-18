@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Redirect, Switch, RouteComponentProps } from 'rea
 import Login from './pages/Login/Login';
 import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
+import Profile from './pages/Profile/Profile';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
@@ -30,6 +31,7 @@ function App(): JSX.Element {
                         <AppLayout {...props}>
                           <ProtectedRoute exact path="/" component={Dashboard} />
                           <ProtectedRoute path="/calendar" component={Calendar} />
+                          <ProtectedRoute path="/profile" component={Profile} />
                         </AppLayout>
                       )}
                     />

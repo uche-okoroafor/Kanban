@@ -36,7 +36,7 @@ export default function CardComment({ comment, disableSetting, ids }: Props): JS
       console.log(data, 'data');
 
       if (data.error) {
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
         updateBoard();
       } else {
@@ -52,7 +52,7 @@ export default function CardComment({ comment, disableSetting, ids }: Props): JS
     setIsSubmitting(true);
     deleteCardItem('comment', newComment, ids).then((data) => {
       if (data.error) {
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
         updateBoard();
         updateSnackBarMessage('comment has been updated');

@@ -29,7 +29,7 @@ export default function CardTitle({ cardTitle, disableSetting, ids }: Props): JS
     setEnableTitleEdit(false);
     updateCardItem('cardTitle', title, ids).then((data) => {
       if (data.error) {
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
         updateBoard();
       } else {
