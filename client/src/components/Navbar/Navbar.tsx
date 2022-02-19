@@ -8,12 +8,13 @@ import CreateBoardButton from '../Button/CreateBoardButton';
 import AvatarButton from '../AvatarButton/AvatarButton';
 import AvatarMenu from '../AvatarMenu/AvatarMenu';
 import { useAuth } from '../../context/useAuthContext';
+import { useHistory } from 'react-router-dom';
 
 export default function Navbar(): JSX.Element {
   const { logout } = useAuth();
   const classses = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
+  const history = useHistory();
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -40,6 +41,8 @@ export default function Navbar(): JSX.Element {
             onClose={handleClose}
             onClickProfile={() => {
               // handles profile option in the menu
+              history.push('/profile');
+              handleClose();
             }}
             onClickLogOut={logout}
           />

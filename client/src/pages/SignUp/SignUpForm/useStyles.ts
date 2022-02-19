@@ -5,14 +5,19 @@ const useStyles = makeStyles((theme) => ({
     width: '100%', // Fix IE 11 issue.
   },
   label: {
-    fontSize: 19,
+    // fontSize: 10,
     color: 'rgb(0,0,0,0.4)',
-    paddingLeft: '5px',
+    // paddingLeft: '5px',
   },
   inputs: {
-    marginTop: '.8rem',
-    height: '2rem',
-    padding: '5px',
+    // marginTop: '.8rem',
+    // height: '1.5rem',
+    // padding: '15px',
+  },
+  textField: {
+    '& .MuiFormLabel-root': {
+      // color: 'black',
+    },
   },
   forgot: {
     paddingRight: 10,

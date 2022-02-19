@@ -60,15 +60,17 @@ export default function Login(): JSX.Element {
       <CssBaseline />
       <Grid item sm={5} md={6} className={classes.backgroundImg}>
         <Box p={4}>
-          <Typography variant="h4">Kanban</Typography>
+          <Typography variant="h4" color="primary" style={{ fontWeight: 'bolder', color: 'white' }}>
+            Kanban
+          </Typography>
           {/* <img src={KanbanLogo} alt="logo" /> */}
         </Box>
       </Grid>
       <Grid item xs={12} sm={7} md={6} elevation={6} component={Paper} square>
         <Box className={classes.authWrapper}>
-          <Paper style={{ alignSelf: 'center' }} elevation={5}>
+          <Paper style={{ alignSelf: 'center', width: '55%' }} elevation={5}>
             <Box p={2} className={classes.loginHeader}>
-              <Typography style={{ color: '#FFBA32' }}>Already have an Account</Typography>
+              <Typography style={{ color: '#FFBA32' }}>Already have an Account ?</Typography>
             </Box>
 
             <Box width="100%" style={{ position: 'relative' }} p={2} maxWidth={450} alignSelf="center">

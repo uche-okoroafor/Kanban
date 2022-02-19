@@ -26,7 +26,7 @@ export default function AvatarMenu({ onClickProfile, onClickLogOut, ...rest }: A
     <>
       <Menu {...rest}>
         <MenuItem onClick={onClickProfile}>
-          <ListItem onClick={() => history.push('/profile')}>
+          <ListItem>
             <ListItemIcon>
               <PersonOutlineOutlinedIcon fontSize="small" />
             </ListItemIcon>

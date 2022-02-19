@@ -53,15 +53,14 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
             id="username"
-            label={<Typography className={classes.label}>Username</Typography>}
+            label={<span className={classes.label}>Username</span>}
             fullWidth
             margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
             InputProps={{
               classes: { input: classes.inputs },
             }}
+            className={classes.textField}
+            size="medium"
             name="username"
             autoComplete="username"
             autoFocus
@@ -73,12 +72,10 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
           />
           <TextField
             id="email"
-            label={<Typography className={classes.label}>E-mail address</Typography>}
+            size="medium"
+            label={<span className={classes.label}>E-mail address</span>}
             fullWidth
             margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
             InputProps={{
               classes: { input: classes.inputs },
             }}
@@ -92,12 +89,10 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
           />
           <TextField
             id="password"
-            label={<Typography className={classes.label}>Password</Typography>}
+            label={<span className={classes.label}>Password</span>}
             fullWidth
+            size="medium"
             margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
             InputProps={{
               classes: { input: classes.inputs },
             }}
