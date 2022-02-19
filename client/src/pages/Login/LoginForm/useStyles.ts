@@ -5,14 +5,12 @@ const useStyles = makeStyles((theme) => ({
     width: '100%', // Fix IE 11 issue.
   },
   label: {
-    fontSize: 19,
+    // fontSize: 19,
     color: 'rgb(0,0,0,0.4)',
-    paddingLeft: '5px',
+    // paddingLeft: '5px',
   },
   inputs: {
-    marginTop: '.5rem',
-    height: '2rem',
-    padding: '5px',
+    // padding: '5px',
   },
   forgot: {
     paddingRight: 10,

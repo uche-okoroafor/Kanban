@@ -66,7 +66,9 @@ export default function Register(): JSX.Element {
       <Grid item sm={5} md={6} className={classes.backgroundImg}>
         {' '}
         <Box p={4}>
-          <Typography variant="h4">Kanban</Typography>
+          <Typography variant="h4" color="primary" style={{ fontWeight: 'bolder', color: 'white' }}>
+            Kanban
+          </Typography>{' '}
           {/* <img src={KanbanLogo} alt="logo" /> */}
         </Box>
       </Grid>
@@ -74,7 +76,7 @@ export default function Register(): JSX.Element {
       <Grid item xs={12} sm={8} md={6} elevation={6} component={Paper} square>
         <Box className={classes.authWrapper}>
           {' '}
-          <Paper style={{ alignSelf: 'center' }} elevation={5}>
+          <Paper style={{ alignSelf: 'center', width: '55%' }} elevation={5}>
             <Box p={2} className={classes.loginHeader}>
               <Typography style={{ color: '#FFBA32' }}> Don&apos;t have an account yet ?</Typography>
             </Box>
@@ -84,7 +86,7 @@ export default function Register(): JSX.Element {
             <Box p={1} alignSelf="center" />
           </Paper>
           <Box display={'flex'} flexDirection="column" m={4} alignItems={'center'} justifyContent="center">
-            <Typography color="textSecondary">Already have an Account </Typography>
+            <Typography color="textSecondary">Already have an Account ?</Typography>
             <Button style={{ color: '#1A545C', margin: '2px' }} onClick={() => history.push('/login')}>
               Login
             </Button>

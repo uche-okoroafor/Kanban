@@ -70,13 +70,10 @@ export default function Login({ handleSubmit, handleDemoLogin }: Props): JSX.Ele
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
             id="email"
-            // label={<Typography className={classes.label}>E-mail address</Typography>}
-            label={'E-mail address'}
+            label={<span className={classes.label}>E-mail address</span>}
             fullWidth
             margin="normal"
-            // InputLabelProps={{
-            //   shrink: true,
-            // }}
+            size="medium"
             InputProps={{
               classes: { input: classes.inputs },
             }}
@@ -89,14 +86,13 @@ export default function Login({ handleSubmit, handleDemoLogin }: Props): JSX.Ele
             variant="outlined"
             onChange={handleChange}
           />
+
           <TextField
             id="password"
-            label={'Password'}
+            size="medium"
+            label={<span className={classes.label}>Password</span>}
             fullWidth
             margin="normal"
-            // InputLabelProps={{
-            //   shrink: true,
-            // }}
             InputProps={{
               classes: { input: classes.inputs },
             }}
