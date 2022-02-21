@@ -18,6 +18,7 @@ const columnRouter = require('./routes/column')
 const cardRouter = require('./routes/card')
 const pluginRouter = require('./routes/plugin')
 const imageRouter = require('./routes/image')
+
 const { json, urlencoded } = express
 connectDB()
 const app = express()
@@ -39,7 +40,6 @@ if (process.env.NODE_ENV === 'development') {
 app.use(json())
 app.use(urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(express.static(join(__dirname, 'public')))
 
 app.use((req, res, next) => {
   req.io = io
@@ -55,17 +55,34 @@ app.use('/board', boardRouter)
 app.use('/plugins', pluginRouter)
 app.use('/image', imageRouter)
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/client/build')))
+app.use(express.static(join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'build')))
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'build')))
   app.get('*', (req, res) =>
     res.sendFile(path.resolve(__dirname), 'client', 'build', 'index.html')
   )
 } else {
-  app.get('/', (req, res) => {
+  app.get('/*', (req, res) => {
     res.send('API is running')
   })
 }
+
+//    if (process.env.NODE_ENV === 'production') {
+//   // Exprees will serve up production assets
+//   app.use(express.static('client/build'));
+
+//   // Express serve up index.html file if it doesn't recognize route
+//   const path = require('path');
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+//   });
+// }
 
 app.use(notFound)
 app.use(errorHandler)

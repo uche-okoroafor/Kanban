@@ -1,9 +1,9 @@
-import { IconButton } from '@mui/material';
+import { IconButton } from '@material-ui/core';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import useStyles from '../../useStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, CircularProgress, Typography } from '@material-ui/core';
-import Button from '@mui/material/Button';
+import Button from '@material-ui/core/Button';
 import TextField from '@mui/material/TextField';
 import * as React from 'react';
 import { IIds } from '../../../../../interface/Board';

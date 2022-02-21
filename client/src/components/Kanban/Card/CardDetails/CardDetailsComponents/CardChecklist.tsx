@@ -1,10 +1,10 @@
-import { IconButton, CircularProgress } from '@mui/material';
+import { IconButton, CircularProgress } from '@material-ui/core';
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import useStyles from '../../useStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState, useEffect } from 'react';
 import { Box, Typography, TextField } from '@material-ui/core';
-import Button from '@mui/material/Button';
+import Button from '@material-ui/core/Button';
 import DialogContentText from '@mui/material/DialogContentText';
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';

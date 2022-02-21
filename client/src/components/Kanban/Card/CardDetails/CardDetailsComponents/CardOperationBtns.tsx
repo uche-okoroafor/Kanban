@@ -1,6 +1,6 @@
 import useStyles from '../../useStyles';
 import { Box, Typography } from '@material-ui/core';
-import Button from '@mui/material/Button';
+import Button from '@material-ui/core/Button';
 import Stack from '@mui/material/Stack';
 
 interface Props {

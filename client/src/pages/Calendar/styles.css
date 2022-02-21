@@ -3,7 +3,9 @@
 .rbc-calendar {
   font-family: 'Mukta', sans-serif;
 }
-
+.MuiTypography-root {
+  color: #1a545c !important;
+}
 .rbc-event {
   background-color: #ffffff !important;
   color: black !important;
@@ -57,8 +59,8 @@
 }
 
 .rbc-day-bg {
-  border-right: 0px solid #899ad7 !important;
-  background-color: #f4f6ff !important;
+  border-right: 0px solid #36898c !important;
+  background-color: #edf8f7 !important;
 }
 .rbc-row-bg :nth-last-child(1) {
   border-right: none !important;
@@ -74,19 +76,19 @@
 }
 
 .rbc-show-more {
-  color: #6879b9 !important;
+  color: #1a545c !important;
 }
 
 .rbc-active {
   color: #fbfcfd !important;
-  background-color: #759cfc !important;
-  border-color: #5b85f0 !important;
+  background-color: #1a545c !important;
+  border-color: #1a545c !important;
 }
 
 .rbc-toolbar button:hover {
   color: #fbfcfd !important;
-  background-color: #819fe9 !important;
-  border-color: #5b85f0 !important;
+  background-color: #296b6d !important;
+  border-color: #296b6d !important;
 }
 
 .rbc-toolbar button {
@@ -95,8 +97,8 @@
 
 .rbc-toolbar button:focus {
   color: #fbfcfd !important;
-  background-color: #a2b7eb !important;
-  border-color: #5b85f0 !important;
+  background-color: #1a545c !important;
+  border-color: #1a545c !important;
 }
 
 .rbc-agenda-date-cell {
@@ -120,4 +122,8 @@
   .rbc-toolbar-label {
     padding-top: 10px !important;
   }
+}
+
+.rbc-btn-group button {
+  border: 1px solid #1a545c !important;
 }

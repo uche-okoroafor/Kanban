@@ -1,10 +1,10 @@
-import { IconButton } from '@mui/material';
+import { IconButton } from '@material-ui/core';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import useStyles from '../../useStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from 'react';
 import { Box, Typography, CircularProgress, TextareaAutosize } from '@material-ui/core';
-import Button from '@mui/material/Button';
+import Button from '@material-ui/core/Button';
 import DialogContentText from '@mui/material/DialogContentText';
 import { updateCardItem, deleteCardItem } from '../../../../../helpers/APICalls/cardApiCalls';
 import { IIds } from '../../../../../interface/Board';
@@ -32,7 +32,6 @@ export default function CardDescription({ description, disableSetting, ids }: Pr
 
   const handleSaveDescription = async (): Promise<void> => {
     updateCardItem('description', newDescription, ids).then((data) => {
-      console.log(data);
       setIsSubmitting(true);
       if (data.error) {
         updateSnackBarMessage(data.error);

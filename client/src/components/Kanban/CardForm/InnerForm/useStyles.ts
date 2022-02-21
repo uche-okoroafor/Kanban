@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 5,
     border: `2px solid ${theme.palette.primary.main}`,
     marginBottom: 12,
+    zIndex: 500,
   },
   tagWrapper: {
     padding: theme.spacing(2, 2),

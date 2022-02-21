@@ -24,7 +24,6 @@ const BigCalendar: FC = () => {
   const { updateSnackBarMessage } = useSnackBar();
 
   const onEventDrop: withDragAndDropProps['onEventDrop'] = (data) => {
-    console.log(data);
     const { start, end, event } = data;
     const draggedEvent: ICard = event;
     draggedEvent.start = new Date(start);
@@ -43,7 +42,6 @@ const BigCalendar: FC = () => {
 
   const handleSaveDeadline = async (date: Date, ids: IIds): Promise<void> => {
     updateCardItem('deadline', date, ids).then((data) => {
-      console.log(data, 'data');
       if (data.error) {
         updateSnackBarMessage(data.error);
       } else if (data.success) {

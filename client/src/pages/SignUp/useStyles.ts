@@ -32,14 +32,6 @@ const useStyles = makeStyles(() => ({
     fontWeight: 700,
     fontFamily: "'Open Sans'",
   },
-
-  backgroundImg: {
-    backgroundImage: `url(${image})`,
-    backgroundRepeat: ' no-repeat',
-    backgroundSize: 'cover',
-    backgroundAttachment: 'fixed',
-    backgroundPosition: 'center',
-  },
 }));
 
 export default useStyles;

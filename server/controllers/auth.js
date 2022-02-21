@@ -25,7 +25,10 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
   const user = await User.create({
     username,
     email,
-    password
+    password,
+    userImage: {
+      imageUrl: ''
+    }
   })
 
   if (user) {
@@ -43,7 +46,8 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
           id: user._id,
           username: user.username,
           email: user.email,
-          activeBoard: user.activeBoard
+          activeBoard: user.activeBoard,
+          imageUrl: user.userImage.imageUrl
         }
       }
     })
@@ -75,7 +79,8 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
           id: user._id,
           username: user.username,
           email: user.email,
-          activeBoard: user.activeBoard
+          activeBoard: user.activeBoard,
+          imageUrl: user.userImage.imageUrl
         }
       }
     })
@@ -109,7 +114,8 @@ exports.demoLogin = asyncHandler(async (req, res, next) => {
         id: user._id,
         username: user.username,
         email: user.email,
-        activeBoard: user.activeBoard
+        activeBoard: user.activeBoard,
+        imageUrl: user.userImage.imageUrl
       }
     }
   })
@@ -131,7 +137,8 @@ exports.loadUser = asyncHandler(async (req, res, next) => {
         id: user._id,
         username: user.username,
         email: user.email,
-        activeBoard: user.activeBoard
+        activeBoard: user.activeBoard,
+        imageUrl: user.userImage.imageUrl
       }
     }
   })

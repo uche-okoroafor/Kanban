@@ -84,10 +84,22 @@ export default function ResponsiveDialog({ openDialog, setOpenDialog, item, titl
             justifyContent: 'center',
           }}
         >
-          <Button autoFocus color="primary" variant="contained" onClick={() => setOpenDialog(false)}>
+          <Button
+            autoFocus
+            color="primary"
+            variant="contained"
+            style={{ background: '#1A545C' }}
+            onClick={() => setOpenDialog(false)}
+          >
             Cancel
           </Button>
-          <Button onClick={handleDeleteItem} disabled={isDeleting} color="primary" variant="contained" autoFocus>
+          <Button
+            onClick={handleDeleteItem}
+            disabled={isDeleting}
+            style={{ background: '#1A545C' }}
+            variant="contained"
+            autoFocus
+          >
             {isDeleting ? <CircularProgress style={{ fontSize: 0, width: '20px', height: '20px' }} /> : 'Delete'}
           </Button>
         </DialogActions>

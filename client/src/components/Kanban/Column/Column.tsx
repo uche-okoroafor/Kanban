@@ -47,7 +47,7 @@ const ColumnComponent = ({ _id, columnTitle, cards, index }: ColumnProps): JSX.E
                   style={{ position: 'absolute', width: '0.5rem', height: '0.5rem', right: '4%', top: '10%' }}
                 >
                   {' '}
-                  <DeleteIcon />
+                  <DeleteIcon style={{ color: '#E83A30' }} />
                 </IconButton>
               </Box>
               <Droppable droppableId={_id} type="card">

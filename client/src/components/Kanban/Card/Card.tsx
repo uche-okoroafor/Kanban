@@ -1,4 +1,4 @@
-import { Box, Typography } from '@material-ui/core';
+import { Box, Paper, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import { Draggable } from 'react-beautiful-dnd';
 import { useKanban } from '../../../context/useKanbanContext';
@@ -44,15 +44,16 @@ const Card = ({ columnId, index, card }: CardProps): JSX.Element => {
         {(provided, snapshot) => {
           return (
             <div ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps}>
-              <Box
+              <Paper
                 onClick={() => openCardDetails()}
+                elevation={3}
                 className={clsx(classes.card, snapshot.isDragging && classes.cardDragging)}
               >
                 <Box className={`${classes.cardTag} ${colorClasses.cardTagColor}`}></Box>
                 <Typography className={classes.typography} variant="h6">
                   {card.cardTitle}
                 </Typography>
-              </Box>
+              </Paper>
             </div>
           );
         }}

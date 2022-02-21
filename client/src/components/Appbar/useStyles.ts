@@ -3,9 +3,10 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
+    backgroundColor: '#FFBA32',
   },
   appBarContainer: {
-    backgroundColor: '#759cfc',
+    backgroundColor: '#1A545C',
   },
   appBarItems: {
     display: 'flex',

@@ -1,5 +1,5 @@
 import Grid from '@material-ui/core/Grid';
-import { IconButton, Typography } from '@mui/material';
+import { IconButton, Typography } from '@material-ui/core';
 import SettingsIcon from '@mui/icons-material/Settings';
 import useStyles from '../useStyles';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
@@ -57,7 +57,7 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
         <DialogTitle style={{ paddingBottom: '5px' }} className={classes.dialogTitle}>
           <IconButton
             aria-label="close"
-            sx={{ position: 'absolute', right: 0, marginRight: '10px' }}
+            style={{ position: 'absolute', top: '25%', right: 0, marginRight: '10px' }}
             onClick={() => setOpenDialog(false)}
           >
             <CloseIcon />
@@ -85,10 +85,10 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
               style={{ position: 'absolute', width: '1rem', height: '0.5rem', right: '10%', top: '-140%' }}
             >
               {' '}
-              <DeleteIcon />
+              <DeleteIcon style={{ color: '#E83A30' }} />
             </IconButton>
             <Typography style={{ paddingLeft: '2rem', fontSize: '0.8rem' }} variant="h6">
-              In List ffff {'column Title'}{' '}
+              In List {'column Title'}{' '}
             </Typography>
           </Box>
         </DialogTitle>

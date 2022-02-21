@@ -24,7 +24,6 @@ export default function AppLayout({ children }: AppLayoutProps): JSX.Element {
   const location = useLocation();
   const [displayNavAppBar, setDisplayNavAppBar] = useState(true);
   useEffect(() => {
-    console.log(location.pathname);
     if (location.pathname === '/profile') {
       setDisplayNavAppBar(false);
     } else {
@@ -33,7 +32,7 @@ export default function AppLayout({ children }: AppLayoutProps): JSX.Element {
   }, [location.pathname]);
 
   return (
-    <Box>
+    <Box style={{ backgroundColor: '#FFBA32', minHeight: '101.1vh' }}>
       <Navbar />
       {displayNavAppBar && <NavAppBar onClickMenu={() => setOpenDrawer(true)} />}{' '}
       <AppDrawer setOpenDrawer={setOpenDrawer} openDrawer={openDrawer} />

@@ -15,16 +15,20 @@ interface IBoardsContext {
   cards: Array<ICard> | undefined;
   boards: IBoard[] | undefined;
   board: IBoard;
+  boardStatus: string | undefined;
   focusedBoardId: string | undefined;
   focusedColumns: Array<IColumn>;
+  handleSetBoardStatus: (userBoards: Array<IBoard>) => void;
 }
 
 export const BoardContext = createContext<IBoardsContext>({
   updateBoard: () => null,
   handleSelectedBoard: () => null,
+  handleSetBoardStatus: () => null,
   boards: undefined,
   cards: undefined,
   board: tempBoard,
+  boardStatus: undefined,
   focusedBoardId: undefined,
   focusedColumns: tempBoard.columns,
 });
@@ -35,6 +39,7 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [cards, setCards] = useState<IBoardsContext['cards']>(undefined);
   const [focusedBoardId, setFocusedBoardId] = useState<IBoardsContext['focusedBoardId']>(undefined);
   const [focusedColumns, setFocusedColumns] = useState<Array<IColumn>>(tempBoard.columns);
+  const [boardStatus, setBoardStatus] = useState<string | undefined>(undefined);
   const history = useHistory();
   const { loggedInUser } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
@@ -42,10 +47,9 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const updateBoard = useCallback(async () => {
     await getUserBoards()
       .then((data) => {
-        console.log('🚀 ~ file: useBoardContext.tsx ~ line 45 ~ .then ~ data', data);
-
         if (data.activeBoard) {
           const activeBoard = data.boards.find((board) => board._id === data.activeBoard);
+
           if (activeBoard) {
             setBoards(data.boards);
             setBoard(activeBoard);
@@ -61,14 +65,21 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
           handleSetActiveBoard(data.boards[0]._id);
           handleUpdateCards(data.boards[0]);
         }
+        handleSetBoardStatus(data.boards);
       })
       .catch((error) => console.error(error));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const handleSetBoardStatus = (userBoards: Array<IBoard>) => {
+    if (userBoards.length) {
+      setBoardStatus('non-empty');
+    } else {
+      setBoardStatus('empty');
+    }
+  };
 
   const handleSetActiveBoard = (boardId: string) => {
     updateActiveBoard(boardId).then((data) => {
-      console.log(data, 'data');
       if (data.error) {
         updateSnackBarMessage(data.error);
       } else if (data.success) {
@@ -87,6 +98,7 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
     setFocusedColumns(selectedBoard.columns);
     handleSetActiveBoard(selectedBoard._id);
     history.push('/');
+    console.log(boardStatus);
   };
   const handleUpdateCards = (selectedBoard: IBoard): void => {
     let allCards: Array<ICard> = [];
@@ -105,12 +117,12 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
       }
     }
     setCards(allCards);
-
-    console.log(cards, 'cards');
   };
 
   useEffect(() => {
     updateBoard();
+
+    if (loggedInUser === undefined) setBoardStatus(undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedInUser]);
 
@@ -124,6 +136,8 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
         handleSelectedBoard,
         focusedBoardId,
         focusedColumns,
+        boardStatus,
+        handleSetBoardStatus,
       }}
     >
       {children}
