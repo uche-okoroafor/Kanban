@@ -1,10 +1,10 @@
-import { IconButton } from '@mui/material';
+import { IconButton } from '@material-ui/core';
 import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
 import useStyles from '../../useStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from 'react';
 import { Box, Typography, TextField } from '@material-ui/core';
-import Button from '@mui/material/Button';
+import Button from '@material-ui/core/Button';
 import DialogContentText from '@mui/material/DialogContentText';
 import Stack from '@mui/material/Stack';
 import { IIds } from '../../../../../interface/Board';
@@ -45,7 +45,7 @@ export default function CardAttachment({ attachment, disableSetting, ids }: Prop
   };
   return (
     <>
-      <Box style={{ position: 'relative', minHeight: 450 }}>
+      <Box style={{ position: 'relative', minHeight: 400 }}>
         <DialogContentText style={{ display: 'flex', alignItems: 'center' }}>
           <AttachFileOutlinedIcon style={{ marginRight: '10px' }} />
           <Typography variant="h6"> Attachment:</Typography>

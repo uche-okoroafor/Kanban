@@ -10,8 +10,8 @@ export const theme = createMuiTheme({
     },
   },
   palette: {
-    primary: { main: '#1A545C', contrastText: '#FFFFFF' },
-    secondary: { main: '#9BA9CC', contrastText: '#000000', light: '#F4F6FF' },
+    primary: { main: '#1A545C', contrastText: '#ffffff' },
+    secondary: { main: '#ffffff', contrastText: '#f8ab12', light: '#f8cf7c' },
     info: { main: '#F4F6FF' },
     warning: { main: '#FFBA32' },
     text: {
@@ -31,5 +31,54 @@ export const theme = createMuiTheme({
   },
   shape: {
     borderRadius: 5,
+  },
+  overrides: {
+    MuiButton: {
+      containedSizeSmall: {
+        color: '#ffffff',
+        backgroundColor: '#1A545C',
+        '&:hover': {
+          backgroundColor: '#1A545C',
+          // Reset on touch devices, it doesn't add specificity
+          '@media (hover: none)': {
+            backgroundColor: '#1A545C',
+          },
+        },
+      },
+
+      contained: {
+        color: '#ffffff',
+        backgroundColor: '#1A545C',
+        '&:hover': {
+          backgroundColor: '#0f3b41',
+          // Reset on touch devices, it doesn't add specificity
+          '@media (hover: none)': {
+            backgroundColor: '#0f3b41',
+          },
+        },
+      },
+      containedPrimary: {
+        color: '#ffffff',
+        backgroundColor: '#1A545C',
+        '&:hover': {
+          backgroundColor: '#0f3b41',
+          // Reset on touch devices, it doesn't add specificity
+          '@media (hover: none)': {
+            backgroundColor: '#1A545C',
+          },
+        },
+      },
+      // outlined: {
+      //   color: '#1A545C',
+      //   // backgroundColor: '#ffffff',
+      //   '&:hover': {
+      //     backgroundColor: '#1A545C',
+      //     // Reset on touch devices, it doesn't add specificity
+      //     '@media (hover: none)': {
+      //       backgroundColor: '#1A545C',
+      //     },
+      //   },
+      // },
+    },
   },
 });

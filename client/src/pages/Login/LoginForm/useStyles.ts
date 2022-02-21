@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 10,
     fontSize: 16,
     backgroundColor: '#1A545C',
+    // color: 'white',
     fontWeight: 'bold',
   },
 }));

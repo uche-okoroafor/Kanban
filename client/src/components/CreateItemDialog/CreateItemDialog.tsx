@@ -1,13 +1,13 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
+import Button from '@material-ui/core/Button';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import TextField from '@material-ui/core/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { CircularProgress, IconButton } from '@material-ui/core';
+import { CircularProgress, IconButton, Typography } from '@material-ui/core';
 import { addColumn } from '../../helpers/APICalls/columnApiCalls';
 import { addBoard } from '../../helpers/APICalls/boardApiCalls';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
@@ -75,17 +75,20 @@ export default function CreateItemDialog({
     <Box>
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <DialogTitle
+          color="primary"
           style={{
             color: 'white',
             textAlign: 'center',
-            background: '#759CFC',
+            background: '#1A545C',
             padding: '10px 5px',
             position: 'relative',
+            fontSize: '1rem',
           }}
         >
-          {` Add New ${item}`}{' '}
+          <span style={{ color: 'white' }}>{` Add new ${item}`}</span>
+
           <IconButton
-            style={{ position: 'absolute', width: '0.5rem', height: '0.5rem', right: '4%', top: '30%' }}
+            style={{ position: 'absolute', width: '0.5rem', height: '0.5rem', right: '4%', top: '25%', color: 'white' }}
             onClick={() => setOpenDialog(false)}
           >
             <CloseOutlinedIcon />
@@ -105,7 +108,13 @@ export default function CreateItemDialog({
           />
         </DialogContent>
         <DialogActions style={{ display: 'flex', justifyContent: 'center', padding: '15px 5px' }}>
-          <Button variant="contained" size="small" onClick={handleCreateItem} disabled={creatingItem}>
+          <Button
+            variant="contained"
+            // style={{ background: '#1A545C' }}
+            size="small"
+            onClick={handleCreateItem}
+            disabled={creatingItem}
+          >
             {creatingItem ? (
               <CircularProgress style={{ fontSize: 0, width: '20px', height: '20px' }} />
             ) : (

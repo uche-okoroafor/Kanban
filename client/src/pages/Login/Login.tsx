@@ -13,6 +13,7 @@ import { useSnackBar } from '../../context/useSnackbarContext';
 import { Button } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import KanbanLogo from '../../Images/logo.png';
+import AuthBackground from '../../components/AuthBackground/AuthBackground';
 
 export default function Login(): JSX.Element {
   const classes = useStyles();
@@ -58,14 +59,7 @@ export default function Login(): JSX.Element {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item sm={5} md={6} className={classes.backgroundImg}>
-        <Box p={4}>
-          <Typography variant="h4" color="primary" style={{ fontWeight: 'bolder', color: 'white' }}>
-            Kanban
-          </Typography>
-          {/* <img src={KanbanLogo} alt="logo" /> */}
-        </Box>
-      </Grid>
+      <AuthBackground />
       <Grid item xs={12} sm={7} md={6} elevation={6} component={Paper} square>
         <Box className={classes.authWrapper}>
           <Paper style={{ alignSelf: 'center', width: '55%' }} elevation={5}>

@@ -1,4 +1,4 @@
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import useStyles from './useStyles';
 import KanbanLogo from '../../Images/logo.png';
@@ -9,6 +9,8 @@ import AvatarButton from '../AvatarButton/AvatarButton';
 import AvatarMenu from '../AvatarMenu/AvatarMenu';
 import { useAuth } from '../../context/useAuthContext';
 import { useHistory } from 'react-router-dom';
+import { Stack } from '@mui/material';
+import Logo from '../Logo/Logo';
 
 export default function Navbar(): JSX.Element {
   const { logout } = useAuth();
@@ -27,10 +29,10 @@ export default function Navbar(): JSX.Element {
     <Box className={classses.root}>
       <Grid container spacing={2}>
         <Grid item md={3} className={classses.container}>
-          <img src={KanbanLogo} alt="kanban-logo" />
+          <Logo />
         </Grid>
         <Grid item md={9} className={classses.avatarContainer}>
-          <NavButton title="Dashboard" to="/" icon={<DashboardOutlined />} />
+          <NavButton title="Dashboard" to="/dashboard" icon={<DashboardOutlined />} />
           <NavButton title="calendar" to="/calendar" icon={<CalendarTodayOutlined />} />
           <CreateBoardButton />
           <AvatarButton onClick={handleClick} />

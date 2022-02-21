@@ -1,10 +1,10 @@
-import { IconButton } from '@mui/material';
+import { IconButton } from '@material-ui/core';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import useStyles from '../../useStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from 'react';
 import { Box, Typography, TextareaAutosize, CircularProgress } from '@material-ui/core';
-import Button from '@mui/material/Button';
+import Button from '@material-ui/core/Button';
 import DialogContentText from '@mui/material/DialogContentText';
 import { updateCardItem, deleteCardItem } from '../../../../../helpers/APICalls/cardApiCalls';
 import { IIds } from '../../../../../interface/Board';
@@ -33,8 +33,6 @@ export default function CardComment({ comment, disableSetting, ids }: Props): JS
   const handleSaveComment = async (): Promise<void> => {
     setIsSubmitting(true);
     updateCardItem('comment', newComment, ids).then((data) => {
-      console.log(data, 'data');
-
       if (data.error) {
         updateSnackBarMessage(data.error);
       } else if (data.success) {

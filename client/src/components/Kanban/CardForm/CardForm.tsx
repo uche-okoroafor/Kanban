@@ -28,7 +28,7 @@ const CardForm = ({ columnId }: CardFormProps): JSX.Element => {
   }, [handleClose]);
 
   return (
-    <Box>
+    <Box style={{ position: 'relative' }}>
       {formIsOpen ? <InnerForm columnId={columnId} formAction={setFormIsOpen} /> : null}
       {!formIsOpen && (
         <Button

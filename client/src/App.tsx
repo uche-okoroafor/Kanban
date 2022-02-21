@@ -29,13 +29,15 @@ function App(): JSX.Element {
                     <Route
                       render={(props: RouteComponentProps) => (
                         <AppLayout {...props}>
-                          <ProtectedRoute exact path="/" component={Dashboard} />
+                          <ProtectedRoute exact path="/dashboard" component={Dashboard} />
                           <ProtectedRoute path="/calendar" component={Calendar} />
                           <ProtectedRoute path="/profile" component={Profile} />
                         </AppLayout>
                       )}
                     />
-
+                    <Route path="/">
+                      <Redirect to="/login" />
+                    </Route>
                     <Route path="*">
                       <Redirect to="/login" />
                     </Route>

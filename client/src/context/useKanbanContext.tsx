@@ -102,8 +102,6 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
     draggableId: string,
     columnId: string,
   ): Card[] => {
-    console.log(draggableId, source.index, destination.index, 'source2');
-
     const cardsCopy = [...cards];
     const cardIndex = cardsCopy.findIndex((card: Card) => card._id === draggableId);
     const card = cardsCopy.find((card: Card) => card._id === draggableId);
@@ -129,7 +127,6 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
     }
     const columnsCopy = cloneDeep(columns);
 
-    console.log(columnsCopy, 'columnsCopy');
     const columnIndex = columnsCopy.findIndex((col) => col._id === card.columnId);
     handleCreateCard({
       boardId: String(focusedBoardId),
@@ -178,7 +175,6 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
         updateSnackBarMessage(data.error);
       } else if (data.success) {
         updateSnackBarMessage('Card has been added');
-        console.log(data, 'success');
       } else {
         // should not get here from backend but this catch is for an unknown issue
         console.error({ data });
@@ -226,13 +222,10 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
     targetPosition: number;
   }) => {
     moveCardOutsideColumn({ cardId, initialColumnId, targetColumnId, boardId, targetPosition, card }).then((data) => {
-      console.log(data);
-
       if (data.error) {
         updateSnackBarMessage(data.error);
       } else if (data.success) {
         updateBoard();
-        console.log(data, 'success');
       } else {
         // should not get here from backend but this catch is for an unknown issue
         console.error({ data });
@@ -252,12 +245,10 @@ export const KanbanProvider: FunctionComponent = ({ children }): JSX.Element => 
     targetPosition: number;
   }) => {
     moveColumns({ columnId, boardId, targetPosition, column }).then((data) => {
-      console.log(data, 1010);
       if (data.error) {
         updateSnackBarMessage(data.error);
       } else if (data.success) {
         updateBoard();
-        console.log(data, 'success');
       } else {
         // should not get here from backend but this catch is for an unknown issue
         console.error({ data });

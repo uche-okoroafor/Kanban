@@ -1,4 +1,4 @@
-import { Grid, Box, IconButton, Typography } from '@material-ui/core';
+import { Grid, Box, IconButton, Typography, Paper } from '@material-ui/core';
 import { DragDropContext, Droppable, DroppableProvided } from 'react-beautiful-dnd';
 import { useKanban } from '../../context/useKanbanContext';
 import ColumnComponent from './Column/Column';
@@ -14,7 +14,7 @@ const Board = (): JSX.Element => {
   const { focusedBoardId } = useBoard();
   const [openDialog, setOpenDialog] = useState(false);
   const classes = useStyles();
-  const height = document.getElementById('columnContainer')?.scrollHeight;
+  // const height = document.getElementById('columnContainer')?.scrollHeight;
 
   const handleOpenDialog = (position: string) => {
     if (position === 'left') {
@@ -41,27 +41,27 @@ const Board = (): JSX.Element => {
               {...provided.droppableProps}
             >
               <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
                 onClick={() => handleOpenDialog('left')}
                 className={classes.addColumn}
                 style={{
-                  height,
+                  height: '70vh',
                   left: 0,
+                  borderTopRightRadius: '5px',
+                  borderBottomRightRadius: '5px',
+                  zIndex: 2,
                 }}
               >
                 <AddCircleOutlineIcon />
               </Box>
               <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
                 onClick={() => handleOpenDialog('right')}
                 className={classes.addColumn}
                 style={{
-                  height,
+                  height: '70vh',
                   right: 0,
+                  borderTopLeftRadius: '5px',
+                  borderBottomLeftRadius: '5px',
+                  zIndex: 2,
                 }}
               >
                 <AddCircleOutlineIcon />

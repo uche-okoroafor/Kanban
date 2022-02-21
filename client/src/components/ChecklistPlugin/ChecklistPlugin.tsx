@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -81,11 +81,17 @@ export default function ChecklistPlugin({ displayChecklist }: Props): JSX.Elemen
             </Stack>
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          <Button color="primary" onClick={closeChecklistForm}>
+        <DialogActions style={{ display: 'flex', justifyContent: 'center' }}>
+          <Button variant="contained" color="primary" onClick={closeChecklistForm}>
             Cancel
           </Button>
-          <Button color="primary" disabled={isSubmitting} type="submit" onClick={closeChecklistForm}>
+          <Button
+            color="primary"
+            variant="contained"
+            disabled={isSubmitting}
+            type="submit"
+            onClick={closeChecklistForm}
+          >
             {isSubmitting ? <CircularProgress style={{ fontSize: 0, width: '20px', height: '20px' }} /> : 'Save'}
           </Button>
         </DialogActions>{' '}

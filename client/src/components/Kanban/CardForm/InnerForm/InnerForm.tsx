@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import { useTheme, Box, InputBase, Divider, Grid, Typography, Button } from '@material-ui/core';
+import { useTheme, Box, InputBase, Divider, Grid, Typography, Button, IconButton } from '@material-ui/core';
 import { Color } from '../Color/Color';
 import { useKanban } from '../../../../context/useKanbanContext';
 import useStyles from './useStyles';
+import CloseIcon from '@mui/icons-material/Close';
 
 type InnerFormProps = {
   columnId: string;
@@ -70,6 +71,14 @@ export const InnerForm = ({ columnId, formAction }: InnerFormProps): JSX.Element
       >
         Add a card
       </Button>
+
+      <IconButton
+        aria-label="close"
+        style={{ position: 'absolute', top: '77%', right: 0, marginRight: '10px' }}
+        onClick={() => formAction(false)}
+      >
+        <CloseIcon />
+      </IconButton>
     </>
   );
 };

@@ -5,13 +5,19 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     width: '2px',
     color: 'white',
-    background: '#759CFC',
-    ZIndex: 2,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: '#1A545C',
+    ZIndex: 5,
     overflow: 'hidden',
     cursor: 'pointer',
+    transition: 'width 0.4s',
+    boxShadow: ' 0px 0px 14px 2px rgba(0,0,0,0.75)',
+
     '&:hover': {
-      background: '#759CFC',
       width: '50px',
+      transition: 'width 0.4s',
     },
   },
 }));

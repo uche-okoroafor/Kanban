@@ -54,12 +54,10 @@ export default function AppDrawer({ setOpenDrawer, openDrawer }: AppDrawerProps)
 
   const list = () => (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
-      <Box style={{ padding: '10px', background: '#759CFC', color: 'white' }}>
-        <Typography align="center" variant="h6">
-          {' '}
-          Boards
-        </Typography>
+      <Box style={{ padding: '1px', background: '#1A545C', color: 'white', textAlign: 'center' }}>
+        <h4>Boards</h4>
       </Box>
+
       <List>
         {boards?.map((board) => (
           <ListItem button key={board._id} style={{ position: 'relative' }}>
@@ -70,10 +68,17 @@ export default function AppDrawer({ setOpenDrawer, openDrawer }: AppDrawerProps)
 
             <IconButton
               onClick={() => handleDeleteBoard(board)}
-              style={{ position: 'absolute', width: '0.8rem', height: '0.5rem', right: '4%', top: '25%' }}
+              style={{
+                position: 'absolute',
+                width: '0.8rem',
+                height: '0.5rem',
+                right: '4%',
+                top: '25%',
+                // color: '#E83A30',
+              }}
             >
               {' '}
-              <DeleteIcon />
+              <DeleteIcon style={{ color: '#E83A30' }} />
             </IconButton>
           </ListItem>
         ))}
