@@ -87,9 +87,7 @@ export default function CardDetails({ displayedCard, ids, openDialog, setOpenDia
               {' '}
               <DeleteIcon style={{ color: '#E83A30' }} />
             </IconButton>
-            <Typography style={{ paddingLeft: '2rem', fontSize: '0.8rem' }} variant="h6">
-              In List {'column Title'}{' '}
-            </Typography>
+            <Typography style={{ paddingLeft: '2rem', fontSize: '0.8rem' }}>In List {'column Title'} </Typography>
           </Box>
         </DialogTitle>
 
