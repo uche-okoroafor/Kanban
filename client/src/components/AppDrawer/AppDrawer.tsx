@@ -1,5 +1,5 @@
 import { DrawerProps } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useStyles from './useStyles';
 import { useBoard } from '../../context/useBoardContext';
 import { Typography } from '@material-ui/core';
@@ -35,7 +35,7 @@ export default function AppDrawer({ setOpenDrawer, openDrawer }: AppDrawerProps)
   const [openDialog, setOpenDialog] = useState(false);
   const [boardId, setBoardId] = useState<string | undefined>(undefined);
   const [boardTitle, setBoardTitle] = useState<string>('');
-
+  const [boardsList, setBoardsList] = useState(boards);
   const toggleDrawer = (state: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
       event.type === 'keydown' &&
@@ -52,6 +52,10 @@ export default function AppDrawer({ setOpenDrawer, openDrawer }: AppDrawerProps)
     setOpenDialog(true);
   };
 
+  useEffect(() => {
+    setBoardsList(boards);
+  }, [boards]);
+
   const list = () => (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
       <Box style={{ padding: '1px', background: '#1A545C', color: 'white', textAlign: 'center' }}>
@@ -59,7 +63,7 @@ export default function AppDrawer({ setOpenDrawer, openDrawer }: AppDrawerProps)
       </Box>
 
       <List>
-        {boards?.map((board) => (
+        {boardsList?.map((board) => (
           <ListItem button key={board._id} style={{ position: 'relative' }}>
             <ListItemIcon onClick={() => handleSelectedBoard(board)}>
               <DashboardIcon />

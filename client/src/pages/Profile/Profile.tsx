@@ -32,8 +32,6 @@ export default function Profile(): JSX.Element {
   });
 
   useEffect(() => {
-    console.log('🚀 ~ file: Profile.tsx ~ line 37 ~ useEffect ~ loggedInUser', loggedInUser);
-
     if (loggedInUser?.imageUrl !== undefined) return setImage(loggedInUser?.imageUrl);
   }, [loggedInUser]);
 

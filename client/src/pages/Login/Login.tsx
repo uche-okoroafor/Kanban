@@ -10,7 +10,7 @@ import LoginForm from './LoginForm/LoginForm';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
-import { Button } from '@mui/material';
+import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import KanbanLogo from '../../Images/logo.png';
 import AuthBackground from '../../components/AuthBackground/AuthBackground';
@@ -74,10 +74,14 @@ export default function Login(): JSX.Element {
 
           <Box display={'flex'} flexDirection="column" m={4} alignItems={'center'} justifyContent="center">
             <Typography color="textSecondary"> Don&apos;t have an account yet ? </Typography>
-            <Button style={{ color: '#1A545C', margin: '2px' }} onClick={() => history.push('/signup')}>
-              Create an account
+            <Button
+              style={{ color: '#1A545C', margin: '2px' }}
+              variant="outlined"
+              onClick={() => history.push('/signup')}
+            >
+              CREATE AN ACCOUNT
             </Button>
-            <Button style={{ color: '#1A545C' }} onClick={handleDemoLogin}>
+            <Button style={{ color: 'white', margin: '2px' }} onClick={handleDemoLogin} variant="contained">
               Demo
             </Button>
           </Box>

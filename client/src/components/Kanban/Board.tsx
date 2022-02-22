@@ -81,7 +81,7 @@ const Board = (): JSX.Element => {
                   </>
                 ))
               ) : (
-                <Box style={{ marginTop: '15%', height: '100%', width: '100%' }}>
+                <Box style={{ marginTop: '12%', height: '40vh', width: '100%' }}>
                   <Typography align="center" variant="h5">
                     Add a Column{' '}
                     <IconButton onClick={() => handleOpenDialog('right')}>

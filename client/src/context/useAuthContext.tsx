@@ -50,6 +50,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   // use our cookies to check if we can login straight away
   useEffect(() => {
     const checkLoginWithCookies = async () => {
+      console.log('ran');
       await loginWithCookies().then((data: AuthApiData) => {
         if (data.success) {
           updateLoginContext(data.success);

@@ -47,16 +47,13 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const updateBoard = useCallback(async () => {
     await getUserBoards()
       .then((data) => {
-        if (data.activeBoard) {
-          const activeBoard = data.boards.find((board) => board._id === data.activeBoard);
-
-          if (activeBoard) {
-            setBoards(data.boards);
-            setBoard(activeBoard);
-            setFocusedBoardId(activeBoard._id);
-            setFocusedColumns(activeBoard.columns);
-            handleUpdateCards(activeBoard);
-          }
+        const activeBoard = data.boards.find((board) => board._id === data.activeBoard);
+        if (activeBoard) {
+          setBoards(data.boards);
+          setBoard(activeBoard);
+          setFocusedBoardId(activeBoard._id);
+          setFocusedColumns(activeBoard.columns);
+          handleUpdateCards(activeBoard);
         } else {
           setBoards(data.boards);
           setBoard(data.boards[0]);
@@ -67,9 +64,14 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
         }
         handleSetBoardStatus(data.boards);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        handleSetBoardStatus([]);
+
+        return console.error(error);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const handleSetBoardStatus = (userBoards: Array<IBoard>) => {
     if (userBoards.length) {
       setBoardStatus('non-empty');
@@ -83,7 +85,6 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
       if (data.error) {
         updateSnackBarMessage(data.error);
       } else if (data.success) {
-        // updateBoard();
         updateSnackBarMessage('updated');
       } else {
         // should not get here from backend but this catch is for an unknown issue
@@ -91,15 +92,14 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
       }
     });
   };
-
   const handleSelectedBoard = (selectedBoard: IBoard): void => {
     setBoard(selectedBoard);
     setFocusedBoardId(selectedBoard._id);
     setFocusedColumns(selectedBoard.columns);
     handleSetActiveBoard(selectedBoard._id);
-    history.push('/');
-    console.log(boardStatus);
+    history.push('/dashboard');
   };
+
   const handleUpdateCards = (selectedBoard: IBoard): void => {
     let allCards: Array<ICard> = [];
     for (const column of selectedBoard.columns) {
@@ -121,7 +121,6 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
 
   useEffect(() => {
     updateBoard();
-
     if (loggedInUser === undefined) setBoardStatus(undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedInUser]);
