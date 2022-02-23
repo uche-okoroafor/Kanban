@@ -48,7 +48,6 @@ app.use((req, res, next) => {
 
 app.use('/auth', authRouter)
 app.use('/users', userRouter)
-
 app.use('/card', cardRouter)
 app.use('/column', columnRouter)
 app.use('/board', boardRouter)

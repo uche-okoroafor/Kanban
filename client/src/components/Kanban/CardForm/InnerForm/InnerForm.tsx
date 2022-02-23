@@ -52,33 +52,36 @@ export const InnerForm = ({ columnId, formAction }: InnerFormProps): JSX.Element
           </Grid>
         </Box>
       </Box>
-      <Button
-        onClick={() => {
-          const isSuccess = addCard({
-            cardTitle: title,
-            columnId: columnId,
-            _id: `card-${Math.floor(Math.random() * 999999)}`,
-            tagColor: selectedTagColor,
-          });
-          if (isSuccess) {
-            formAction(false);
-          }
-        }}
-        variant="contained"
-        size="large"
-        color="primary"
-        disableElevation
-      >
-        Add a card
-      </Button>
 
-      <IconButton
-        aria-label="close"
-        style={{ position: 'absolute', top: '77%', right: 0, marginRight: '10px' }}
-        onClick={() => formAction(false)}
-      >
-        <CloseIcon />
-      </IconButton>
+      <Box style={{ position: 'relative' }}>
+        <Button
+          onClick={() => {
+            const isSuccess = addCard({
+              cardTitle: title,
+              columnId: columnId,
+              _id: `card-${Math.floor(Math.random() * 999999)}`,
+              tagColor: selectedTagColor,
+            });
+            if (isSuccess) {
+              formAction(false);
+            }
+          }}
+          variant="contained"
+          size="large"
+          color="primary"
+          disableElevation
+        >
+          Add a card
+        </Button>
+
+        <IconButton
+          aria-label="close"
+          style={{ position: 'absolute', top: '-7%', right: 0, marginRight: '10px' }}
+          onClick={() => formAction(false)}
+        >
+          <CloseIcon />
+        </IconButton>
+      </Box>
     </>
   );
 };
