@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('lg')]: {
       flex: 1,
     },
+
   },
 }));
 
