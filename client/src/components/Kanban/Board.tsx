@@ -34,10 +34,10 @@ const Board = (): JSX.Element => {
           return (
             <Grid
               ref={provided.innerRef}
-              style={{ height: '60vh' }}
+              style={{ display: 'flex', justifyContent: 'center' }}
               id="columnContainer"
-              container
-              spacing={2}
+              // container
+              // spacing={2}
               {...provided.droppableProps}
             >
               <Box
