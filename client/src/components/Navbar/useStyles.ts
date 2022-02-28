@@ -1,12 +1,14 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStlyes = makeStyles({
+const useStyles = makeStyles({
   root: {
-    padding: '0% 2%',
+    padding: '10px',
+    display: 'flex',
   },
   container: {
     display: 'flex',
     alignItems: 'center',
+    flexGrow: 1,
   },
 
   avatarContainer: {
@@ -16,4 +18,4 @@ const useStlyes = makeStyles({
   },
 });
 
-export default useStlyes;
+export default useStyles;

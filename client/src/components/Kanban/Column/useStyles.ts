@@ -16,10 +16,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '0px 0px 7px 2px rgba(0,0,0,0.30)',
   },
   columnGridItem: {
-    [theme.breakpoints.up('lg')]: {
-      flex: 1,
-    },
-
+    width: '40%',
   },
 }));
 

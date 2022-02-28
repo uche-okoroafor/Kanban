@@ -29,10 +29,10 @@ const ColumnComponent = ({ _id, columnTitle, cards, index }: ColumnProps): JSX.E
       {(provided) => {
         return (
           <Grid
-            xs={12}
-            md={6}
-            lg="auto"
-            item
+            // xs={12}
+            // md={6}
+            // lg="auto"
+            // item
             className={classes.columnGridItem}
             ref={provided.innerRef}
             {...provided.draggableProps}
